@@ -44,7 +44,11 @@
 /* ===== RESET & BASE ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    overflow-x: hidden; /* prevents AOS fade-left/right blowout */
+}
 
 body {
     font-family: var(--font-body);
@@ -53,6 +57,7 @@ body {
     line-height: 1.7;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    width: 100%;
 }
 
 a { text-decoration: none; color: inherit; transition: var(--transition); }
@@ -615,6 +620,7 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
 
 /* ===== ABOUT INTRO SECTION ===== */
 .about-intro-section {
+    overflow: hidden;
     padding: 120px 0;
     background: var(--black);
 }
@@ -771,6 +777,7 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
 
 /* ===== WHY SECTION ===== */
 .why-section {
+    overflow: hidden;
     padding: 120px 0;
     background: var(--black);
 }
@@ -1061,6 +1068,7 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
 
 /* ===== ABOUT PAGE ===== */
 .about-who-section {
+    overflow: hidden;
     padding: 120px 0;
     background: var(--black);
 }
@@ -1449,6 +1457,7 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
 
 /* ===== CONTACT PAGE ===== */
 .contact-section {
+    overflow: hidden;
     padding: 100px 0;
     background: var(--black);
 }
@@ -1783,6 +1792,7 @@ a.contact-info-value:hover { color: var(--gold); }
 
 /* ===== FOUNDER SECTION ===== */
 .founder-section {
+    overflow: hidden;
     padding: 120px 0;
     background: var(--black-soft);
     position: relative;
