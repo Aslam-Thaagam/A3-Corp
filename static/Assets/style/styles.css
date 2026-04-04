@@ -236,15 +236,25 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     position: fixed;
     top: 0; left: 0; right: 0;
     height: var(--nav-height);
-    z-index: 1000;
-    transition: var(--transition-slow);
+    z-index: 999;
+    transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    background: transparent;
 }
 
 .a3-header.scrolled {
-    background: rgba(10,10,10,0.95);
+    background: rgba(10,10,10,0.97);
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--black-border);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+}
+
+/* Always show solid bg on inner pages (non-hero) */
+.a3-header.solid {
+    background: rgba(10,10,10,0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--black-border);
 }
 
 .a3-nav {
@@ -255,6 +265,7 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
 .a3-logo {
@@ -262,6 +273,9 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     font-weight: 900;
     letter-spacing: -0.02em;
     text-decoration: none;
+    flex-shrink: 0;
+    z-index: 1001;
+    position: relative;
 }
 
 .logo-a3 {
@@ -275,38 +289,45 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     font-size: 0.85em;
 }
 
+/* Desktop nav links */
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-item {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 500;
     color: var(--silver);
-    padding: 8px 16px;
+    padding: 8px 14px;
     border-radius: var(--radius-full);
     transition: var(--transition);
     letter-spacing: 0.03em;
+    display: block;
 }
 
-.nav-item:hover, .nav-item.active {
+.nav-item:hover,
+.nav-item.active {
     color: var(--white);
-    background: rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.07);
 }
 
 .nav-cta {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 700;
     color: var(--black);
     background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    padding: 10px 24px;
+    padding: 10px 22px;
     border-radius: var(--radius-full);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     transition: var(--transition);
+    white-space: nowrap;
+    display: block;
 }
 
 .nav-cta:hover {
@@ -315,26 +336,53 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     color: var(--black);
 }
 
+/* Hamburger button */
 .hamburger {
     display: none;
     flex-direction: column;
+    justify-content: center;
     gap: 5px;
     cursor: pointer;
     padding: 8px;
+    z-index: 1001;
+    position: relative;
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
 }
 
 .hamburger span {
     display: block;
-    width: 24px;
+    width: 22px;
     height: 2px;
     background: var(--silver);
     border-radius: 2px;
-    transition: var(--transition);
+    transition: transform 0.35s ease, opacity 0.25s ease, background 0.3s ease;
+    transform-origin: center;
 }
 
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+.hamburger.active span { background: var(--white); }
+.hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile drawer overlay */
+.nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 997;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+}
 
 /* ===== HERO SECTION ===== */
 .hero-section {

@@ -31,27 +31,30 @@
 
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
+
+    <!-- Mobile nav overlay (tap outside to close) -->
+    <div class="nav-overlay" id="navOverlay"></div>
 
     <!-- ===== NAVBAR ===== -->
-    <header class="a3-header" id="mainHeader">
+    <header class="a3-header {% block header_class %}{% endblock %}" id="mainHeader">
         <nav class="a3-nav">
             <a href="{% url 'index' %}" class="a3-logo">
                 <span class="logo-a3">A3</span><span class="logo-corp">Corp</span>
             </a>
 
-            <div class="hamburger" id="hamburger">
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
 
-            <ul class="nav-links" id="navLinks">
+            <ul class="nav-links" id="navLinks" role="navigation">
                 <li><a href="{% url 'index' %}" class="nav-item {% block nav_home %}{% endblock %}">Home</a></li>
                 <li><a href="{% url 'about' %}" class="nav-item {% block nav_about %}{% endblock %}">About</a></li>
                 <li><a href="{% url 'services' %}" class="nav-item {% block nav_services %}{% endblock %}">Services</a></li>
                 <li><a href="{% url 'products' %}" class="nav-item {% block nav_products %}{% endblock %}">Products</a></li>
-                <li><a href="{% url 'contact' %}" class="nav-cta">Get in Touch</a></li>
+                <li class="nav-cta-li"><a href="{% url 'contact' %}" class="nav-cta">Get in Touch</a></li>
             </ul>
         </nav>
     </header>
