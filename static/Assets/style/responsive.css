@@ -237,3 +237,21 @@
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ===== FOUNDER RESPONSIVE ===== */
+@media (max-width: 991px) {
+    .founder-img-wrap { width: 280px; height: 360px; }
+}
+
+@media (max-width: 767px) {
+    .founder-section { padding: 80px 0; }
+    .founder-img-wrap { width: 240px; height: 300px; }
+    .founder-detail-name { font-size: 1.8rem; }
+    .founder-quote p { font-size: 0.95rem; }
+    .founder-badges { gap: 8px; }
+}
+
+@media (max-width: 575px) {
+    .founder-img-wrap { width: 200px; height: 260px; }
+    .founder-quote { padding: 20px; }
+}
