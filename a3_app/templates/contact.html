@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact — A3 Corp{% endblock %}
+{% block meta_description %}Get in touch with A3 Corp. We'd love to hear about your project and help you succeed.{% endblock %}
+
+{% block content %}
+
+<!-- ===== CONTACT HERO ===== -->
+<section class="inner-hero">
+    <div class="inner-hero-bg"></div>
+    <div class="container">
+        <div class="inner-hero-content" data-aos="fade-up">
+            <div class="section-tag mx-auto">Get in Touch</div>
+            <h1 class="inner-hero-title">
+                Let's Start a <span class="gold-text">Conversation</span>
+            </h1>
+            <p class="inner-hero-subtitle">
+                Tell us about your project. We'll respond within 24 hours.
+            </p>
+        </div>
+    </div>
+    <div class="inner-hero-line"></div>
+</section>
+
+<!-- ===== CONTACT SECTION ===== -->
+<section class="contact-section">
+    <div class="container">
+        <div class="row g-5">
+
+            <!-- Left: Info -->
+            <div class="col-lg-4" data-aos="fade-right">
+                <div class="contact-info-card">
+                    <h3 class="contact-info-title">Contact <span class="gold-text">Information</span></h3>
+                    <p class="contact-info-desc">Reach out through any channel — our team is ready to help.</p>
+
+                    <div class="contact-info-items">
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon"><i class="ri-map-pin-line"></i></div>
+                            <div>
+                                <span class="contact-info-label">Office</span>
+                                <span class="contact-info-value">Chennai, Tamil Nadu, India</span>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon"><i class="ri-phone-line"></i></div>
+                            <div>
+                                <span class="contact-info-label">Phone</span>
+                                <a href="tel:+919999999999" class="contact-info-value">+91 99999 99999</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon"><i class="ri-mail-line"></i></div>
+                            <div>
+                                <span class="contact-info-label">Email</span>
+                                <a href="mailto:info@a3corp.com" class="contact-info-value">info@a3corp.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon"><i class="ri-time-line"></i></div>
+                            <div>
+                                <span class="contact-info-label">Business Hours</span>
+                                <span class="contact-info-value">Mon – Sat, 9 AM – 7 PM IST</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-socials">
+                        <a href="#" class="social-icon" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+                        <a href="#" class="social-icon" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+                        <a href="#" class="social-icon" aria-label="Instagram"><i class="ri-instagram-line"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Form -->
+            <div class="col-lg-8" data-aos="fade-left" data-aos-delay="200">
+                <div class="contact-form-card">
+                    <h3 class="contact-form-title">Send Us a <span class="gold-text">Message</span></h3>
+                    <form method="POST" action="{% url 'contact' %}" class="contact-form" id="contactForm">
+                        {% csrf_token %}
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Full Name <span class="required">*</span></label>
+                                    <input type="text" name="name" class="a3-input" placeholder="Your full name" maxlength="100" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Email Address <span class="required">*</span></label>
+                                    <input type="email" name="email" class="a3-input" placeholder="your@email.com" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Subject <span class="required">*</span></label>
+                                    <input type="text" name="subject" class="a3-input" placeholder="What's this about?" maxlength="200" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Service Interested In</label>
+                                    <select name="services" class="a3-input a3-select">
+                                        <option value="">— Select a service —</option>
+                                        <option value="Web Development">Web Development</option>
+                                        <option value="Mobile App Development">Mobile App Development</option>
+                                        <option value="AI & ML Solutions">AI & ML Solutions</option>
+                                        <option value="Digital Marketing">Digital Marketing</option>
+                                        <option value="Cloud Services">Cloud Services</option>
+                                        <option value="Cybersecurity">Cybersecurity</option>
+                                        <option value="UI/UX Design">UI/UX Design</option>
+                                        <option value="IT Infrastructure">IT Infrastructure</option>
+                                        <option value="Custom Software">Custom Software</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Your Message <span class="required">*</span></label>
+                                    <textarea name="message" class="a3-input a3-textarea" placeholder="Tell us about your project, goals, and timeline..." rows="6" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn-gold w-100 btn-submit">
+                                    <span class="submit-text">Send Message</span>
+                                    <i class="ri-send-plane-fill"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section" data-aos="fade-up" data-aos-delay="300">
+            <div class="map-header">
+                <h3>Find Us</h3>
+            </div>
+            <div class="map-container">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d497698.6649742007!2d79.72891565!3d13.04738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a70b6863d433!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1697000000000!5m2!1sen!2sin"
+                    width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" title="A3 Corp Location">
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

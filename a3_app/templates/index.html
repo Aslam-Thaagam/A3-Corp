@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}A3 Corp — Excellence Redefined{% endblock %}
+{% block nav_home %}active{% endblock %}
+
+{% block content %}
+
+<!-- ===== HERO SECTION ===== -->
+<section class="hero-section">
+    <div class="hero-bg-canvas" id="heroCanvas"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge" data-aos="fade-down" data-aos-delay="100">
+            <span class="badge-dot"></span>
+            Premium Technology Solutions
+        </div>
+        <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
+            Elevate Your<br>
+            <span class="gold-text">Business</span> With<br>
+            A3 Corp
+        </h1>
+        <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="350">
+            We craft exceptional digital experiences that transform businesses.<br>
+            Innovation, Precision, Excellence — at every step.
+        </p>
+        <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
+            <a href="{% url 'contact' %}" class="btn-gold">Start Your Journey</a>
+            <a href="{% url 'services' %}" class="btn-outline-silver">Explore Services</a>
+        </div>
+        <div class="hero-stats" data-aos="fade-up" data-aos-delay="650">
+            <div class="stat-item">
+                <span class="stat-num" data-target="500">0</span><span class="stat-plus">+</span>
+                <span class="stat-label">Clients</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-num" data-target="300">0</span><span class="stat-plus">+</span>
+                <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-num" data-target="10">0</span><span class="stat-plus">+</span>
+                <span class="stat-label">Years</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-num" data-target="50">0</span><span class="stat-plus">+</span>
+                <span class="stat-label">Experts</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll-indicator">
+        <span class="scroll-text">Scroll</span>
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<!-- ===== MARQUEE STRIP ===== -->
+<div class="marquee-strip">
+    <div class="marquee-track">
+        <span>Web Development</span>
+        <span class="marquee-dot">✦</span>
+        <span>Mobile Apps</span>
+        <span class="marquee-dot">✦</span>
+        <span>AI & Machine Learning</span>
+        <span class="marquee-dot">✦</span>
+        <span>Digital Marketing</span>
+        <span class="marquee-dot">✦</span>
+        <span>Cloud Solutions</span>
+        <span class="marquee-dot">✦</span>
+        <span>Cybersecurity</span>
+        <span class="marquee-dot">✦</span>
+        <span>UI/UX Design</span>
+        <span class="marquee-dot">✦</span>
+        <span>IT Infrastructure</span>
+        <span class="marquee-dot">✦</span>
+        <!-- Duplicate for seamless loop -->
+        <span>Web Development</span>
+        <span class="marquee-dot">✦</span>
+        <span>Mobile Apps</span>
+        <span class="marquee-dot">✦</span>
+        <span>AI & Machine Learning</span>
+        <span class="marquee-dot">✦</span>
+        <span>Digital Marketing</span>
+        <span class="marquee-dot">✦</span>
+        <span>Cloud Solutions</span>
+        <span class="marquee-dot">✦</span>
+        <span>Cybersecurity</span>
+        <span class="marquee-dot">✦</span>
+        <span>UI/UX Design</span>
+        <span class="marquee-dot">✦</span>
+        <span>IT Infrastructure</span>
+        <span class="marquee-dot">✦</span>
+    </div>
+</div>
+
+<!-- ===== ABOUT INTRO ===== -->
+<section class="about-intro-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5" data-aos="fade-right" data-aos-delay="100">
+                <div class="section-tag">Who We Are</div>
+                <h2 class="section-title">
+                    A Legacy of <span class="gold-text">Innovation</span> & Excellence
+                </h2>
+                <p class="section-body">
+                    A3 Corp is a premium technology company delivering transformative digital solutions.
+                    From startups to enterprises, we craft bespoke experiences that drive real growth.
+                </p>
+                <p class="section-body">
+                    Our multidisciplinary team of experts combines creativity with technical mastery to
+                    deliver solutions that exceed expectations.
+                </p>
+                <a href="{% url 'about' %}" class="btn-gold mt-4">Discover Our Story</a>
+            </div>
+            <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
+                <div class="about-cards-grid">
+                    <div class="about-card">
+                        <div class="about-card-icon"><i class="ri-rocket-2-line"></i></div>
+                        <h4>Innovative Solutions</h4>
+                        <p>Cutting-edge technology tailored to your business needs and future vision.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-icon"><i class="ri-shield-check-line"></i></div>
+                        <h4>Trusted Expertise</h4>
+                        <p>A decade of excellence with a proven track record across industries.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-icon"><i class="ri-focus-3-line"></i></div>
+                        <h4>Client-Centric</h4>
+                        <p>Your success is our mission. Every decision is made with your goals in mind.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="about-card-icon"><i class="ri-line-chart-line"></i></div>
+                        <h4>Measurable Results</h4>
+                        <p>Data-driven strategies that deliver tangible, lasting business outcomes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== SERVICES SECTION ===== -->
+<section class="services-section">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <div class="section-tag mx-auto">What We Do</div>
+            <h2 class="section-title">Our <span class="gold-text">Core Services</span></h2>
+            <p class="section-subtitle">End-to-end technology solutions built for the modern enterprise</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card-inner">
+                    <div class="service-icon"><i class="ri-code-s-slash-line"></i></div>
+                    <div class="service-num">01</div>
+                    <h3>Web Development</h3>
+                    <p>Bespoke websites and web apps built with the latest frameworks for performance and scalability.</p>
+                    <a href="{% url 'services' %}" class="service-link">Learn More <i class="ri-arrow-right-up-line"></i></a>
+                </div>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-card-inner">
+                    <div class="service-icon"><i class="ri-smartphone-line"></i></div>
+                    <div class="service-num">02</div>
+                    <h3>Mobile Apps</h3>
+                    <p>Native and cross-platform mobile applications that deliver seamless user experiences.</p>
+                    <a href="{% url 'services' %}" class="service-link">Learn More <i class="ri-arrow-right-up-line"></i></a>
+                </div>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="service-card-inner">
+                    <div class="service-icon"><i class="ri-brain-line"></i></div>
+                    <div class="service-num">03</div>
+                    <h3>AI & ML Solutions</h3>
+                    <p>Intelligent automation and machine learning models that give your business a competitive edge.</p>
+                    <a href="{% url 'services' %}" class="service-link">Learn More <i class="ri-arrow-right-up-line"></i></a>
+                </div>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="service-card-inner">
+                    <div class="service-icon"><i class="ri-bar-chart-box-line"></i></div>
+                    <div class="service-num">04</div>
+                    <h3>Digital Marketing</h3>
+                    <p>Data-driven campaigns across channels that grow your brand and drive measurable ROI.</p>
+                    <a href="{% url 'services' %}" class="service-link">Learn More <i class="ri-arrow-right-up-line"></i></a>
+                </div>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="service-card-inner">
+                    <div class="service-icon"><i class="ri-cloud-line"></i></div>
+                    <div class="service-num">05</div>
+                    <h3>Cloud Services</h3>
+                    <p>Scalable cloud infrastructure, migration, and managed services for business agility.</p>
+                    <a href="{% url 'services' %}" class="service-link">Learn More <i class="ri-arrow-right-up-line"></i></a>
+                </div>
+            </div>
+            <div class="service-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="service-card-inner">
+                    <div class="service-icon"><i class="ri-shield-keyhole-line"></i></div>
+                    <div class="service-num">06</div>
+                    <h3>Cybersecurity</h3>
+                    <p>Comprehensive security audits, threat detection, and protection for your digital assets.</p>
+                    <a href="{% url 'services' %}" class="service-link">Learn More <i class="ri-arrow-right-up-line"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5" data-aos="fade-up">
+            <a href="{% url 'services' %}" class="btn-outline-gold">View All Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== WHY CHOOSE US ===== -->
+<section class="why-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="section-tag">Why A3 Corp</div>
+                <h2 class="section-title">The <span class="gold-text">Premium</span> Difference</h2>
+                <div class="why-list">
+                    <div class="why-item">
+                        <div class="why-icon"><i class="ri-award-line"></i></div>
+                        <div class="why-content">
+                            <h4>Award-Winning Quality</h4>
+                            <p>Recognised for excellence in delivery and innovation across multiple platforms.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon"><i class="ri-team-line"></i></div>
+                        <div class="why-content">
+                            <h4>Expert Team</h4>
+                            <p>50+ seasoned professionals with deep domain expertise across technologies.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon"><i class="ri-customer-service-2-line"></i></div>
+                        <div class="why-content">
+                            <h4>24/7 Premium Support</h4>
+                            <p>Round-the-clock dedicated support ensuring your systems run without interruption.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon"><i class="ri-settings-3-line"></i></div>
+                        <div class="why-content">
+                            <h4>Custom Solutions</h4>
+                            <p>No templates, no shortcuts — every solution is uniquely crafted for your needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                <div class="why-visual">
+                    <div class="why-ring why-ring-1"></div>
+                    <div class="why-ring why-ring-2"></div>
+                    <div class="why-ring why-ring-3"></div>
+                    <div class="why-center">
+                        <span class="logo-a3" style="font-size:3rem;">A3</span>
+                        <span class="logo-corp" style="font-size:1.5rem;">Corp</span>
+                    </div>
+                    <div class="why-orbit-item" style="--angle:0deg;"><i class="ri-code-s-slash-line"></i></div>
+                    <div class="why-orbit-item" style="--angle:60deg;"><i class="ri-smartphone-line"></i></div>
+                    <div class="why-orbit-item" style="--angle:120deg;"><i class="ri-brain-line"></i></div>
+                    <div class="why-orbit-item" style="--angle:180deg;"><i class="ri-cloud-line"></i></div>
+                    <div class="why-orbit-item" style="--angle:240deg;"><i class="ri-shield-keyhole-line"></i></div>
+                    <div class="why-orbit-item" style="--angle:300deg;"><i class="ri-bar-chart-box-line"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PROCESS SECTION ===== -->
+<section class="process-section">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <div class="section-tag mx-auto">How We Work</div>
+            <h2 class="section-title">Our <span class="gold-text">Process</span></h2>
+            <p class="section-subtitle">A structured approach to delivering excellence consistently</p>
+        </div>
+        <div class="process-steps">
+            <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                <div class="step-num">01</div>
+                <div class="step-icon"><i class="ri-chat-3-line"></i></div>
+                <h4>Discover</h4>
+                <p>We listen, understand your vision, and map your business goals to a clear strategy.</p>
+                <div class="step-connector"></div>
+            </div>
+            <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                <div class="step-num">02</div>
+                <div class="step-icon"><i class="ri-pencil-ruler-2-line"></i></div>
+                <h4>Design</h4>
+                <p>Our designers create intuitive, premium experiences aligned with your brand identity.</p>
+                <div class="step-connector"></div>
+            </div>
+            <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                <div class="step-num">03</div>
+                <div class="step-icon"><i class="ri-code-box-line"></i></div>
+                <h4>Develop</h4>
+                <p>Engineers build robust, scalable solutions with clean code and best practices.</p>
+                <div class="step-connector"></div>
+            </div>
+            <div class="process-step" data-aos="fade-up" data-aos-delay="400">
+                <div class="step-num">04</div>
+                <div class="step-icon"><i class="ri-rocket-line"></i></div>
+                <h4>Deploy</h4>
+                <p>We launch, monitor, and optimize — ensuring performance from day one and beyond.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA SECTION ===== -->
+<section class="cta-section">
+    <div class="cta-gold-glow"></div>
+    <div class="container">
+        <div class="cta-inner" data-aos="zoom-in">
+            <div class="cta-tag">Ready to Start?</div>
+            <h2 class="cta-title">Let's Build Something <span class="gold-text">Extraordinary</span></h2>
+            <p class="cta-subtitle">
+                Partner with A3 Corp and transform your vision into a world-class digital reality.
+            </p>
+            <div class="cta-actions">
+                <a href="{% url 'contact' %}" class="btn-gold btn-lg">Get a Free Consultation</a>
+                <a href="{% url 'about' %}" class="btn-outline-silver">Learn About Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

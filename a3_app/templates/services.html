@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Services — A3 Corp{% endblock %}
+{% block nav_services %}active{% endblock %}
+{% block meta_description %}Explore A3 Corp's premium technology services — web development, AI, mobile apps, and more.{% endblock %}
+
+{% block content %}
+
+<!-- ===== SERVICES HERO ===== -->
+<section class="inner-hero">
+    <div class="inner-hero-bg"></div>
+    <div class="container">
+        <div class="inner-hero-content" data-aos="fade-up">
+            <div class="section-tag mx-auto">What We Offer</div>
+            <h1 class="inner-hero-title">
+                Premium <span class="gold-text">Services</span><br>Built to Perform
+            </h1>
+            <p class="inner-hero-subtitle">
+                End-to-end technology solutions crafted for ambition and built for scale.
+            </p>
+        </div>
+    </div>
+    <div class="inner-hero-line"></div>
+</section>
+
+<!-- ===== SERVICES LIST ===== -->
+<section class="services-detail-section">
+    <div class="container">
+
+        <!-- Service 01 -->
+        <div class="service-detail-row" data-aos="fade-up">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5">
+                    <div class="service-visual-box">
+                        <div class="service-big-icon"><i class="ri-code-s-slash-line"></i></div>
+                        <div class="service-visual-ring"></div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="service-detail-tag">01 — Web Development</div>
+                    <h2 class="service-detail-title">Websites That <span class="gold-text">Convert</span></h2>
+                    <p class="section-body">
+                        We design and develop high-performance websites and web applications using
+                        cutting-edge frameworks — React, Next.js, Django, and more. Every pixel crafted
+                        for user experience, every line of code optimised for speed.
+                    </p>
+                    <ul class="service-feature-list">
+                        <li><i class="ri-checkbox-circle-line"></i> Custom Web Applications</li>
+                        <li><i class="ri-checkbox-circle-line"></i> E-Commerce Solutions</li>
+                        <li><i class="ri-checkbox-circle-line"></i> CMS Development</li>
+                        <li><i class="ri-checkbox-circle-line"></i> API Integration</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Progressive Web Apps</li>
+                    </ul>
+                    <a href="{% url 'contact' %}" class="btn-gold mt-4">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 02 -->
+        <div class="service-detail-row service-detail-row-alt" data-aos="fade-up">
+            <div class="row align-items-center g-5 flex-lg-row-reverse">
+                <div class="col-lg-5">
+                    <div class="service-visual-box">
+                        <div class="service-big-icon"><i class="ri-smartphone-line"></i></div>
+                        <div class="service-visual-ring"></div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="service-detail-tag">02 — Mobile Development</div>
+                    <h2 class="service-detail-title">Apps That <span class="gold-text">Engage</span></h2>
+                    <p class="section-body">
+                        From concept to App Store, we build stunning mobile experiences for iOS and Android.
+                        Native performance, cross-platform reach — your app, your rules.
+                    </p>
+                    <ul class="service-feature-list">
+                        <li><i class="ri-checkbox-circle-line"></i> iOS App Development</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Android App Development</li>
+                        <li><i class="ri-checkbox-circle-line"></i> React Native & Flutter</li>
+                        <li><i class="ri-checkbox-circle-line"></i> App UI/UX Design</li>
+                        <li><i class="ri-checkbox-circle-line"></i> App Store Optimization</li>
+                    </ul>
+                    <a href="{% url 'contact' %}" class="btn-gold mt-4">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 03 -->
+        <div class="service-detail-row" data-aos="fade-up">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5">
+                    <div class="service-visual-box">
+                        <div class="service-big-icon"><i class="ri-brain-line"></i></div>
+                        <div class="service-visual-ring"></div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="service-detail-tag">03 — AI & Machine Learning</div>
+                    <h2 class="service-detail-title">Intelligence That <span class="gold-text">Scales</span></h2>
+                    <p class="section-body">
+                        Harness the power of artificial intelligence. We build custom AI models, chatbots,
+                        predictive analytics, and automation pipelines that give your business a real edge.
+                    </p>
+                    <ul class="service-feature-list">
+                        <li><i class="ri-checkbox-circle-line"></i> Custom AI Models</li>
+                        <li><i class="ri-checkbox-circle-line"></i> NLP & Chatbots</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Predictive Analytics</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Computer Vision</li>
+                        <li><i class="ri-checkbox-circle-line"></i> AI Integration</li>
+                    </ul>
+                    <a href="{% url 'contact' %}" class="btn-gold mt-4">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 04 -->
+        <div class="service-detail-row service-detail-row-alt" data-aos="fade-up">
+            <div class="row align-items-center g-5 flex-lg-row-reverse">
+                <div class="col-lg-5">
+                    <div class="service-visual-box">
+                        <div class="service-big-icon"><i class="ri-bar-chart-box-line"></i></div>
+                        <div class="service-visual-ring"></div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="service-detail-tag">04 — Digital Marketing</div>
+                    <h2 class="service-detail-title">Growth That <span class="gold-text">Matters</span></h2>
+                    <p class="section-body">
+                        Strategic digital marketing that drives real results. From SEO and paid ads to
+                        social media and content — we grow your brand with data and creativity.
+                    </p>
+                    <ul class="service-feature-list">
+                        <li><i class="ri-checkbox-circle-line"></i> Search Engine Optimization</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Google & Meta Ads</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Social Media Management</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Content Strategy</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Analytics & Reporting</li>
+                    </ul>
+                    <a href="{% url 'contact' %}" class="btn-gold mt-4">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 05 -->
+        <div class="service-detail-row" data-aos="fade-up">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5">
+                    <div class="service-visual-box">
+                        <div class="service-big-icon"><i class="ri-cloud-line"></i></div>
+                        <div class="service-visual-ring"></div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="service-detail-tag">05 — Cloud Services</div>
+                    <h2 class="service-detail-title">Infrastructure That <span class="gold-text">Powers</span></h2>
+                    <p class="section-body">
+                        Scalable, secure, and resilient cloud architecture on AWS, Azure, and GCP.
+                        We design, migrate, and manage cloud environments that keep your business running.
+                    </p>
+                    <ul class="service-feature-list">
+                        <li><i class="ri-checkbox-circle-line"></i> Cloud Architecture Design</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Cloud Migration</li>
+                        <li><i class="ri-checkbox-circle-line"></i> DevOps & CI/CD</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Managed Cloud Services</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Cost Optimisation</li>
+                    </ul>
+                    <a href="{% url 'contact' %}" class="btn-gold mt-4">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 06 -->
+        <div class="service-detail-row service-detail-row-alt" data-aos="fade-up">
+            <div class="row align-items-center g-5 flex-lg-row-reverse">
+                <div class="col-lg-5">
+                    <div class="service-visual-box">
+                        <div class="service-big-icon"><i class="ri-shield-keyhole-line"></i></div>
+                        <div class="service-visual-ring"></div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="service-detail-tag">06 — Cybersecurity</div>
+                    <h2 class="service-detail-title">Protection That <span class="gold-text">Endures</span></h2>
+                    <p class="section-body">
+                        Comprehensive security solutions protecting your digital assets. From vulnerability
+                        assessments to real-time threat monitoring — your security is our priority.
+                    </p>
+                    <ul class="service-feature-list">
+                        <li><i class="ri-checkbox-circle-line"></i> Security Audits</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Penetration Testing</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Threat Monitoring</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Compliance (ISO, SOC2)</li>
+                        <li><i class="ri-checkbox-circle-line"></i> Incident Response</li>
+                    </ul>
+                    <a href="{% url 'contact' %}" class="btn-gold mt-4">Get a Quote</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section">
+    <div class="cta-gold-glow"></div>
+    <div class="container">
+        <div class="cta-inner" data-aos="zoom-in">
+            <div class="cta-tag">Let's Talk</div>
+            <h2 class="cta-title">Find the Right <span class="gold-text">Solution</span> for You</h2>
+            <p class="cta-subtitle">Schedule a free consultation with our experts today.</p>
+            <div class="cta-actions">
+                <a href="{% url 'contact' %}" class="btn-gold btn-lg">Contact Us Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

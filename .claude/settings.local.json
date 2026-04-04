@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.\\(css|js\\)$\")",
+      "Bash(grep \"\\\\.html$\")",
+      "Bash(python -m pip install django --quiet)",
+      "Bash(python manage.py migrate --run-syncdb)",
+      "Bash(python manage.py makemigrations a3_app)",
+      "Bash(python manage.py migrate)",
+      "Bash(python manage.py check)"
+    ]
+  }
+}

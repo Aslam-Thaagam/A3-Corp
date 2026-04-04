@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Products — A3 Corp{% endblock %}
+{% block nav_products %}active{% endblock %}
+{% block meta_description %}Explore A3 Corp's flagship software products built for enterprise performance.{% endblock %}
+
+{% block content %}
+
+<!-- ===== PRODUCTS HERO ===== -->
+<section class="inner-hero">
+    <div class="inner-hero-bg"></div>
+    <div class="container">
+        <div class="inner-hero-content" data-aos="fade-up">
+            <div class="section-tag mx-auto">Our Products</div>
+            <h1 class="inner-hero-title">
+                <span class="gold-text">Software</span> That<br>Works for You
+            </h1>
+            <p class="inner-hero-subtitle">
+                Ready-to-deploy, enterprise-grade products engineered for performance and scale.
+            </p>
+        </div>
+    </div>
+    <div class="inner-hero-line"></div>
+</section>
+
+<!-- ===== PRODUCTS GRID ===== -->
+<section class="products-section">
+    <div class="container">
+        <div class="products-grid">
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="product-badge">Featured</div>
+                <div class="product-icon"><i class="ri-user-heart-line"></i></div>
+                <h3 class="product-name">A3 HRMS</h3>
+                <p class="product-tagline">Complete HR Management System</p>
+                <p class="product-desc">
+                    A powerful, cloud-based HR platform that automates recruitment, payroll,
+                    attendance, leave management, and performance reviews — all in one place.
+                </p>
+                <ul class="product-features">
+                    <li><i class="ri-checkbox-circle-fill"></i> Employee Lifecycle Management</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Payroll Automation</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Attendance & Leave Tracking</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Performance Reviews</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> HR Analytics Dashboard</li>
+                </ul>
+                <a href="{% url 'contact' %}" class="btn-gold w-100">Request Demo</a>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="product-icon"><i class="ri-store-2-line"></i></div>
+                <h3 class="product-name">A3 CRM</h3>
+                <p class="product-tagline">Smart Customer Relationship Manager</p>
+                <p class="product-desc">
+                    Manage leads, track pipelines, automate follow-ups, and close more deals —
+                    an intelligent CRM built for modern sales teams.
+                </p>
+                <ul class="product-features">
+                    <li><i class="ri-checkbox-circle-fill"></i> Lead & Pipeline Management</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Sales Automation</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Email & WhatsApp Integration</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Reporting & Analytics</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Multi-team Support</li>
+                </ul>
+                <a href="{% url 'contact' %}" class="btn-gold w-100">Request Demo</a>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="product-icon"><i class="ri-graduation-cap-line"></i></div>
+                <h3 class="product-name">A3 EduSuite</h3>
+                <p class="product-tagline">School & Institution Management</p>
+                <p class="product-desc">
+                    A comprehensive school management platform — student records, fee management,
+                    timetables, and parent communication all handled seamlessly.
+                </p>
+                <ul class="product-features">
+                    <li><i class="ri-checkbox-circle-fill"></i> Student Information System</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Fee Collection & Tracking</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Class & Timetable Management</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Parent Communication Portal</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Reports & Certificates</li>
+                </ul>
+                <a href="{% url 'contact' %}" class="btn-gold w-100">Request Demo</a>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="product-icon"><i class="ri-bill-line"></i></div>
+                <h3 class="product-name">A3 Invoicer</h3>
+                <p class="product-tagline">Smart Invoicing & Billing Tool</p>
+                <p class="product-desc">
+                    Create professional invoices, track payments, send reminders, and manage
+                    your business finances — beautifully and effortlessly.
+                </p>
+                <ul class="product-features">
+                    <li><i class="ri-checkbox-circle-fill"></i> GST-Compliant Invoices</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Payment Tracking</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Auto Reminders</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Expense Management</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Financial Reports</li>
+                </ul>
+                <a href="{% url 'contact' %}" class="btn-gold w-100">Request Demo</a>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="product-icon"><i class="ri-message-3-line"></i></div>
+                <h3 class="product-name">A3 Messenger</h3>
+                <p class="product-tagline">Bulk WhatsApp & SMS Marketing</p>
+                <p class="product-desc">
+                    Reach thousands of customers instantly with WhatsApp broadcasts, SMS campaigns,
+                    and AI-powered personalised messaging at scale.
+                </p>
+                <ul class="product-features">
+                    <li><i class="ri-checkbox-circle-fill"></i> Bulk WhatsApp Messaging</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Campaign Scheduling</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Template Management</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Delivery Analytics</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Contact List Management</li>
+                </ul>
+                <a href="{% url 'contact' %}" class="btn-gold w-100">Request Demo</a>
+            </div>
+
+            <div class="product-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="product-icon"><i class="ri-headphone-line"></i></div>
+                <h3 class="product-name">A3 HelpDesk</h3>
+                <p class="product-tagline">Customer Support Platform</p>
+                <p class="product-desc">
+                    A unified support hub — manage tickets, live chat, FAQs, and customer
+                    feedback. Deliver premium support experiences at every touchpoint.
+                </p>
+                <ul class="product-features">
+                    <li><i class="ri-checkbox-circle-fill"></i> Multi-channel Ticketing</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Live Chat Integration</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Knowledge Base Builder</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> SLA Management</li>
+                    <li><i class="ri-checkbox-circle-fill"></i> Support Analytics</li>
+                </ul>
+                <a href="{% url 'contact' %}" class="btn-gold w-100">Request Demo</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section">
+    <div class="cta-gold-glow"></div>
+    <div class="container">
+        <div class="cta-inner" data-aos="zoom-in">
+            <div class="cta-tag">Custom Products</div>
+            <h2 class="cta-title">Need a <span class="gold-text">Bespoke</span> Solution?</h2>
+            <p class="cta-subtitle">We build custom software tailored to your exact requirements.</p>
+            <div class="cta-actions">
+                <a href="{% url 'contact' %}" class="btn-gold btn-lg">Discuss Your Project</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

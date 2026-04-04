@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}A3 Corp — Excellence Redefined{% endblock %}</title>
+
+    <link rel="icon" type="image/png" href="{% static 'Assets/Img/logo.png' %}">
+    <meta name="theme-color" content="#0A0A0A">
+    <meta name="description" content="{% block meta_description %}A3 Corp — Premium technology and business solutions.{% endblock %}">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="{% static 'Assets/style/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'Assets/style/responsive.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <header class="a3-header" id="mainHeader">
+        <nav class="a3-nav">
+            <a href="{% url 'index' %}" class="a3-logo">
+                <span class="logo-a3">A3</span><span class="logo-corp">Corp</span>
+            </a>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="{% url 'index' %}" class="nav-item {% block nav_home %}{% endblock %}">Home</a></li>
+                <li><a href="{% url 'about' %}" class="nav-item {% block nav_about %}{% endblock %}">About</a></li>
+                <li><a href="{% url 'services' %}" class="nav-item {% block nav_services %}{% endblock %}">Services</a></li>
+                <li><a href="{% url 'products' %}" class="nav-item {% block nav_products %}{% endblock %}">Products</a></li>
+                <li><a href="{% url 'contact' %}" class="nav-cta">Get in Touch</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
+        {% if messages %}
+        <div class="messages-container">
+            {% for message in messages %}
+            <div class="a3-alert a3-alert-{{ message.tags }}">
+                <span>{{ message }}</span>
+                <button class="alert-close" onclick="this.parentElement.remove()">
+                    <i class="ri-close-line"></i>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    {% include 'footer.html' %}
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="{% static 'Assets/Js/scripts.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
