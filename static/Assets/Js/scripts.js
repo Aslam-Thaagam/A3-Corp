@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
                 ctx.fillStyle = p.gold
-                    ? `rgba(212,175,55,${p.alpha})`
+                    ? `rgba(139,92,246,${p.alpha})`
                     : `rgba(192,192,192,${p.alpha * 0.4})`;
                 ctx.fill();
             });
