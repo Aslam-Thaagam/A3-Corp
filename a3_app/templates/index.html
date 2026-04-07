@@ -3,12 +3,310 @@
 {% block title %}A3 Corp — Excellence Redefined{% endblock %}
 {% block nav_home %}active{% endblock %}
 
+{% block extra_css %}
+<style>
+/* ===== GOLD SHIMMER ANIMATION ===== */
+@keyframes goldShimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+.hero-title .gold-text {
+    background: linear-gradient(90deg, #A8893A, #C9A84C, #E2C97E, #F5E1A4, #C9A84C, #A8893A);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: goldShimmer 3s linear infinite;
+}
+
+/* ===== FLOATING PARTICLES ===== */
+.hero-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.7), transparent);
+    animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+    0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+}
+
+/* ===== FLOATING ORBS ===== */
+.floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    animation: orbFloat 8s ease-in-out infinite;
+}
+@keyframes orbFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%       { transform: translateY(-30px) scale(1.08); }
+}
+
+/* ===== HERO DECORATIVE SHAPES ===== */
+.hero-deco-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.15);
+    animation: ringPulse 4s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes ringPulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50%       { transform: scale(1.05); opacity: 0.8; }
+}
+.hero-deco-ring-1 { width: 320px; height: 320px; top: 10%; right: 5%; animation-delay: 0s; }
+.hero-deco-ring-2 { width: 200px; height: 200px; top: 30%; right: 12%; animation-delay: 1.5s; border-color: rgba(201,168,76,0.25); }
+.hero-deco-ring-3 { width: 80px; height: 80px; top: 20%; right: 20%; animation-delay: 3s; border-color: rgba(201,168,76,0.4); }
+
+/* ===== SPARKLE DOTS ===== */
+.sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #C9A84C;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparklePop 2s ease-in-out infinite;
+}
+@keyframes sparklePop {
+    0%, 100% { transform: scale(0); opacity: 0; }
+    50%       { transform: scale(1); opacity: 1; box-shadow: 0 0 8px 3px rgba(201,168,76,0.5); }
+}
+
+/* ===== ABOUT IMAGE STYLES ===== */
+.about-img-wrap {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.about-img-wrap img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+    transition: transform 0.6s ease;
+}
+.about-img-wrap:hover img { transform: scale(1.04); }
+.about-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, transparent 60%);
+    border-radius: 20px;
+    border: 1px solid rgba(201,168,76,0.2);
+    pointer-events: none;
+}
+.about-img-badge {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(201,168,76,0.35);
+    border-radius: 12px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: badgeSlideIn 0.8s ease 0.5s both;
+}
+@keyframes badgeSlideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+.about-img-badge-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #C9A84C, #A8893A);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: #0A0A0A;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.about-img-badge-text strong {
+    display: block;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.about-img-badge-text span {
+    color: #C9A84C;
+    font-size: 0.75rem;
+}
+
+/* ===== TECH IMAGE STRIP ===== */
+.tech-strip-section {
+    padding: 60px 0;
+    overflow: hidden;
+    position: relative;
+}
+.tech-strip-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #0A0A0A 0%, transparent 15%, transparent 85%, #0A0A0A 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+.tech-img-track {
+    display: flex;
+    gap: 20px;
+    animation: slideTrack 20s linear infinite;
+    width: max-content;
+}
+@keyframes slideTrack {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.tech-img-card {
+    width: 280px;
+    height: 180px;
+    border-radius: 16px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid rgba(201,168,76,0.15);
+    position: relative;
+}
+.tech-img-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    filter: brightness(0.7) saturate(0.8);
+}
+.tech-img-card:hover img { transform: scale(1.08); filter: brightness(0.9) saturate(1); }
+.tech-img-card-label {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    color: #C9A84C;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(10,10,10,0.7);
+    padding: 4px 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+}
+
+/* ===== PULSING CTA GLOW ===== */
+@keyframes ctaGlowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(201,168,76,0.2), 0 0 60px rgba(201,168,76,0.05); }
+    50%       { box-shadow: 0 0 40px rgba(201,168,76,0.35), 0 0 100px rgba(201,168,76,0.12); }
+}
+.cta-section { animation: ctaGlowPulse 4s ease-in-out infinite; }
+
+/* ===== ANIMATED SECTION DIVIDER ===== */
+.gold-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #C9A84C, #E2C97E, #C9A84C, transparent);
+    background-size: 200% 100%;
+    animation: dividerShine 3s linear infinite;
+    margin: 0;
+    opacity: 0.4;
+}
+@keyframes dividerShine {
+    from { background-position: -200% center; }
+    to   { background-position: 200% center; }
+}
+
+/* ===== CARD HOVER LIFT ===== */
+.about-card, .service-card, .process-step {
+    transition: transform 0.35s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease !important;
+}
+.about-card:hover  { transform: translateY(-8px) scale(1.02) !important; }
+.service-card:hover { transform: translateY(-10px) !important; }
+.process-step:hover { transform: translateY(-6px) !important; }
+
+/* ===== GOLD BORDER ANIMATION ===== */
+@keyframes borderGlow {
+    0%, 100% { border-color: rgba(201,168,76,0.2); }
+    50%       { border-color: rgba(201,168,76,0.6); }
+}
+.about-card { animation: borderGlow 3s ease-in-out infinite; }
+
+/* ===== HERO IMAGE FLOAT ===== */
+.hero-img-float {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 360px;
+    z-index: 2;
+    display: none;
+}
+@media (min-width: 1100px) { .hero-img-float { display: block; } }
+.hero-img-float img {
+    width: 100%;
+    border-radius: 24px;
+    border: 1px solid rgba(201,168,76,0.25);
+    filter: brightness(0.85);
+    animation: heroImgFloat 6s ease-in-out infinite;
+}
+@keyframes heroImgFloat {
+    0%, 100% { transform: translateY(0) rotate(-1deg); }
+    50%       { transform: translateY(-16px) rotate(1deg); }
+}
+.hero-img-float::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.4), transparent, rgba(201,168,76,0.2));
+    z-index: -1;
+    animation: heroImgFloat 6s ease-in-out infinite reverse;
+}
+</style>
+{% endblock %}
+
 {% block content %}
 
 <!-- ===== HERO SECTION ===== -->
-<section class="hero-section">
+<section class="hero-section" style="position:relative;overflow:hidden;">
     <div class="hero-bg-canvas" id="heroCanvas"></div>
     <div class="hero-overlay"></div>
+
+    <!-- Floating particles -->
+    <div class="hero-particles" id="heroParticles"></div>
+
+    <!-- Decorative rings -->
+    <div class="hero-deco-ring hero-deco-ring-1"></div>
+    <div class="hero-deco-ring hero-deco-ring-2"></div>
+    <div class="hero-deco-ring hero-deco-ring-3"></div>
+
+    <!-- Sparkle dots -->
+    <div class="sparkle" style="top:15%;left:20%;animation-delay:0s;"></div>
+    <div class="sparkle" style="top:40%;left:8%;animation-delay:0.7s;"></div>
+    <div class="sparkle" style="top:70%;left:25%;animation-delay:1.4s;"></div>
+    <div class="sparkle" style="top:25%;right:30%;animation-delay:0.4s;"></div>
+    <div class="sparkle" style="top:60%;right:15%;animation-delay:1.1s;"></div>
+
+    <!-- Floating ambient orbs -->
+    <div class="floating-orb" style="width:300px;height:300px;background:rgba(201,168,76,0.06);top:-80px;left:-80px;animation-duration:9s;"></div>
+    <div class="floating-orb" style="width:200px;height:200px;background:rgba(201,168,76,0.05);bottom:10%;right:5%;animation-duration:7s;animation-delay:2s;"></div>
+
+    <!-- Floating hero image -->
+    <div class="hero-img-float">
+        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=720&q=80&auto=format&fit=crop" alt="A3 Corp Technology Team">
+    </div>
+
     <div class="hero-content">
         <div class="hero-badge" data-aos="fade-down" data-aos-delay="100">
             <span class="badge-dot"></span>
@@ -55,6 +353,8 @@
 <!--    </div>-->
 </section>
 
+<div class="gold-divider"></div>
+
 <!-- ===== MARQUEE STRIP ===== -->
 <div class="marquee-strip">
     <div class="marquee-track">
@@ -95,10 +395,27 @@
 </div>
 
 <!-- ===== ABOUT INTRO ===== -->
-<section class="about-intro-section">
+<section class="about-intro-section" style="position:relative;overflow:hidden;">
+    <!-- Background orb -->
+    <div class="floating-orb" style="width:400px;height:400px;background:rgba(201,168,76,0.04);top:50%;left:-150px;transform:translateY(-50%);animation-duration:10s;"></div>
+
     <div class="container">
-        <div class="row align-items-center g-5">
-            <div class="col-lg-5" data-aos="fade-right" data-aos-delay="100">
+        <!-- About image row -->
+        <div class="row align-items-center g-5 mb-5">
+            <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+                <div class="about-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80&auto=format&fit=crop" alt="A3 Corp team collaborating">
+                    <div class="about-img-overlay"></div>
+                    <div class="about-img-badge">
+                        <div class="about-img-badge-icon">A3</div>
+                        <div class="about-img-badge-text">
+                            <strong>Premium Tech Partner</strong>
+                            <span>Since 2022 · Excellence Redefined</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
                 <div class="section-tag">Who We Are</div>
                 <h2 class="section-title">
                     A Legacy of <span class="gold-text">Innovation</span> & Excellence
@@ -113,7 +430,10 @@
                 </p>
                 <a href="{% url 'about' %}" class="btn-gold mt-4">Discover Our Story</a>
             </div>
-            <div class="col-lg-7" data-aos="fade-up" data-aos-delay="200">
+        </div>
+
+        <div class="row">
+            <div class="col-12" data-aos="fade-up" data-aos-delay="100">
                 <div class="about-cards-grid">
                     <div class="about-card">
                         <div class="about-card-icon"><i class="ri-rocket-2-line"></i></div>
@@ -140,6 +460,63 @@
         </div>
     </div>
 </section>
+
+<!-- ===== TECH IMAGE STRIP ===== -->
+<div class="tech-strip-section">
+    <div class="tech-img-track">
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=560&q=70&auto=format&fit=crop" alt="Web Development">
+            <span class="tech-img-card-label">Web Dev</span>
+        </div>
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=560&q=70&auto=format&fit=crop" alt="Mobile Apps">
+            <span class="tech-img-card-label">Mobile Apps</span>
+        </div>
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=560&q=70&auto=format&fit=crop" alt="AI & ML">
+            <span class="tech-img-card-label">AI & ML</span>
+        </div>
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=560&q=70&auto=format&fit=crop" alt="Digital Marketing">
+            <span class="tech-img-card-label">Marketing</span>
+        </div>
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=560&q=70&auto=format&fit=crop" alt="Cloud Services">
+            <span class="tech-img-card-label">Cloud</span>
+        </div>
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=560&q=70&auto=format&fit=crop" alt="Cybersecurity">
+            <span class="tech-img-card-label">Security</span>
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=560&q=70&auto=format&fit=crop" alt="Web Development">
+            <span class="tech-img-card-label">Web Dev</span>
+        </div>
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=560&q=70&auto=format&fit=crop" alt="Mobile Apps">
+            <span class="tech-img-card-label">Mobile Apps</span>
+        </div>
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=560&q=70&auto=format&fit=crop" alt="AI & ML">
+            <span class="tech-img-card-label">AI & ML</span>
+        </div>
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=560&q=70&auto=format&fit=crop" alt="Digital Marketing">
+            <span class="tech-img-card-label">Marketing</span>
+        </div>
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=560&q=70&auto=format&fit=crop" alt="Cloud Services">
+            <span class="tech-img-card-label">Cloud</span>
+        </div>
+        <div class="tech-img-card">
+            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=560&q=70&auto=format&fit=crop" alt="Cybersecurity">
+            <span class="tech-img-card-label">Security</span>
+        </div>
+    </div>
+</div>
+
+<div class="gold-divider"></div>
 
 <!-- ===== SERVICES SECTION ===== -->
 <section class="services-section">
@@ -362,4 +739,21 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ===== HERO FLOATING PARTICLES =====
+(function() {
+    var container = document.getElementById('heroParticles');
+    if (!container) return;
+    for (var i = 0; i < 18; i++) {
+        var p = document.createElement('div');
+        p.className = 'particle';
+        var size = Math.random() * 6 + 3;
+        p.style.cssText = 'width:' + size + 'px;height:' + size + 'px;left:' + (Math.random() * 65) + '%;animation-duration:' + (Math.random() * 12 + 8) + 's;animation-delay:' + (Math.random() * 10) + 's;opacity:' + (Math.random() * 0.5 + 0.2);
+        container.appendChild(p);
+    }
+})();
+</script>
 {% endblock %}

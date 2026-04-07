@@ -64,6 +64,7 @@
 
     .nav-links.active {
         transform: translateX(0);
+        height:500px;
     }
 
     /* Show overlay */
