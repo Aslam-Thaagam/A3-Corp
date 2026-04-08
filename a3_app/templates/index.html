@@ -5,18 +5,41 @@
 
 {% block extra_css %}
 <style>
-/* ===== GOLD SHIMMER ANIMATION ===== */
-@keyframes goldShimmer {
-    0%   { background-position: -200% center; }
+/* ===== "Business" — violet-to-gold shimmer ===== */
+@keyframes businessShimmer {
+    0%   { background-position: 0% center; }
     100% { background-position: 200% center; }
 }
-.hero-title .gold-text {
-    background: linear-gradient(90deg, #A8893A, #C9A84C, #E2C97E, #F5E1A4, #C9A84C, #A8893A);
+.hero-business-text {
+    background: linear-gradient(90deg,
+        #8B5CF6, #A78BFA, #C9A84C, #E2C97E, #F5E1A4,
+        #C9A84C, #A78BFA, #8B5CF6);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: goldShimmer 3s linear infinite;
+    animation: businessShimmer 3.5s linear infinite;
+}
+
+/* ===== "A3 Corp" — gold-to-violet shimmer with glow pulse ===== */
+@keyframes a3corpShimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: 0% center; }
+}
+@keyframes a3corpGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(201,168,76,0.4), 0 0 50px rgba(139,92,246,0.15); }
+    50%       { text-shadow: 0 0 40px rgba(139,92,246,0.55), 0 0 80px rgba(201,168,76,0.2); }
+}
+.hero-a3corp-text {
+    background: linear-gradient(90deg,
+        #C9A84C, #E2C97E, #A78BFA, #8B5CF6, #A78BFA,
+        #E2C97E, #C9A84C);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: a3corpShimmer 3.5s linear infinite,
+               a3corpGlow    3s   ease-in-out infinite;
 }
 
 /* ===== FLOATING PARTICLES ===== */
@@ -549,8 +572,8 @@
         </div>
         <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
             Elevate Your<br>
-            <span class="gold-text">Business</span> With<br>
-            A3 Corp
+            <span class="hero-business-text">Business</span> With<br>
+            <span class="hero-a3corp-text">A3 Corp</span>
         </h1>
         <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="350">
             We craft exceptional digital experiences that transform businesses.<br>
