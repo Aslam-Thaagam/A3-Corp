@@ -28,9 +28,16 @@
     --radius-xl:   32px;
     --radius-full: 999px;
 
-    --shadow-gold: 0 0 30px rgba(201, 168, 76, 0.25);
-    --shadow-card: 0 8px 32px rgba(0,0,0,0.4);
-    --shadow-hover:0 16px 48px rgba(0,0,0,0.6);
+    --violet:       #8B5CF6;
+    --violet-light: #A78BFA;
+    --violet-dark:  #6D28D9;
+    --violet-glow:  rgba(139,92,246,0.18);
+    --violet-glow-sm:rgba(139,92,246,0.09);
+
+    --shadow-gold:   0 0 30px rgba(201, 168, 76, 0.25);
+    --shadow-violet: 0 0 30px rgba(139, 92, 246, 0.35);
+    --shadow-card:   0 8px 32px rgba(0,0,0,0.4);
+    --shadow-hover:  0 16px 48px rgba(0,0,0,0.6);
 
     --transition:  all 0.3s ease;
     --transition-slow: all 0.5s ease;
@@ -75,6 +82,7 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
 /* ===== UTILITY CLASSES ===== */
 .gold-text { color: var(--gold); }
 .silver-text { color: var(--silver); }
+.violet-text { color: var(--violet); }
 
 .section-tag {
     display: inline-flex;
@@ -86,7 +94,7 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     text-transform: uppercase;
     color: var(--gold);
     background: var(--gold-glow-sm);
-    border: 1px solid rgba(139,92,246,0.25);
+    border: 1px solid rgba(139,92,246,0.5);
     padding: 6px 16px;
     border-radius: var(--radius-full);
     margin-bottom: 20px;
@@ -397,7 +405,7 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,92,246,0.08) 0%, transparent 70%),
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,92,246,0.18) 0%, transparent 70%),
                 var(--black);
 }
 
@@ -412,7 +420,7 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     position: absolute;
     width: 600px; height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(139,92,246,0.14) 0%, transparent 70%);
     top: -100px; right: -100px;
     animation: heroGlow 6s ease-in-out infinite alternate;
 }
@@ -455,8 +463,8 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--gold);
-    background: rgba(139,92,246,0.08);
-    border: 1px solid rgba(139,92,246,0.25);
+    background: rgba(139,92,246,0.12);
+    border: 1px solid rgba(139,92,246,0.45);
     padding: 8px 20px;
     border-radius: var(--radius-full);
     margin-bottom: 32px;
@@ -573,7 +581,7 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
 .scroll-line {
     width: 1px;
     height: 40px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
+    background: linear-gradient(to bottom, var(--gold), var(--violet), transparent);
 }
 
 @keyframes scrollBounce {
@@ -640,9 +648,9 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
 }
 
 .about-card:hover {
-    border-color: rgba(139,92,246,0.3);
+    border-color: rgba(139,92,246,0.5);
     transform: translateY(-4px);
-    box-shadow: var(--shadow-gold);
+    box-shadow: var(--shadow-violet);
 }
 
 .about-card-icon {
@@ -707,9 +715,9 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
 .service-card:hover::before { opacity: 1; }
 
 .service-card:hover {
-    border-color: rgba(139,92,246,0.35);
+    border-color: rgba(139,92,246,0.55);
     transform: translateY(-6px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(139,92,246,0.2);
 }
 
 .service-card-inner {
@@ -733,8 +741,9 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
 }
 
 .service-card:hover .service-icon {
-    background: rgba(139,92,246,0.2);
-    box-shadow: 0 0 20px rgba(139,92,246,0.2);
+    background: rgba(139,92,246,0.25);
+    box-shadow: 0 0 24px rgba(139,92,246,0.4);
+    border-color: rgba(139,92,246,0.5);
 }
 
 .service-num {
