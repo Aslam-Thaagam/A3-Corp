@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — A3 Corp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --black:        #0A0A0A;
+            --black-soft:   #111111;
+            --black-card:   #141414;
+            --black-border: #1E1E1E;
+            --gold:         #C9A84C;
+            --gold-light:   #E2C97E;
+            --gold-glow:    rgba(201,168,76,0.14);
+            --violet:       #8B5CF6;
+            --violet-light: #A78BFA;
+            --violet-glow:  rgba(139,92,246,0.12);
+            --silver:       #C0C0C0;
+            --silver-muted: #888888;
+            --white:        #FFFFFF;
+            --text-secondary: #B0B0B0;
+            --danger:       #EF4444;
+            --danger-glow:  rgba(239,68,68,0.12);
+            --radius-sm:    6px;
+            --radius-md:    12px;
+            --radius-lg:    20px;
+            --radius-full:  999px;
+        }
+
+        html { font-size: 16px; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* ── HEADER ── */
+        .db-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--black-border);
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .db-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+        .db-logo span:first-child { color: var(--gold); }
+        .db-logo span:last-child  { color: var(--silver); font-size: 0.8em; }
+        .db-logo-badge {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--violet-light);
+            background: var(--violet-glow);
+            border: 1px solid rgba(139,92,246,0.3);
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            margin-left: 10px;
+        }
+        .db-header-right { display: flex; align-items: center; gap: 12px; }
+        .db-view-site {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--silver-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+        .db-view-site:hover { color: var(--white); }
+        .db-logout {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gold);
+            background: var(--gold-glow);
+            border: 1px solid rgba(201,168,76,0.3);
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .db-logout:hover { background: rgba(201,168,76,0.2); box-shadow: 0 0 20px rgba(201,168,76,0.2); }
+
+        /* ── LAYOUT ── */
+        .db-body {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* ── PAGE TITLE ── */
+        .db-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+        .db-subtitle {
+            font-size: 0.875rem;
+            color: var(--silver-muted);
+            margin-bottom: 36px;
+        }
+
+        /* ── STATS ROW ── */
+        .db-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+        .db-stat-card {
+            background: var(--black-card);
+            border: 1px solid var(--black-border);
+            border-radius: var(--radius-md);
+            padding: 24px 28px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .db-stat-card:hover { border-color: rgba(139,92,246,0.35); transform: translateY(-3px); }
+        .db-stat-icon {
+            width: 44px; height: 44px;
+            border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        .db-stat-icon.gold   { background: var(--gold-glow);   color: var(--gold);         border: 1px solid rgba(201,168,76,0.25); }
+        .db-stat-icon.violet { background: var(--violet-glow); color: var(--violet-light); border: 1px solid rgba(139,92,246,0.25); }
+        .db-stat-icon.silver { background: rgba(192,192,192,0.08); color: var(--silver);   border: 1px solid rgba(192,192,192,0.2); }
+        .db-stat-num {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .db-stat-num.gold   { color: var(--gold); }
+        .db-stat-num.violet { color: var(--violet-light); }
+        .db-stat-num.silver { color: var(--silver); }
+        .db-stat-label {
+            font-size: 0.75rem;
+            color: var(--silver-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        /* ── TOOLBAR ── */
+        .db-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .db-filters {
+            display: flex;
+            gap: 6px;
+        }
+        .db-filter-btn {
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 7px 18px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--black-border);
+            color: var(--silver-muted);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.03em;
+        }
+        .db-filter-btn:hover    { border-color: rgba(139,92,246,0.4); color: var(--white); }
+        .db-filter-btn.active   { background: var(--violet-glow); border-color: rgba(139,92,246,0.5); color: var(--violet-light); }
+        .db-search {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--black-card);
+            border: 1px solid var(--black-border);
+            border-radius: var(--radius-full);
+            padding: 7px 16px;
+            transition: border-color 0.2s;
+        }
+        .db-search:focus-within { border-color: rgba(139,92,246,0.4); }
+        .db-search i { color: var(--silver-muted); font-size: 0.9rem; }
+        .db-search input {
+            background: none;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 0.85rem;
+            color: var(--white);
+            width: 200px;
+        }
+        .db-search input::placeholder { color: var(--silver-muted); }
+
+        /* ── EMPTY STATE ── */
+        .db-empty {
+            text-align: center;
+            padding: 80px 24px;
+            color: var(--silver-muted);
+        }
+        .db-empty i { font-size: 3rem; margin-bottom: 16px; display: block; color: rgba(139,92,246,0.3); }
+        .db-empty p { font-size: 0.95rem; }
+
+        /* ── CONTACT CARDS ── */
+        .db-cards { display: flex; flex-direction: column; gap: 14px; }
+
+        .db-card {
+            background: var(--black-card);
+            border: 1px solid var(--black-border);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+        .db-card:hover {
+            border-color: rgba(139,92,246,0.3);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+            transform: translateY(-2px);
+        }
+        .db-card.unread {
+            border-color: rgba(139,92,246,0.35);
+        }
+        .db-card.unread::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--violet), var(--gold));
+            border-radius: 3px 0 0 3px;
+        }
+
+        /* Card top row */
+        .db-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+        .db-card-left { display: flex; align-items: center; gap: 14px; }
+        .db-avatar {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--violet-glow), var(--gold-glow));
+            border: 1px solid rgba(139,92,246,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--gold);
+            flex-shrink: 0;
+            text-transform: uppercase;
+        }
+        .db-card-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        .db-card-email {
+            font-size: 0.8rem;
+            color: var(--silver-muted);
+            margin-top: 2px;
+        }
+        .db-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .db-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: var(--radius-full);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .db-badge-service { background: var(--gold-glow); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+        .db-badge-unread  { background: var(--violet-glow); color: var(--violet-light); border: 1px solid rgba(139,92,246,0.3); }
+        .db-card-date {
+            font-size: 0.75rem;
+            color: var(--silver-muted);
+        }
+
+        /* Card body */
+        .db-card-subject {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+        .db-card-message {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .db-card-message.collapsed {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .db-toggle-msg {
+            font-size: 0.78rem;
+            color: var(--violet-light);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 0 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: inherit;
+            transition: color 0.2s;
+        }
+        .db-toggle-msg:hover { color: var(--gold); }
+
+        /* Card actions */
+        .db-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--black-border);
+        }
+        .db-btn {
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            border: 1px solid;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        .db-btn-read {
+            color: var(--violet-light);
+            border-color: rgba(139,92,246,0.35);
+            background: var(--violet-glow);
+        }
+        .db-btn-read:hover { background: rgba(139,92,246,0.2); border-color: var(--violet); }
+        .db-btn-delete {
+            color: #f87171;
+            border-color: rgba(239,68,68,0.3);
+            background: rgba(239,68,68,0.06);
+        }
+        .db-btn-delete:hover { background: rgba(239,68,68,0.14); border-color: rgba(239,68,68,0.6); }
+        .db-btn-done {
+            color: #4ade80;
+            border-color: rgba(74,222,128,0.3);
+            background: rgba(74,222,128,0.06);
+            cursor: default;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .db-header { padding: 0 16px; }
+            .db-body   { padding: 24px 16px 60px; }
+            .db-stats  { grid-template-columns: 1fr; }
+            .db-toolbar { flex-direction: column; align-items: stretch; }
+            .db-search input { width: 100%; }
+            .db-card-top { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="db-header">
+    <div style="display:flex;align-items:center;gap:4px;">
+        <a href="{% url 'index' %}" class="db-logo">
+            <span>A3</span><span>Corp</span>
+        </a>
+        <span class="db-logo-badge">Dashboard</span>
+    </div>
+    <div class="db-header-right">
+        <a href="{% url 'index' %}" class="db-view-site">
+            <i class="ri-external-link-line"></i> View Site
+        </a>
+        <form method="post" action="{% url 'logout' %}" style="margin:0;">
+            {% csrf_token %}
+            <button type="submit" class="db-logout">
+                <i class="ri-logout-box-r-line"></i> Logout
+            </button>
+        </form>
+    </div>
+</header>
+
+<!-- ===== BODY ===== -->
+<div class="db-body">
+
+    <h1 class="db-title">Contact Inquiries</h1>
+    <p class="db-subtitle">People who reached out for your services</p>
+
+    <!-- Stats -->
+    <div class="db-stats">
+        <div class="db-stat-card">
+            <div class="db-stat-icon gold"><i class="ri-mail-line"></i></div>
+            <div>
+                <div class="db-stat-num gold">{{ total }}</div>
+                <div class="db-stat-label">Total Received</div>
+            </div>
+        </div>
+        <div class="db-stat-card">
+            <div class="db-stat-icon violet"><i class="ri-mail-unread-line"></i></div>
+            <div>
+                <div class="db-stat-num violet">{{ unread }}</div>
+                <div class="db-stat-label">Unread</div>
+            </div>
+        </div>
+        <div class="db-stat-card">
+            <div class="db-stat-icon silver"><i class="ri-calendar-line"></i></div>
+            <div>
+                <div class="db-stat-num silver">{{ this_month }}</div>
+                <div class="db-stat-label">This Month</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="db-toolbar">
+        <div class="db-filters">
+            <a href="?filter=all{% if search %}&q={{ search }}{% endif %}"
+               class="db-filter-btn {% if filter_by == 'all' %}active{% endif %}">
+                All <span style="opacity:.6;margin-left:2px;">({{ total }})</span>
+            </a>
+            <a href="?filter=unread{% if search %}&q={{ search }}{% endif %}"
+               class="db-filter-btn {% if filter_by == 'unread' %}active{% endif %}">
+                Unread <span style="opacity:.6;margin-left:2px;">({{ unread }})</span>
+            </a>
+            <a href="?filter=read{% if search %}&q={{ search }}{% endif %}"
+               class="db-filter-btn {% if filter_by == 'read' %}active{% endif %}">
+                Read
+            </a>
+        </div>
+        <form method="get" action="" class="db-search">
+            {% if filter_by != 'all' %}<input type="hidden" name="filter" value="{{ filter_by }}">{% endif %}
+            <i class="ri-search-line"></i>
+            <input type="text" name="q" placeholder="Search name, email, subject…"
+                   value="{{ search }}" autocomplete="off">
+        </form>
+    </div>
+
+    <!-- Contact Cards -->
+    {% if contacts %}
+    <div class="db-cards">
+        {% for c in contacts %}
+        <div class="db-card {% if not c.is_read %}unread{% endif %}" id="card-{{ c.pk }}">
+            <div class="db-card-top">
+                <div class="db-card-left">
+                    <div class="db-avatar">{{ c.name|slice:":2" }}</div>
+                    <div>
+                        <div class="db-card-name">{{ c.name }}</div>
+                        <div class="db-card-email">{{ c.email }}</div>
+                    </div>
+                </div>
+                <div class="db-card-meta">
+                    {% if c.services %}
+                    <span class="db-badge db-badge-service">{{ c.services }}</span>
+                    {% endif %}
+                    {% if not c.is_read %}
+                    <span class="db-badge db-badge-unread" id="badge-{{ c.pk }}">New</span>
+                    {% endif %}
+                    <span class="db-card-date">
+                        <i class="ri-time-line" style="margin-right:3px;"></i>
+                        {{ c.created_at|date:"M j, Y · g:i A" }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="db-card-subject">{{ c.subject }}</div>
+            <div class="db-card-message collapsed" id="msg-{{ c.pk }}">{{ c.message }}</div>
+            <button class="db-toggle-msg" onclick="toggleMsg({{ c.pk }}, this)">
+                <i class="ri-arrow-down-s-line"></i> Show more
+            </button>
+
+            <div class="db-card-actions">
+                {% if not c.is_read %}
+                <button class="db-btn db-btn-read" id="read-btn-{{ c.pk }}"
+                        onclick="markRead({{ c.pk }}, this)">
+                    <i class="ri-check-line"></i> Mark as Read
+                </button>
+                {% else %}
+                <span class="db-btn db-btn-done">
+                    <i class="ri-check-double-line"></i> Read
+                </span>
+                {% endif %}
+
+                <form method="post" action="{% url 'delete_contact' c.pk %}" style="display:inline;"
+                      onsubmit="return confirm('Delete this inquiry from {{ c.name }}?')">
+                    {% csrf_token %}
+                    <button type="submit" class="db-btn db-btn-delete">
+                        <i class="ri-delete-bin-line"></i> Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="db-empty">
+        <i class="ri-inbox-line"></i>
+        <p>No inquiries found{% if search %} matching "<strong>{{ search }}</strong>"{% endif %}.</p>
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+function toggleMsg(pk, btn) {
+    const el = document.getElementById('msg-' + pk);
+    const collapsed = el.classList.toggle('collapsed');
+    btn.innerHTML = collapsed
+        ? '<i class="ri-arrow-down-s-line"></i> Show more'
+        : '<i class="ri-arrow-up-s-line"></i> Show less';
+}
+
+function markRead(pk, btn) {
+    fetch('{% url "mark_read" 0 %}'.replace('0', pk), {
+        method: 'POST',
+        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.ok) {
+            const card  = document.getElementById('card-' + pk);
+            const badge = document.getElementById('badge-' + pk);
+            card.classList.remove('unread');
+            if (badge) badge.remove();
+            btn.outerHTML = '<span class="db-btn db-btn-done"><i class="ri-check-double-line"></i> Read</span>';
+        }
+    });
+}
+</script>
+</body>
+</html>

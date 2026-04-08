@@ -242,4 +242,53 @@ document.addEventListener('DOMContentLoaded', function () {
         whyVisual.addEventListener('mouseleave', () => rings.forEach(r => r.style.animationPlayState = 'running'));
     }
 
+    /* ======================================================
+       SCROLL TO TOP BUTTON
+    ====================================================== */
+    const scrollBtn = document.createElement('button');
+    scrollBtn.className = 'scroll-to-top';
+    scrollBtn.setAttribute('aria-label', 'Back to top');
+    scrollBtn.innerHTML = '<i class="ri-arrow-up-line"></i>';
+    document.body.appendChild(scrollBtn);
+
+    window.addEventListener('scroll', () => {
+        scrollBtn.classList.toggle('visible', window.scrollY > 300);
+    }, { passive: true });
+
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* ======================================================
+       RIPPLE ON BUTTON CLICK
+    ====================================================== */
+    document.querySelectorAll('.btn-gold, .btn-outline-gold, .btn-outline-silver').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            const rect   = btn.getBoundingClientRect();
+            const size   = Math.max(rect.width, rect.height);
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px;`;
+            btn.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+        });
+    });
+
+    /* ======================================================
+       3D TILT ON CARDS
+    ====================================================== */
+    if (window.matchMedia('(hover: hover)').matches) {
+        document.querySelectorAll('.service-card, .about-card, .mv-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width  - 0.5;
+                const y = (e.clientY - rect.top)  / rect.height - 0.5;
+                card.style.transform = `perspective(700px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg) translateY(-8px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+    }
+
 });

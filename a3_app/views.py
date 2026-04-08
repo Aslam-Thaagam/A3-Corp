@@ -1,5 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.utils import timezone
 from .models import Contact, Service
 
 
@@ -31,7 +34,7 @@ def contact(request):
 
         if not name or not email or not subject or not message:
             messages.error(request, 'Please fill in all required fields.')
-            return render(request, 'contact.html')
+            return render(request, 'contact.html')  # noqa
 
         Contact.objects.create(
             name=name,
@@ -44,3 +47,49 @@ def contact(request):
         return redirect('contact')
 
     return render(request, 'contact.html')
+
+
+@login_required
+def dashboard(request):
+    filter_by = request.GET.get('filter', 'all')
+    search    = request.GET.get('q', '').strip()
+
+    qs = Contact.objects.all()
+    if search:
+        from django.db.models import Q
+        qs = qs.filter(Q(name__icontains=search) | Q(email__icontains=search) | Q(subject__icontains=search))
+    if filter_by == 'unread':
+        qs = qs.filter(is_read=False)
+    elif filter_by == 'read':
+        qs = qs.filter(is_read=True)
+
+    now = timezone.now()
+    total      = Contact.objects.count()
+    unread     = Contact.objects.filter(is_read=False).count()
+    this_month = Contact.objects.filter(created_at__year=now.year, created_at__month=now.month).count()
+
+    return render(request, 'dashboard.html', {
+        'contacts':   qs,
+        'total':      total,
+        'unread':     unread,
+        'this_month': this_month,
+        'filter_by':  filter_by,
+        'search':     search,
+    })
+
+
+@login_required
+def mark_read(request, pk):
+    if request.method == 'POST':
+        contact = get_object_or_404(Contact, pk=pk)
+        contact.is_read = True
+        contact.save()
+        return JsonResponse({'ok': True})
+    return JsonResponse({'ok': False}, status=400)
+
+
+@login_required
+def delete_contact(request, pk):
+    if request.method == 'POST':
+        get_object_or_404(Contact, pk=pk).delete()
+    return redirect(request.META.get('HTTP_REFERER', 'dashboard'))

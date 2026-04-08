@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — A3 Corp Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --black: #0A0A0A; --black-card: #141414; --black-border: #1E1E1E;
+            --gold: #C9A84C; --gold-light: #E2C97E; --gold-glow: rgba(201,168,76,0.14);
+            --violet: #8B5CF6; --violet-light: #A78BFA; --violet-glow: rgba(139,92,246,0.12);
+            --silver-muted: #888888; --white: #FFFFFF;
+            --radius-md: 12px; --radius-full: 999px;
+        }
+        html, body { height: 100%; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Background glow */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%);
+            top: -200px; right: -200px;
+            pointer-events: none;
+        }
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+            bottom: -150px; left: -100px;
+            pointer-events: none;
+        }
+
+        .login-wrap {
+            width: 100%;
+            max-width: 420px;
+            padding: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Logo */
+        .login-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .login-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        .login-logo-text span:first-child { color: var(--gold); }
+        .login-logo-text span:last-child  { color: #C0C0C0; font-size: 0.75em; }
+        .login-logo-sub {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--violet-light);
+            margin-top: 6px;
+        }
+
+        /* Card */
+        .login-card {
+            background: var(--black-card);
+            border: 1px solid var(--black-border);
+            border-radius: 20px;
+            padding: 40px 36px;
+        }
+        .login-card h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .login-card p {
+            font-size: 0.85rem;
+            color: var(--silver-muted);
+            margin-bottom: 28px;
+        }
+
+        /* Error */
+        .login-error {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.3);
+            color: #f87171;
+            font-size: 0.85rem;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Fields */
+        .login-field { margin-bottom: 18px; }
+        .login-label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--silver-muted);
+            margin-bottom: 8px;
+        }
+        .login-input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .login-input-wrap i {
+            position: absolute;
+            left: 14px;
+            color: var(--silver-muted);
+            font-size: 1rem;
+            pointer-events: none;
+            transition: color 0.2s;
+        }
+        .login-input {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--black-border);
+            border-radius: var(--radius-md);
+            padding: 12px 14px 12px 40px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--white);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .login-input:focus {
+            border-color: rgba(139,92,246,0.5);
+            box-shadow: 0 0 0 3px rgba(139,92,246,0.08);
+        }
+        .login-input:focus + i,
+        .login-input-wrap:focus-within i { color: var(--violet-light); }
+
+        /* Submit */
+        .login-submit {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+            background-size: 200% auto;
+            color: #0A0A0A;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background-position 0.5s, box-shadow 0.3s, transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .login-submit:hover {
+            background-position: right center;
+            box-shadow: 0 0 30px rgba(201,168,76,0.4);
+            transform: translateY(-1px);
+        }
+        .login-submit:active { transform: scale(0.97); }
+
+        .login-back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: var(--silver-muted);
+            transition: color 0.2s;
+        }
+        .login-back:hover { color: var(--white); }
+    </style>
+</head>
+<body>
+<div class="login-wrap">
+    <div class="login-logo">
+        <div class="login-logo-text"><span>A3</span><span>Corp</span></div>
+        <div class="login-logo-sub">Dashboard Access</div>
+    </div>
+
+    <div class="login-card">
+        <h2>Welcome back</h2>
+        <p>Sign in to view your contact inquiries</p>
+
+        {% if form.errors %}
+        <div class="login-error">
+            <i class="ri-error-warning-line"></i>
+            Invalid username or password. Please try again.
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <div class="login-field">
+                <label class="login-label" for="id_username">Username</label>
+                <div class="login-input-wrap">
+                    <input class="login-input" type="text" name="username" id="id_username"
+                           autocomplete="username" autofocus placeholder="Enter username">
+                    <i class="ri-user-line"></i>
+                </div>
+            </div>
+
+            <div class="login-field">
+                <label class="login-label" for="id_password">Password</label>
+                <div class="login-input-wrap">
+                    <input class="login-input" type="password" name="password" id="id_password"
+                           autocomplete="current-password" placeholder="Enter password">
+                    <i class="ri-lock-line"></i>
+                </div>
+            </div>
+
+            <button type="submit" class="login-submit">Sign In</button>
+        </form>
+
+        <a href="{% url 'index' %}" class="login-back">
+            <i class="ri-arrow-left-line"></i> Back to site
+        </a>
+    </div>
+</div>
+</body>
+</html>
