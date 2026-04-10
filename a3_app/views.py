@@ -40,6 +40,10 @@ def sample_portfolio(request):
     return render(request, 'samples/portfolio.html')
 
 
+def sample_petshop(request):
+    return render(request, 'samples/petshop.html')
+
+
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name', '').strip()

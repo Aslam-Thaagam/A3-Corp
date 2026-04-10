@@ -8,7 +8,8 @@
       "Bash(python manage.py makemigrations a3_app)",
       "Bash(python manage.py migrate)",
       "Bash(python manage.py check)",
-      "Bash(pip install:*)"
+      "Bash(pip install:*)",
+      "Bash(curl:*)"
     ]
   }
 }

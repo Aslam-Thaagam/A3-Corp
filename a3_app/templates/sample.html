@@ -337,32 +337,86 @@
 .pm-stat-gold { color: #C9973A; }
 .pm-stat-l-dark { color: #8B6B55; }
 
-/* ── RESTAURANT ── */
+/* ── RESTAURANT (Sara – South Indian) ── */
 .preview-rest {
-    background: linear-gradient(145deg, #2C1810 0%, #3d2015 40%, #F5F0E8 100%);
+    background: linear-gradient(145deg, #1C0A00 0%, #3D1800 50%, #2C1200 100%);
+    position: relative;
 }
-.pm-hero-rest { padding: 10px 12px 6px; flex: 1; }
+.preview-rest::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 30% 50%, rgba(245,158,11,0.08) 0%, transparent 60%),
+                      radial-gradient(circle at 80% 20%, rgba(220,38,38,0.06) 0%, transparent 50%);
+    pointer-events: none;
+}
+.pm-hero-rest { padding: 10px 12px 6px; flex: 1; position: relative; z-index: 1; }
 .pm-eyebrow-rest {
     font-size: 0.48rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-    color: #A78BFA; border: 1px solid rgba(139,92,246,0.35); background: rgba(139,92,246,0.1);
+    color: #FCD34D; border: 1px solid rgba(245,158,11,0.4); background: rgba(245,158,11,0.12);
     display: inline-flex; align-items: center; gap: 4px;
     padding: 2px 8px; border-radius: 999px; margin-bottom: 6px;
 }
-.pm-title-rest {
-    font-family: Georgia, 'Playfair Display', serif;
-    font-size: 1.25rem; line-height: 1.1; font-weight: 700;
-    color: #F5F0E8; margin-bottom: 4px;
+.pm-title-sara {
+    font-family: 'Yatra One', Georgia, serif;
+    font-size: 1.5rem; line-height: 1; font-weight: 700; letter-spacing: 0.04em;
+    color: #F59E0B; margin-bottom: 2px;
+    text-shadow: 0 0 12px rgba(245,158,11,0.5);
 }
-.pm-title-rest em { color: #E8B86D; font-style: italic; }
-.pm-sub-rest { font-size: 0.48rem; color: rgba(245,240,232,0.6); margin-bottom: 8px; }
-.pm-cta-gold {
-    background: linear-gradient(135deg,#8B5CF6,#6D28D9); color: #fff; font-size: 0.46rem; font-weight: 700;
+.pm-subtitle-sara {
+    font-family: Georgia, serif;
+    font-size: 0.55rem; color: rgba(255,251,235,0.7); margin-bottom: 6px; font-style: italic;
+}
+.pm-sub-rest { font-size: 0.48rem; color: rgba(255,251,235,0.5); margin-bottom: 8px; }
+.pm-cta-saffron {
+    background: linear-gradient(135deg, #F59E0B, #D97706); color: #1C0A00; font-size: 0.46rem; font-weight: 800;
     padding: 3px 8px; border-radius: 4px; letter-spacing: 0.06em;
 }
 .pm-cta-dark {
-    background: transparent; color: rgba(245,240,232,0.8); font-size: 0.46rem; font-weight: 600;
-    padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(245,240,232,0.2);
+    background: transparent; color: rgba(255,251,235,0.7); font-size: 0.46rem; font-weight: 600;
+    padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(245,158,11,0.3);
 }
+.pm-spice-row { display: flex; gap: 6px; margin-bottom: 6px; }
+.pm-spice { font-size: 0.65rem; }
+/* ── PET SHOP ── */
+.preview-pet {
+    background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 50%, #BAE6FD 100%);
+    position: relative;
+}
+.preview-pet::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 70% 30%, rgba(14,165,233,0.1) 0%, transparent 60%);
+    pointer-events: none;
+}
+.pm-nav-pet { background: rgba(30,58,95,0.92); }
+.pm-logo-pet { color: #fff; font-family: 'Nunito', Arial, sans-serif; font-weight: 900; }
+.pm-logo-pet span { color: #38BDF8; }
+.pm-hero-pet { padding: 10px 12px 6px; flex: 1; position: relative; z-index: 1; }
+.pm-eyebrow-pet {
+    font-size: 0.48rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #0EA5E9; border: 1px solid rgba(14,165,233,0.4); background: rgba(14,165,233,0.12);
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 999px; margin-bottom: 6px;
+}
+.pm-dot-sky { width: 5px; height: 5px; background: #0EA5E9; border-radius: 50%; box-shadow: 0 0 4px #0EA5E9; }
+.pm-title-pet {
+    font-family: 'Nunito', Arial, sans-serif;
+    font-size: 1.1rem; line-height: 1.1; font-weight: 900;
+    color: #1E3A5F; margin-bottom: 4px;
+}
+.pm-title-pet span { color: #0EA5E9; }
+.pm-sub-pet { font-size: 0.46rem; color: #334E6A; margin-bottom: 8px; }
+.pm-cta-sky {
+    background: #0EA5E9; color: #fff; font-size: 0.46rem; font-weight: 700;
+    padding: 3px 8px; border-radius: 4px; letter-spacing: 0.06em;
+}
+.pm-cta-navy {
+    background: transparent; color: #1E3A5F; font-size: 0.46rem; font-weight: 700;
+    padding: 3px 8px; border-radius: 4px; border: 2px solid #1E3A5F;
+}
+.pm-stats-pet { background: rgba(30,58,95,0.08); border-top: 1px solid rgba(14,165,233,0.2); }
+.pm-stat-sky { color: #0EA5E9; }
+.pm-stat-l-blue { color: #334E6A; }
 
 /* ── PORTFOLIO ── */
 .preview-port {
@@ -474,21 +528,22 @@
                 </div>
             </div>
 
-            <!-- ── RESTAURANT TEMPLATE ── -->
+            <!-- ── RESTAURANT TEMPLATE (Sara – South Indian) ── -->
             <div class="sample-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="sample-card-thumb">
                     <div class="preview-mock preview-rest">
-                        <div class="pm-nav pm-nav-light"><span class="pm-logo pm-logo-rest">Maison<span>Belle</span></span><div class="pm-nav-links"><span></span><span></span><span class="pm-btn-gold"></span></div></div>
+                        <div class="pm-nav"><span class="pm-logo" style="font-family:'Yatra One',Georgia,serif;color:#F59E0B;letter-spacing:0.06em;font-size:0.8rem;">Sara</span><div class="pm-nav-links"><span></span><span></span><span class="pm-btn-gold" style="background:#F59E0B!important;"></span></div></div>
                         <div class="pm-hero-rest">
-                            <div class="pm-eyebrow-rest"><i class="ri-star-line"></i> Est. 2009 · Fine Dining</div>
-                            <div class="pm-title-rest">A Culinary<br><em>Journey</em></div>
-                            <div class="pm-sub-rest">Authentic French-Indian cuisine crafted with passion</div>
-                            <div class="pm-actions"><span class="pm-cta-gold">Reserve a Table</span><span class="pm-cta-dark">Explore Menu</span></div>
+                            <div class="pm-eyebrow-rest">🪔 Authentic South Indian</div>
+                            <div class="pm-spice-row"><span class="pm-spice">🌶️</span><span class="pm-spice">🌿</span><span class="pm-spice">🥘</span></div>
+                            <div class="pm-title-sara">SARA</div>
+                            <div class="pm-subtitle-sara">சுவை மட்டுமல்ல, அன்பும் பரிமாறுகிறோம்</div>
+                            <div class="pm-actions"><span class="pm-cta-saffron">Reserve Table</span><span class="pm-cta-dark">View Menu</span></div>
                         </div>
-                        <div class="pm-stats-row pm-stats-light">
-                            <div class="pm-stat"><div class="pm-stat-n pm-stat-gold">48</div><div class="pm-stat-l pm-stat-l-dark">Dishes</div></div>
-                            <div class="pm-stat"><div class="pm-stat-n pm-stat-gold">15</div><div class="pm-stat-l pm-stat-l-dark">Chefs</div></div>
-                            <div class="pm-stat"><div class="pm-stat-n pm-stat-gold">4.9★</div><div class="pm-stat-l pm-stat-l-dark">Rating</div></div>
+                        <div class="pm-stats-row" style="background:rgba(245,158,11,0.08);border-top:1px solid rgba(245,158,11,0.2);">
+                            <div class="pm-stat"><div class="pm-stat-n" style="color:#F59E0B">6</div><div class="pm-stat-l" style="color:#9A6B4B">Signatures</div></div>
+                            <div class="pm-stat"><div class="pm-stat-n" style="color:#F59E0B">15+</div><div class="pm-stat-l" style="color:#9A6B4B">Chefs</div></div>
+                            <div class="pm-stat"><div class="pm-stat-n" style="color:#F59E0B">4.9★</div><div class="pm-stat-l" style="color:#9A6B4B">Rating</div></div>
                         </div>
                     </div>
                     <div class="sample-card-overlay">
@@ -500,16 +555,16 @@
                 </div>
                 <div class="sample-card-body">
                     <div class="sample-card-category">Food &amp; Dining</div>
-                    <h3 class="sample-card-title">Maison Belle Restaurant</h3>
+                    <h3 class="sample-card-title">Sara — South Indian Restaurant</h3>
                     <p class="sample-card-desc">
-                        An elegant fine-dining website with menu showcase, table reservation form,
-                        and warm ambiance-driven design — built for premium restaurants.
+                        A vibrant South Indian restaurant website with animated hotel name, Tamil branding,
+                        authentic menu, reservation form, and rich cultural animations.
                     </p>
                     <div class="sample-card-tags">
                         <span class="sample-tag">HTML</span>
                         <span class="sample-tag">CSS</span>
-                        <span class="sample-tag">Responsive</span>
-                        <span class="sample-tag">Light Theme</span>
+                        <span class="sample-tag">Animations</span>
+                        <span class="sample-tag">Dark Theme</span>
                     </div>
                     <div class="sample-card-actions">
                         <a href="{% url 'sample_restaurant' %}" target="_blank" class="btn-sample-primary">
@@ -555,6 +610,54 @@
                     </div>
                     <div class="sample-card-actions">
                         <a href="{% url 'sample_portfolio' %}" target="_blank" class="btn-sample-primary">
+                            <i class="ri-external-link-line"></i> View Template
+                        </a>
+                        <a href="{% url 'contact' %}" class="btn-sample-outline" title="Request this template">
+                            <i class="ri-send-plane-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── PET SHOP TEMPLATE ── -->
+            <div class="sample-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="sample-card-thumb">
+                    <div class="preview-mock preview-pet">
+                        <div class="pm-nav pm-nav-pet"><span class="pm-logo pm-logo-pet">🐾 Jazz<span>Pet</span></span><div class="pm-nav-links"><span style="background:rgba(56,189,248,0.3)"></span><span style="background:rgba(56,189,248,0.3)"></span><span class="pm-btn" style="background:#0EA5E9!important;border-radius:3px;width:22px;height:4px;"></span></div></div>
+                        <div class="pm-hero-pet">
+                            <div class="pm-eyebrow-pet"><span class="pm-dot-sky"></span> Chennai's #1 Pet Store</div>
+                            <div class="pm-title-pet">Where Every Pet<br>Finds <span>Jazz &amp; Joy</span></div>
+                            <div class="pm-sub-pet">Adoption · Grooming · Vet Care · Products</div>
+                            <div class="pm-actions"><span class="pm-cta-sky">🐾 Adopt a Pet</span><span class="pm-cta-navy">Book Grooming</span></div>
+                        </div>
+                        <div class="pm-stats-row pm-stats-pet">
+                            <div class="pm-stat"><div class="pm-stat-n pm-stat-sky">1.2K+</div><div class="pm-stat-l pm-stat-l-blue">Adopted</div></div>
+                            <div class="pm-stat"><div class="pm-stat-n pm-stat-sky">50+</div><div class="pm-stat-l pm-stat-l-blue">Vets</div></div>
+                            <div class="pm-stat"><div class="pm-stat-n pm-stat-sky">4.9★</div><div class="pm-stat-l pm-stat-l-blue">Rating</div></div>
+                        </div>
+                    </div>
+                    <div class="sample-card-overlay">
+                        <a href="{% url 'sample_petshop' %}" target="_blank" class="sample-card-preview-btn">
+                            <i class="ri-eye-line"></i> Full Preview
+                        </a>
+                    </div>
+                    <span class="sample-card-badge">New</span>
+                </div>
+                <div class="sample-card-body">
+                    <div class="sample-card-category">Pet &amp; Animals</div>
+                    <h3 class="sample-card-title">Jazz Pet Shop</h3>
+                    <p class="sample-card-desc">
+                        A cheerful white &amp; blue pet shop website with adoption listings, grooming booking,
+                        product shop, vet services, and scroll animations — built for pet businesses.
+                    </p>
+                    <div class="sample-card-tags">
+                        <span class="sample-tag">HTML</span>
+                        <span class="sample-tag">CSS</span>
+                        <span class="sample-tag">Animations</span>
+                        <span class="sample-tag">Light Theme</span>
+                    </div>
+                    <div class="sample-card-actions">
+                        <a href="{% url 'sample_petshop' %}" target="_blank" class="btn-sample-primary">
                             <i class="ri-external-link-line"></i> View Template
                         </a>
                         <a href="{% url 'contact' %}" class="btn-sample-outline" title="Request this template">

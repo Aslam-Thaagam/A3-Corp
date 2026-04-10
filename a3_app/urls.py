@@ -12,6 +12,7 @@ urlpatterns = [
     path('samples/gym/', views.sample_gym, name='sample_gym'),
     path('samples/restaurant/', views.sample_restaurant, name='sample_restaurant'),
     path('samples/portfolio/', views.sample_portfolio, name='sample_portfolio'),
+    path('samples/petshop/', views.sample_petshop, name='sample_petshop'),
 
     # Dashboard
     path('dashboard/', views.dashboard, name='dashboard'),

@@ -263,6 +263,7 @@
             overflow: hidden;
             box-shadow: 0 0 40px rgba(230,57,70,0.15), 0 0 20px rgba(139,92,246,0.1);
         }
+        .hero-visual-inner { animation: pulse-glow 4s ease-in-out infinite; }
         .hero-visual-inner img {
             width: 100%; height: 100%;
             object-fit: cover;
@@ -608,6 +609,27 @@
         .built-by a:hover { color: var(--red); }
         .built-by span { color: var(--red); font-weight: 700; }
 
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeUp   { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes fadeLeft { from{opacity:0;transform:translateX(-36px)} to{opacity:1;transform:translateX(0)} }
+        @keyframes fadeRight{ from{opacity:0;transform:translateX(36px)}  to{opacity:1;transform:translateX(0)} }
+        @keyframes pulse-glow {
+            0%,100% { box-shadow: 0 0 20px rgba(230,57,70,0.2), 0 0 10px rgba(139,92,246,0.1); }
+            50%      { box-shadow: 0 0 40px rgba(230,57,70,0.4), 0 0 20px rgba(139,92,246,0.2); }
+        }
+        @keyframes float-hero {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-12px); }
+        }
+        @keyframes bar-fill { from{width:0} }
+
+        .hero-visual { animation: float-hero 6s ease-in-out infinite; }
+
+        .anim-up   { opacity:0; transform:translateY(40px); transition:opacity 0.7s ease, transform 0.7s ease; }
+        .anim-left { opacity:0; transform:translateX(-36px); transition:opacity 0.7s ease, transform 0.7s ease; }
+        .anim-right{ opacity:0; transform:translateX(36px);  transition:opacity 0.7s ease, transform 0.7s ease; }
+        .anim-up.vis,.anim-left.vis,.anim-right.vis { opacity:1; transform:none; }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
             .hero-visual { display: none; }
@@ -699,37 +721,37 @@
             <p class="section-desc">Every body is different. Our programs are designed by elite athletes and sports scientists to maximize your results.</p>
         </div>
         <div class="programs-grid">
-            <div class="program-card">
+            <div class="program-card anim-up" style="transition-delay:0.05s">
                 <div class="program-icon"><i class="fas fa-dumbbell"></i></div>
                 <h3 class="program-title">Strength Training</h3>
                 <p class="program-desc">Build raw power and muscle mass with our progressive overload strength programs. Guided by certified strength coaches.</p>
                 <div class="program-duration"><i class="far fa-clock"></i> 60 min / session</div>
             </div>
-            <div class="program-card">
+            <div class="program-card anim-up" style="transition-delay:0.1s">
                 <div class="program-icon"><i class="fas fa-fire-flame-curved"></i></div>
                 <h3 class="program-title">HIIT Cardio</h3>
                 <p class="program-desc">High-intensity interval training that burns fat fast while preserving lean muscle. Maximum results in minimum time.</p>
                 <div class="program-duration"><i class="far fa-clock"></i> 45 min / session</div>
             </div>
-            <div class="program-card">
+            <div class="program-card anim-up" style="transition-delay:0.15s">
                 <div class="program-icon"><i class="fas fa-person-running"></i></div>
                 <h3 class="program-title">CrossFit & Functional</h3>
                 <p class="program-desc">Full-body functional movements designed to improve strength, endurance, flexibility, and agility simultaneously.</p>
                 <div class="program-duration"><i class="far fa-clock"></i> 75 min / session</div>
             </div>
-            <div class="program-card">
+            <div class="program-card anim-up" style="transition-delay:0.2s">
                 <div class="program-icon"><i class="fas fa-spa"></i></div>
                 <h3 class="program-title">Yoga & Recovery</h3>
                 <p class="program-desc">Balance your intense workouts with guided yoga sessions that improve flexibility, reduce injury risk, and restore energy.</p>
                 <div class="program-duration"><i class="far fa-clock"></i> 50 min / session</div>
             </div>
-            <div class="program-card">
+            <div class="program-card anim-up" style="transition-delay:0.25s">
                 <div class="program-icon"><i class="fas fa-trophy"></i></div>
                 <h3 class="program-title">Competition Prep</h3>
                 <p class="program-desc">Specialized training for bodybuilders, powerlifters, and athletes preparing for competitions and peak performance events.</p>
                 <div class="program-duration"><i class="far fa-clock"></i> 90 min / session</div>
             </div>
-            <div class="program-card">
+            <div class="program-card anim-up" style="transition-delay:0.3s">
                 <div class="program-icon"><i class="fas fa-user-group"></i></div>
                 <h3 class="program-title">Group Classes</h3>
                 <p class="program-desc">Train alongside motivated peers in high-energy group classes ranging from Zumba and kickboxing to boot camps.</p>
@@ -915,21 +937,66 @@
 <script>
     document.getElementById('gymYear').textContent = new Date().getFullYear();
 
-    // Navbar scroll effect
+    // Navbar scroll
     const nav = document.getElementById('gymNav');
-    window.addEventListener('scroll', () => {
-        nav.classList.toggle('scrolled', window.scrollY > 60);
-    });
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
 
-    // Smooth scroll for anchor links
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', e => {
             const target = document.querySelector(link.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+        });
+    });
+
+    // ── Scroll reveal ──
+    const animEls = document.querySelectorAll('.anim-up, .anim-left, .anim-right');
+    const animObs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); animObs.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    animEls.forEach(el => animObs.observe(el));
+
+    // ── Count-up for hero stats ──
+    function countUp(el, target, suffix) {
+        let n = 0; const step = target / 60;
+        const t = setInterval(() => {
+            n = Math.min(n + step, target);
+            el.textContent = Math.floor(n) + suffix;
+            if (n >= target) clearInterval(t);
+        }, 24);
+    }
+    const statObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                [['5K', '+'], ['40', '+'], ['10', '+']].forEach(([val, suf], i) => {
+                    const nums = document.querySelectorAll('.hero-stat-num');
+                    if (nums[i]) {
+                        const n = parseInt(val.replace('K', '000'));
+                        const display = val.includes('K') ? n => (n >= 1000 ? Math.floor(n/1000)+'K' : n) : n => n;
+                        let c = 0; const step = n / 60;
+                        const ti = setInterval(() => {
+                            c = Math.min(c + step, n);
+                            nums[i].innerHTML = display(Math.floor(c)) + `<span>${suf}</span>`;
+                            if (c >= n) clearInterval(ti);
+                        }, 24);
+                    }
+                });
+                statObs.unobserve(e.target);
             }
         });
+    }, { threshold: 0.5 });
+    const statsRow = document.querySelector('.hero-stats');
+    if (statsRow) statObs.observe(statsRow);
+
+    // ── 3D tilt on program cards ──
+    document.querySelectorAll('.program-card, .pricing-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top)  / r.height - 0.5;
+            card.style.transform = `translateY(-6px) rotateX(${-y * 7}deg) rotateY(${x * 7}deg)`;
+        });
+        card.addEventListener('mouseleave', () => { card.style.transform = ''; });
     });
 </script>
 </body>
