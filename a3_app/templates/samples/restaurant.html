@@ -486,12 +486,45 @@
             .reservation-inner { grid-template-columns:1fr; gap:48px; }
             .rest-footer-inner { grid-template-columns:1fr 1fr; }
         }
+        /* Mobile nav toggle */
+        .nav-toggle {
+            display:none; flex-direction:column; gap:5px;
+            cursor:pointer; background:none; border:none; padding:4px;
+        }
+        .nav-toggle span { display:block; width:24px; height:2px; background:var(--saffron); border-radius:2px; transition:var(--transition); }
+        .mobile-nav {
+            display:none; position:fixed; top:68px; left:0; right:0;
+            background:rgba(28,10,0,0.97); backdrop-filter:blur(14px);
+            border-bottom:1px solid rgba(245,158,11,0.25);
+            padding:16px 0; z-index:999;
+        }
+        .mobile-nav.open { display:block; }
+        .mobile-nav ul { list-style:none; display:flex; flex-direction:column; }
+        .mobile-nav ul li a {
+            display:block; padding:14px 5%; font-size:0.9rem; font-weight:600;
+            color:rgba(255,251,235,0.8); border-bottom:1px solid rgba(245,158,11,0.1);
+            transition:var(--transition);
+        }
+        .mobile-nav ul li a:hover { color:var(--saffron); background:rgba(245,158,11,0.06); }
+        .mobile-nav .nav-book {
+            background:var(--saffron); color:var(--brown) !important; font-weight:800 !important;
+            margin:14px 5% 0; border-radius:999px; text-align:center; border-bottom:none !important;
+        }
         @media (max-width:768px) {
             .nav-links { display:none; }
+            .nav-toggle { display:flex; }
             .menu-grid { grid-template-columns:1fr; }
             .form-row { grid-template-columns:1fr; }
             .rest-footer-inner { grid-template-columns:1fr; gap:32px; }
-            .hero-stats { gap:24px; }
+            .hero-stats { gap:24px; flex-wrap:wrap; }
+            .hero-content { padding:100px 0 60px; }
+            .hero-title { font-size:clamp(2.5rem,12vw,5rem); }
+            .marquee-track { animation-duration:18s; }
+            .menu-section, .story, .reservation { padding:60px 0; }
+        }
+        @media (max-width:480px) {
+            .hero-stat { flex:1; min-width:80px; }
+            .sara-letters { font-size:clamp(3rem,16vw,6rem); }
         }
     </style>
 </head>
@@ -507,8 +540,21 @@
             <li><a href="#reservation">Reservations</a></li>
             <li><a href="#reservation" class="nav-book">Book a Table</a></li>
         </ul>
+        <button class="nav-toggle" id="restNavToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
     </div>
 </nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="restMobileNav">
+    <ul>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#reservation">Reservations</a></li>
+        <li><a href="#reservation" class="nav-book">Book a Table</a></li>
+    </ul>
+</div>
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="home">
@@ -569,7 +615,7 @@
             <!-- RIGHT: Image + dish cards -->
             <div class="hero-right">
                 <div class="hero-img-main">
-                    <img src="/static/Assets/Img/biryani.jpg" alt="Sara Restaurant — Biryani">
+                    <img src="/static/Assets/Img/restaurant/biryani.jpg" alt="Sara Restaurant — Biryani">
                     <div class="hero-img-badge">
                         <span>Chef's Special Today</span>
                         <span class="rating">Chettinad Biryani 🍛</span>
@@ -909,6 +955,12 @@
     // Navbar scroll
     const nav = document.getElementById('restNav');
     window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+    // Mobile nav
+    const restToggle = document.getElementById('restNavToggle');
+    const restMobileNav = document.getElementById('restMobileNav');
+    restToggle.addEventListener('click', () => restMobileNav.classList.toggle('open'));
+    document.querySelectorAll('#restMobileNav a').forEach(a => a.addEventListener('click', () => restMobileNav.classList.remove('open')));
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(link => {

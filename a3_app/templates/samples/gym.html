@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FitForge Gym — Forge Your Best Self</title>
+    <title>JASL Gym — Forge Your Best Self</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -630,19 +630,89 @@
         .anim-right{ opacity:0; transform:translateX(36px);  transition:opacity 0.7s ease, transform 0.7s ease; }
         .anim-up.vis,.anim-left.vis,.anim-right.vis { opacity:1; transform:none; }
 
+        /* ===== HAMBURGER NAV ===== */
+        .nav-toggle {
+            display: none;
+            flex-direction: column; gap: 5px;
+            cursor: pointer; background: none; border: none; padding: 4px;
+        }
+        .nav-toggle span {
+            display: block; width: 24px; height: 2px;
+            background: var(--white); border-radius: 2px;
+            transition: var(--transition);
+        }
+        .mobile-nav {
+            display: none; position: fixed;
+            top: 64px; left: 0; right: 0;
+            background: rgba(13,13,13,0.97);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(230,57,70,0.25);
+            padding: 20px 0; z-index: 999;
+        }
+        .mobile-nav.open { display: block; }
+        .mobile-nav ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
+        .mobile-nav ul li a {
+            display: block; padding: 14px 5%;
+            font-size: 0.9rem; font-weight: 600;
+            letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--gray-light); transition: var(--transition);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .mobile-nav ul li a:hover { color: var(--red); background: rgba(230,57,70,0.06); }
+        .mobile-nav .nav-cta {
+            background: var(--red); color: var(--white) !important;
+            margin: 14px 5% 0; border-radius: var(--radius);
+            text-align: center; border-bottom: none !important;
+        }
+
+        /* ===== WHY VISUAL WITH IMG ===== */
+        .why-visual img { width:100%; height:100%; object-fit:cover; border-radius:20px; }
+
+        /* ===== GALLERY STRIP ===== */
+        .gym-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4px;
+            margin-top: 60px;
+        }
+        .gym-gallery-item { overflow: hidden; height: 220px; position: relative; }
+        .gym-gallery-item img { width:100%; height:100%; object-fit:cover; transition: transform 0.5s ease; }
+        .gym-gallery-item:hover img { transform: scale(1.07); }
+        .gym-gallery-item:first-child { grid-row: span 2; height: 100%; }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
-            .hero-visual { display: none; }
+            .hero-visual { width: 40%; }
+            .hero-visual-inner { width: 300px; height: 380px; }
             .why-inner { grid-template-columns: 1fr; gap: 40px; }
             .gym-footer-inner { grid-template-columns: 1fr 1fr; }
+            .gym-gallery { grid-template-columns: 1fr 1fr; }
+            .gym-gallery-item:first-child { grid-row: span 1; height: 220px; }
         }
         @media (max-width: 768px) {
+            .hero-visual { display: none; }
             .nav-links { display: none; }
+            .nav-toggle { display: flex; }
             .gym-footer-inner { grid-template-columns: 1fr; gap: 36px; }
+            .hero-content { padding: 120px 0 80px; }
+            .hero-actions { flex-direction: column; align-items: flex-start; }
+            .hero-actions a { width: 100%; justify-content: center; }
+            .hero-stats { gap: 24px; }
+            .programs { padding: 70px 0; }
+            .why { padding: 70px 0; }
+            .pricing { padding: 70px 0; }
+            .cta-section { padding: 70px 0; }
         }
         @media (max-width: 576px) {
             .pricing-grid { grid-template-columns: 1fr; }
             .programs-grid { grid-template-columns: 1fr; }
+            .gym-gallery { grid-template-columns: 1fr; }
+            .gym-gallery-item { height: 200px; }
+            .hero-title { font-size: clamp(3rem, 14vw, 5rem); }
+            .hero-stats { flex-wrap: wrap; gap: 18px; }
+            .section-title { font-size: clamp(2rem, 8vw, 3rem); }
+            .cta-actions { flex-direction: column; align-items: center; }
+            .cta-actions a { width: 100%; max-width: 320px; text-align: center; justify-content: center; }
         }
     </style>
 </head>
@@ -651,7 +721,10 @@
 <!-- ===== NAVBAR ===== -->
 <nav class="nav" id="gymNav">
     <div class="container nav-inner">
-        <a href="#" class="nav-logo">FIT<span>FORGE</span></a>
+        <a href="#" class="nav-logo">JAS<span>L</span></a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
         <ul class="nav-links">
             <li><a href="#programs">Programs</a></li>
             <li><a href="#why">Why Us</a></li>
@@ -661,13 +734,23 @@
     </div>
 </nav>
 
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+    <ul>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#why">Why Us</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact" class="nav-cta">Join Now</a></li>
+    </ul>
+</div>
+
 <!-- ===== HERO ===== -->
 <section class="hero" id="home">
     <div class="hero-bg"></div>
     <div class="hero-grid"></div>
     <div class="hero-visual">
         <div class="hero-visual-inner">
-            <img src="/static/Assets/Img/aslam1.jpeg" alt="Elite Trainer">
+            <img src="/static/Assets/Img/gym/gym_hero.jpg" alt="JASL Gym Training">
             <span class="hero-visual-label">TRAIN. FORGE. CONQUER.</span>
         </div>
     </div>
@@ -758,6 +841,18 @@
                 <div class="program-duration"><i class="far fa-clock"></i> 55 min / session</div>
             </div>
         </div>
+        <!-- Gallery -->
+        <div class="gym-gallery">
+            <div class="gym-gallery-item anim-left">
+                <img src="/static/Assets/Img/gym/gym_hero.jpg" alt="JASL Gym Floor">
+            </div>
+            <div class="gym-gallery-item anim-up">
+                <img src="/static/Assets/Img/gym/gym_boxing.jpg" alt="Boxing Training">
+            </div>
+            <div class="gym-gallery-item anim-right">
+                <img src="/static/Assets/Img/gym/gym_weights.jpg" alt="Weight Training">
+            </div>
+        </div>
     </div>
 </section>
 
@@ -766,10 +861,10 @@
     <div class="container">
         <div class="why-inner">
             <div class="why-visual">
-                <i class="fas fa-medal why-visual-icon"></i>
+                <img src="/static/Assets/Img/gym/gym_training.jpg" alt="JASL Training Session">
             </div>
             <div>
-                <div class="section-label">Why FitForge</div>
+                <div class="section-label">Why JASL</div>
                 <h2 class="section-title">More Than a<br><span>Gym</span></h2>
                 <p class="section-desc">
                     We don't just provide equipment. We deliver a transformation system backed by science, community, and elite coaching.
@@ -779,7 +874,7 @@
                         <div class="why-item-icon"><i class="fas fa-star"></i></div>
                         <div>
                             <div class="why-item-title">Elite-Level Coaching</div>
-                            <div class="why-item-desc">Every coach at FitForge holds industry certifications and has competed at national or international level.</div>
+                            <div class="why-item-desc">Every coach at JASL holds industry certifications and has competed at national or international level.</div>
                         </div>
                     </div>
                     <div class="why-item">
@@ -896,7 +991,7 @@
     <div class="container">
         <div class="gym-footer-inner">
             <div class="gym-footer-brand">
-                <span class="nav-logo">FIT<span>FORGE</span></span>
+                <span class="nav-logo">JAS<span>L</span></span>
                 <p>More than a gym — a transformation system. Join thousands of members who have already forged the best version of themselves.</p>
             </div>
             <div>
@@ -920,7 +1015,7 @@
             </div>
         </div>
         <div class="gym-footer-bottom">
-            <p>&copy; <span id="gymYear"></span> FitForge. All rights reserved. Template by <span>A3 Corp</span></p>
+            <p>&copy; <span id="gymYear"></span> JASL. All rights reserved. Template by <span>A3 Corp</span></p>
             <div class="gym-socials">
                 <a href="#" class="gym-social-icon"><i class="fab fa-instagram"></i></a>
                 <a href="#" class="gym-social-icon"><i class="fab fa-youtube"></i></a>
@@ -940,6 +1035,12 @@
     // Navbar scroll
     const nav = document.getElementById('gymNav');
     window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    navToggle.addEventListener('click', () => mobileNav.classList.toggle('open'));
+    document.querySelectorAll('.mobile-nav a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(link => {

@@ -9,7 +9,10 @@
       "Bash(python manage.py migrate)",
       "Bash(python manage.py check)",
       "Bash(pip install:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(mv pet_dog.jpg pet_cat.jpg pet_bird.jpg pet_rabbit.jpg petfood_kibble.jpg petfood_treats.jpg pet_about.jpg petshop/)",
+      "Bash(mv biryani.jpg restaurant/)",
+      "Bash(cp founder.png portfolio/)"
     ]
   }
 }
