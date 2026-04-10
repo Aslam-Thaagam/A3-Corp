@@ -547,17 +547,72 @@
         }
         .footer-social-btn:hover { background:var(--sky); color:var(--white); border-color:var(--sky); }
 
+        /* ===== MOBILE NAV ===== */
+        .nav-toggle {
+            display:none; flex-direction:column; gap:5px;
+            cursor:pointer; background:none; border:none; padding:4px; z-index:101;
+        }
+        .nav-toggle span { display:block; width:26px; height:2.5px; background:var(--navy); border-radius:2px; transition:var(--transition); }
+        .pet-mobile-nav {
+            display:none; position:fixed; top:72px; left:0; right:0;
+            background:rgba(255,250,243,0.98); backdrop-filter:blur(16px);
+            border-bottom:2px solid var(--sky); padding:12px 0; z-index:100;
+            box-shadow:0 8px 32px rgba(2,132,199,0.15);
+        }
+        .pet-mobile-nav.open { display:block; }
+        .pet-mobile-nav a {
+            display:block; padding:13px 6%; font-size:0.92rem; font-weight:700;
+            color:var(--text-mid); border-bottom:1px solid rgba(2,132,199,0.1);
+            transition:var(--transition);
+        }
+        .pet-mobile-nav a:hover { color:var(--sky); background:rgba(2,132,199,0.05); }
+        .pet-mobile-nav .nav-cta {
+            display:block; margin:14px 6% 4px; border-radius:var(--radius-full);
+            text-align:center; border-bottom:none; background:linear-gradient(135deg,var(--sky),var(--navy));
+            color:var(--white) !important;
+        }
+
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
-            .hero-inner { grid-template-columns:1fr; gap:40px; }
+            .hero-inner { grid-template-columns:1fr; gap:0; }
             .hero-right { display:none; }
-            .about-inner, .booking-inner { grid-template-columns:1fr; }
+            .about-inner { grid-template-columns:1fr; gap:50px; }
+            .booking-inner { grid-template-columns:1fr; gap:40px; }
             .footer-inner { grid-template-columns:1fr 1fr; }
+            .services-grid { grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); }
+            .pets-grid { grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display:none; }
+            .nav-toggle { display:flex; }
+            .hero { min-height:auto; padding:100px 0 60px; }
+            .hero-stats { gap:20px; flex-wrap:wrap; }
+            .hero-stat-n { font-size:1.4rem; }
+            .services { padding:60px 0; }
+            .pets-section { padding:60px 0; }
+            .about { padding:60px 0; }
+            .products { padding:60px 0; }
+            .booking { padding:60px 0; }
+            .testimonials { padding:60px 0; }
+            .about-float-badge { right:0; bottom:-12px; }
+            .booking-form { padding:26px 20px; }
+            .strip-item { padding:0 18px; font-size:0.72rem; }
         }
         @media (max-width: 576px) {
-            .hero-stats { flex-wrap:wrap; gap:18px; }
+            .hero-stats { gap:16px; }
             .footer-inner { grid-template-columns:1fr; }
             .form-row { grid-template-columns:1fr; }
+            .services-grid { grid-template-columns:1fr; }
+            .pets-grid { grid-template-columns:1fr; }
+            .products-grid { grid-template-columns:1fr; }
+            .testi-grid { grid-template-columns:1fr; }
+            .hero-title { font-size:clamp(2rem,10vw,3rem); }
+            .hero-desc { font-size:0.95rem; }
+            .btn-primary, .btn-outline { width:100%; justify-content:center; }
+            .hero-actions { flex-direction:column; }
+            .section-title { font-size:clamp(1.6rem,7vw,2.2rem); }
+            .booking-form { padding:22px 16px; }
+            .about-img-box { aspect-ratio:4/3; }
         }
     </style>
 </head>
@@ -575,7 +630,18 @@
         <a href="#about">About</a>
         <a href="#booking" class="nav-cta">Book Now</a>
     </div>
+    <button class="nav-toggle" id="petNavToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
+<!-- Mobile Nav -->
+<div class="pet-mobile-nav" id="petMobileNav">
+    <a href="#services">Services</a>
+    <a href="#pets">Pets</a>
+    <a href="#products">Products</a>
+    <a href="#about">About</a>
+    <a href="#booking" class="nav-cta">Book Now</a>
+</div>
 
 <!-- ===== HERO ===== -->
 <section class="hero">
@@ -1081,6 +1147,12 @@
 </footer>
 
 <script>
+/* ===== MOBILE NAV ===== */
+const petToggle = document.getElementById('petNavToggle');
+const petMobileNav = document.getElementById('petMobileNav');
+petToggle.addEventListener('click', () => petMobileNav.classList.toggle('open'));
+document.querySelectorAll('#petMobileNav a').forEach(a => a.addEventListener('click', () => petMobileNav.classList.remove('open')));
+
 /* ===== SCROLL REVEAL ===== */
 const revealEls = document.querySelectorAll('.anim-up, .anim-left, .anim-right');
 const revealObs = new IntersectionObserver((entries) => {

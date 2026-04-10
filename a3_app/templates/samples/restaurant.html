@@ -480,10 +480,10 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width:992px) {
-            .hero-inner { grid-template-columns:1fr; gap:48px; }
+            .hero-inner { grid-template-columns:1fr; gap:0; }
             .hero-right { display:none; }
-            .story-inner { grid-template-columns:1fr; gap:48px; }
-            .reservation-inner { grid-template-columns:1fr; gap:48px; }
+            .story-inner { grid-template-columns:1fr; gap:40px; }
+            .reservation-inner { grid-template-columns:1fr; gap:40px; }
             .rest-footer-inner { grid-template-columns:1fr 1fr; }
         }
         /* Mobile nav toggle */
@@ -515,16 +515,28 @@
             .nav-toggle { display:flex; }
             .menu-grid { grid-template-columns:1fr; }
             .form-row { grid-template-columns:1fr; }
-            .rest-footer-inner { grid-template-columns:1fr; gap:32px; }
-            .hero-stats { gap:24px; flex-wrap:wrap; }
-            .hero-content { padding:100px 0 60px; }
-            .hero-title { font-size:clamp(2.5rem,12vw,5rem); }
-            .marquee-track { animation-duration:18s; }
-            .menu-section, .story, .reservation { padding:60px 0; }
+            .rest-footer-inner { grid-template-columns:1fr; gap:28px; }
+            .hero-stats { gap:18px; flex-wrap:wrap; }
+            .hero-content { padding:90px 0 50px; }
+            .hero-inner { padding: 0; }
+            .marquee-track { animation-duration:16s; }
+            .menu-section, .story, .reservation { padding:55px 0; }
+            .sara-letters { font-size:clamp(3.5rem,14vw,6rem); }
+            .hero-sub { font-size:0.85rem; }
+            .hero-desc { font-size:0.95rem; }
+            .hero-actions { flex-direction:column; }
+            .hero-actions a { width:100%; text-align:center; justify-content:center; }
+            .menu-card-thumb { height:160px; }
+            .story-img-wrap { height:280px; }
+            .section-title { font-size:clamp(1.7rem,7vw,2.6rem); }
         }
         @media (max-width:480px) {
-            .hero-stat { flex:1; min-width:80px; }
-            .sara-letters { font-size:clamp(3rem,16vw,6rem); }
+            .hero-stat { flex:1; min-width:70px; text-align:center; }
+            .hero-stats { justify-content:space-between; }
+            .sara-letters { font-size:clamp(3rem,15vw,5rem); }
+            .diya-float, .spice-particle { display:none; }
+            .rest-footer-inner { grid-template-columns:1fr; }
+            .reservation-form { padding:22px 16px; }
         }
     </style>
 </head>

@@ -682,37 +682,48 @@
 
         /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
-            .hero-visual { width: 40%; }
-            .hero-visual-inner { width: 300px; height: 380px; }
+            .hero-visual { width: 42%; }
+            .hero-visual-inner { width: min(280px, 90%); height: 360px; }
             .why-inner { grid-template-columns: 1fr; gap: 40px; }
             .gym-footer-inner { grid-template-columns: 1fr 1fr; }
             .gym-gallery { grid-template-columns: 1fr 1fr; }
-            .gym-gallery-item:first-child { grid-row: span 1; height: 220px; }
+            .gym-gallery-item:first-child { grid-row: span 1; height: 200px; }
         }
         @media (max-width: 768px) {
             .hero-visual { display: none; }
             .nav-links { display: none; }
             .nav-toggle { display: flex; }
             .gym-footer-inner { grid-template-columns: 1fr; gap: 36px; }
-            .hero-content { padding: 120px 0 80px; }
-            .hero-actions { flex-direction: column; align-items: flex-start; }
+            .hero-content { padding: 110px 0 70px; }
+            .hero-actions { flex-direction: column; align-items: stretch; }
             .hero-actions a { width: 100%; justify-content: center; }
-            .hero-stats { gap: 24px; }
-            .programs { padding: 70px 0; }
-            .why { padding: 70px 0; }
-            .pricing { padding: 70px 0; }
-            .cta-section { padding: 70px 0; }
+            .hero-stats { gap: 20px; flex-wrap: wrap; }
+            .hero-stat-num { font-size: 2rem; }
+            .programs { padding: 60px 0; }
+            .why { padding: 60px 0; }
+            .pricing { padding: 60px 0; }
+            .cta-section { padding: 60px 0; }
+            .why-visual { height: 280px; }
+            .gym-gallery { margin-top: 40px; }
         }
         @media (max-width: 576px) {
             .pricing-grid { grid-template-columns: 1fr; }
             .programs-grid { grid-template-columns: 1fr; }
             .gym-gallery { grid-template-columns: 1fr; }
-            .gym-gallery-item { height: 200px; }
-            .hero-title { font-size: clamp(3rem, 14vw, 5rem); }
-            .hero-stats { flex-wrap: wrap; gap: 18px; }
-            .section-title { font-size: clamp(2rem, 8vw, 3rem); }
+            .gym-gallery-item { height: 180px; }
+            .hero-title { font-size: clamp(2.8rem, 13vw, 5rem); }
+            .hero-stats { gap: 14px; }
+            .section-title { font-size: clamp(1.8rem, 7vw, 2.8rem); }
             .cta-actions { flex-direction: column; align-items: center; }
             .cta-actions a { width: 100%; max-width: 320px; text-align: center; justify-content: center; }
+            .pricing-card { padding: 28px 20px; }
+            .program-card { padding: 24px 18px; }
+            .pricing-amount { font-size: 2.8rem; }
+            .gym-footer-inner { gap: 28px; }
+        }
+        @media (max-width: 400px) {
+            .hero-title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
+            .hero-badge { font-size: 0.62rem; }
         }
     </style>
 </head>

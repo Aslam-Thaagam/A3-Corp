@@ -132,7 +132,7 @@
         .hero {
             min-height: 100vh;
             display: flex; align-items: center;
-            padding: 140px 0 100px;
+            padding: 130px 0 90px;
             position: relative; overflow: hidden;
         }
         .hero-grid-bg {
@@ -154,7 +154,90 @@
             background: radial-gradient(circle, rgba(249,115,22,0.1), transparent 70%);
             animation: float-orb-r 10s ease-in-out infinite;
         }
-        .hero-content { position: relative; z-index: 2; max-width: 780px; }
+        /* 2-col hero */
+        .hero-inner {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 60px; align-items: center;
+            position: relative; z-index: 2;
+        }
+        .hero-content { position: relative; }
+
+        /* ===== ORBIT SYSTEM ===== */
+        .orbit-wrap {
+            position: relative;
+            width: 460px; height: 460px;
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+        /* avatar */
+        .orbit-avatar {
+            position: absolute;
+            top: 40%; left: 35%;
+            transform: translate(-50%, -50%);
+            width: 140px; height: 140px;
+            border-radius: 50%; overflow: hidden;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--bg-3), var(--bg-3)) padding-box,
+                        linear-gradient(135deg, var(--cyan), var(--orange), var(--cyan)) border-box;
+            box-shadow: 0 0 0 8px rgba(6,182,212,0.08), 0 0 40px rgba(6,182,212,0.25);
+            z-index: 5;
+            animation: float-orb 5s ease-in-out infinite;
+        }
+        .orbit-avatar img { width:100%; height:100%; object-fit:cover; object-position:top center; }
+        /* dashed orbit rings */
+        .orbit-dashed {
+            position: absolute; top:50%; left:50%;
+            border-radius: 50%; border: 1px dashed;
+            transform: translate(-50%, -50%);
+        }
+        .orbit-d1 {
+            width: 288px; height: 288px;
+            border-color: rgba(6,182,212,0.2);
+        }
+        .orbit-d2 {
+            width: 426px; height: 426px;
+            border-color: rgba(249,115,22,0.15);
+        }
+        /* icons */
+        .orbit-icon {
+            position: absolute;
+            top: calc(50% - 22px); left: calc(50% - 22px);
+            width: 44px; height: 44px;
+            background: rgba(12,12,20,0.92);
+            border: 1px solid rgba(6,182,212,0.3);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            padding: 7px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 10px rgba(6,182,212,0.15);
+            z-index: 4; transition: box-shadow 0.3s;
+        }
+        .orbit-icon img { width:100%; height:100%; object-fit:contain; }
+        .orbit-icon:hover { box-shadow: 0 0 20px rgba(6,182,212,0.5); }
+
+        /* ── Inner ring keyframes (clockwise 14s, R=144) ── */
+        @keyframes oi-0   { from{transform:rotate(0deg)    translateX(144px) rotate(0deg)}    to{transform:rotate(360deg)  translateX(144px) rotate(-360deg)} }
+        @keyframes oi-90  { from{transform:rotate(90deg)   translateX(144px) rotate(-90deg)}  to{transform:rotate(450deg)  translateX(144px) rotate(-450deg)} }
+        @keyframes oi-180 { from{transform:rotate(180deg)  translateX(144px) rotate(-180deg)} to{transform:rotate(540deg)  translateX(144px) rotate(-540deg)} }
+        @keyframes oi-270 { from{transform:rotate(270deg)  translateX(144px) rotate(-270deg)} to{transform:rotate(630deg)  translateX(144px) rotate(-630deg)} }
+
+        /* ── Outer ring keyframes (counter-clockwise 22s, R=213) ── */
+        @keyframes oo-0   { from{transform:rotate(0deg)   translateX(213px) rotate(0deg)}   to{transform:rotate(-360deg) translateX(213px) rotate(360deg)} }
+        @keyframes oo-60  { from{transform:rotate(60deg)  translateX(213px) rotate(-60deg)} to{transform:rotate(-300deg) translateX(213px) rotate(300deg)} }
+        @keyframes oo-120 { from{transform:rotate(120deg) translateX(213px) rotate(-120deg)}to{transform:rotate(-240deg) translateX(213px) rotate(240deg)} }
+        @keyframes oo-180 { from{transform:rotate(180deg) translateX(213px) rotate(-180deg)}to{transform:rotate(-180deg) translateX(213px) rotate(180deg)} }
+        @keyframes oo-240 { from{transform:rotate(240deg) translateX(213px) rotate(-240deg)}to{transform:rotate(-120deg) translateX(213px) rotate(120deg)} }
+        @keyframes oo-300 { from{transform:rotate(300deg) translateX(213px) rotate(-300deg)}to{transform:rotate(-60deg)  translateX(213px) rotate(60deg)} }
+
+        .oi-0   { animation: oi-0   14s linear infinite; }
+        .oi-90  { animation: oi-90  14s linear infinite; }
+        .oi-180 { animation: oi-180 14s linear infinite; }
+        .oi-270 { animation: oi-270 14s linear infinite; }
+        .oo-0   { animation: oo-0   22s linear infinite; }
+        .oo-60  { animation: oo-60  22s linear infinite; }
+        .oo-120 { animation: oo-120 22s linear infinite; }
+        .oo-180 { animation: oo-180 22s linear infinite; }
+        .oo-240 { animation: oo-240 22s linear infinite; }
+        .oo-300 { animation: oo-300 22s linear infinite; }
 
         .hero-status {
             display: inline-flex; align-items: center; gap: 8px;
@@ -408,7 +491,23 @@
         .built-by span { color:var(--orange); font-weight:700; }
 
         /* ===== RESPONSIVE ===== */
-        @media (max-width:992px) { .about-inner { grid-template-columns:1fr; gap:40px; } }
+        @media (max-width:992px) {
+            .about-inner { grid-template-columns:1fr; gap:40px; }
+            .hero-inner { grid-template-columns:1fr; gap:40px; }
+            .orbit-wrap { width:360px; height:360px; }
+            .orbit-d1 { width:220px; height:220px; }
+            .orbit-d2 { width:330px; height:330px; }
+            @keyframes oi-0   { from{transform:rotate(0deg) translateX(110px) rotate(0deg)}    to{transform:rotate(360deg) translateX(110px) rotate(-360deg)} }
+            @keyframes oi-90  { from{transform:rotate(90deg) translateX(110px) rotate(-90deg)}  to{transform:rotate(450deg) translateX(110px) rotate(-450deg)} }
+            @keyframes oi-180 { from{transform:rotate(180deg) translateX(110px) rotate(-180deg)} to{transform:rotate(540deg) translateX(110px) rotate(-540deg)} }
+            @keyframes oi-270 { from{transform:rotate(270deg) translateX(110px) rotate(-270deg)} to{transform:rotate(630deg) translateX(110px) rotate(-630deg)} }
+            @keyframes oo-0   { from{transform:rotate(0deg) translateX(165px) rotate(0deg)}    to{transform:rotate(-360deg) translateX(165px) rotate(360deg)} }
+            @keyframes oo-60  { from{transform:rotate(60deg) translateX(165px) rotate(-60deg)}  to{transform:rotate(-300deg) translateX(165px) rotate(300deg)} }
+            @keyframes oo-120 { from{transform:rotate(120deg) translateX(165px) rotate(-120deg)} to{transform:rotate(-240deg) translateX(165px) rotate(240deg)} }
+            @keyframes oo-180 { from{transform:rotate(180deg) translateX(165px) rotate(-180deg)} to{transform:rotate(-180deg) translateX(165px) rotate(180deg)} }
+            @keyframes oo-240 { from{transform:rotate(240deg) translateX(165px) rotate(-240deg)} to{transform:rotate(-120deg) translateX(165px) rotate(120deg)} }
+            @keyframes oo-300 { from{transform:rotate(300deg) translateX(165px) rotate(-300deg)} to{transform:rotate(-60deg) translateX(165px) rotate(60deg)} }
+        }
         @media (max-width:768px) {
             .nav-links { display:none; }
             .nav-toggle { display:flex; }
@@ -420,6 +519,14 @@
             .hero-stats { flex-wrap:wrap; gap:24px; }
             .contact-inner { grid-template-columns:1fr; gap:40px; }
             .footer-inner { grid-template-columns:1fr 1fr; }
+            .orbit-wrap { width:300px; height:300px; }
+            .orbit-avatar { width:110px; height:110px; }
+            .orbit-d1 { width:180px; height:180px; }
+            .orbit-d2 { width:272px; height:272px; }
+            .orbit-icon { width:36px; height:36px; padding:5px; }
+        }
+        @media (max-width:576px) {
+            .orbit-wrap { display:none; }
         }
         @media (max-width:480px) {
             .skills-grid { grid-template-columns:1fr; }
@@ -486,31 +593,76 @@
     <div class="hero-glow-1"></div>
     <div class="hero-glow-2"></div>
     <div class="container">
-        <div class="hero-content">
-            <div class="hero-status">
-                <div class="hero-dot"></div>
-                Available for freelance projects
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-status">
+                    <div class="hero-dot"></div>
+                    Available for freelance projects
+                </div>
+                <h1 class="hero-title">
+                    Hi, I'm <span class="name">Aslam</span>.<br>
+                    I build <span class="role">digital experiences</span><span class="hero-cursor"></span><br>
+                    that matter.
+                </h1>
+                <p class="hero-desc">
+                    Full Stack Developer &amp; UI/UX Designer with 5+ years of experience crafting
+                    scalable web apps, pixel-perfect interfaces, and impactful digital products.
+                </p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn-cyan"><i class="fas fa-folder-open"></i> View My Work</a>
+                    <a href="#contact" class="btn-ghost"><i class="fas fa-paper-plane"></i> Let's Talk</a>
+                </div>
+                <div class="hero-tech">
+                    <span class="hero-tech-label">Stack:</span>
+                    <span class="tech-pill">React</span>
+                    <span class="tech-pill">Django</span>
+                    <span class="tech-pill">Node.js</span>
+                    <span class="tech-pill">TypeScript</span>
+                    <span class="tech-pill">Figma</span>
+                </div>
             </div>
-            <h1 class="hero-title">
-                Hi, I'm <span class="name">Aslam</span>.<br>
-                I build <span class="role">digital experiences</span><span class="hero-cursor"></span><br>
-                that matter.
-            </h1>
-            <p class="hero-desc">
-                Full Stack Developer &amp; UI/UX Designer with 5+ years of experience crafting
-                scalable web apps, pixel-perfect interfaces, and impactful digital products.
-            </p>
-            <div class="hero-actions">
-                <a href="#projects" class="btn-cyan"><i class="fas fa-folder-open"></i> View My Work</a>
-                <a href="#contact" class="btn-ghost"><i class="fas fa-paper-plane"></i> Let's Talk</a>
-            </div>
-            <div class="hero-tech">
-                <span class="hero-tech-label">Stack:</span>
-                <span class="tech-pill">React</span>
-                <span class="tech-pill">Django</span>
-                <span class="tech-pill">Node.js</span>
-                <span class="tech-pill">TypeScript</span>
-                <span class="tech-pill">Figma</span>
+
+            <!-- ===== ORBIT VISUAL ===== -->
+            <div class="orbit-wrap">
+                <!-- Avatar center -->
+                <div class="orbit-avatar">
+                    <img src="/static/Assets/Img/founder.png" alt="Aslam">
+                </div>
+                <!-- Dashed orbit rings -->
+                <div class="orbit-dashed orbit-d1"></div>
+                <div class="orbit-dashed orbit-d2"></div>
+                <!-- Inner ring (R=144px): HTML, CSS, JS, Python -->
+                <div class="orbit-icon oi-0">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML5">
+                </div>
+                <div class="orbit-icon oi-90">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" alt="CSS3">
+                </div>
+                <div class="orbit-icon oi-180">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript">
+                </div>
+                <div class="orbit-icon oi-270">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python">
+                </div>
+                <!-- Outer ring (R=213px): React, Django, Git, Figma, Node.js, TypeScript -->
+                <div class="orbit-icon oo-0">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React">
+                </div>
+                <div class="orbit-icon oo-60">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg" alt="Django">
+                </div>
+                <div class="orbit-icon oo-120">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git">
+                </div>
+                <div class="orbit-icon oo-180">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" alt="Figma">
+                </div>
+                <div class="orbit-icon oo-240">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js">
+                </div>
+                <div class="orbit-icon oo-300">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript">
+                </div>
             </div>
         </div>
     </div>

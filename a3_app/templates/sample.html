@@ -121,7 +121,10 @@
     transition: transform 0.5s ease;
 }
 .sample-card:hover .preview-img {
-    transform: scale(1.04);
+    transform: scale(1.06);
+}
+.sample-card:hover [style*="object-fit:cover"] {
+    transform: scale(1.06);
 }
 .sample-card-overlay {
     position: absolute;
@@ -483,18 +486,15 @@
             <!-- ── GYM TEMPLATE ── -->
             <div class="sample-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="sample-card-thumb">
-                    <div class="preview-mock preview-gym">
-                        <div class="pm-nav"><span class="pm-logo">JAS<span>L</span></span><div class="pm-nav-links"><span></span><span></span><span class="pm-btn-red"></span></div></div>
-                        <div class="pm-hero-gym">
-                            <div class="pm-eyebrow"><i class="ri-fire-line"></i> Premium Fitness</div>
-                            <div class="pm-title">FORGE<br><span>YOUR BEST</span></div>
-                            <div class="pm-sub">World-class equipment &amp; elite coaching</div>
-                            <div class="pm-actions"><span class="pm-cta-red">Start Today</span><span class="pm-cta-ghost">Programs</span></div>
-                        </div>
-                        <div class="pm-stats-row">
-                            <div class="pm-stat"><div class="pm-stat-n">5K+</div><div class="pm-stat-l">Members</div></div>
-                            <div class="pm-stat"><div class="pm-stat-n">40+</div><div class="pm-stat-l">Coaches</div></div>
-                            <div class="pm-stat"><div class="pm-stat-n">10+</div><div class="pm-stat-l">Years</div></div>
+                    <div style="position:relative;height:220px;overflow:hidden;background:#0D0D0D;">
+                        <img src="{% static 'Assets/Img/gym/gym_hero.jpg' %}" alt="JASL Gym" class="preview-img" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 0.5s ease;">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(13,13,13,0.75) 0%,rgba(230,57,70,0.35) 100%);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:18px;">
+                            <div style="font-family:'Bebas Neue','Impact',sans-serif;font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:0.08em;line-height:1;margin-bottom:4px;">JAS<span style="color:#E63946">L</span></div>
+                            <div style="font-size:0.65rem;color:rgba(255,255,255,0.75);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;">Forge Your Best Self</div>
+                            <div style="display:flex;gap:8px;">
+                                <span style="background:#E63946;color:#fff;font-size:0.58rem;font-weight:700;padding:4px 10px;border-radius:4px;">Start Today</span>
+                                <span style="background:rgba(255,255,255,0.12);color:#fff;font-size:0.58rem;font-weight:600;padding:4px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.25);">Programs</span>
+                            </div>
                         </div>
                     </div>
                     <div class="sample-card-overlay">
@@ -531,19 +531,15 @@
             <!-- ── RESTAURANT TEMPLATE (Sara – South Indian) ── -->
             <div class="sample-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="sample-card-thumb">
-                    <div class="preview-mock preview-rest">
-                        <div class="pm-nav"><span class="pm-logo" style="font-family:'Yatra One',Georgia,serif;color:#F59E0B;letter-spacing:0.06em;font-size:0.8rem;">Sara</span><div class="pm-nav-links"><span></span><span></span><span class="pm-btn-gold" style="background:#F59E0B!important;"></span></div></div>
-                        <div class="pm-hero-rest">
-                            <div class="pm-eyebrow-rest">🪔 Authentic South Indian</div>
-                            <div class="pm-spice-row"><span class="pm-spice">🌶️</span><span class="pm-spice">🌿</span><span class="pm-spice">🥘</span></div>
-                            <div class="pm-title-sara">SARA</div>
-                            <div class="pm-subtitle-sara">சுவை மட்டுமல்ல, அன்பும் பரிமாறுகிறோம்</div>
-                            <div class="pm-actions"><span class="pm-cta-saffron">Reserve Table</span><span class="pm-cta-dark">View Menu</span></div>
-                        </div>
-                        <div class="pm-stats-row" style="background:rgba(245,158,11,0.08);border-top:1px solid rgba(245,158,11,0.2);">
-                            <div class="pm-stat"><div class="pm-stat-n" style="color:#F59E0B">6</div><div class="pm-stat-l" style="color:#9A6B4B">Signatures</div></div>
-                            <div class="pm-stat"><div class="pm-stat-n" style="color:#F59E0B">15+</div><div class="pm-stat-l" style="color:#9A6B4B">Chefs</div></div>
-                            <div class="pm-stat"><div class="pm-stat-n" style="color:#F59E0B">4.9★</div><div class="pm-stat-l" style="color:#9A6B4B">Rating</div></div>
+                    <div style="position:relative;height:220px;overflow:hidden;background:#1C0A00;">
+                        <img src="{% static 'Assets/Img/restaurant/biryani.jpg' %}" alt="Sara Restaurant" class="preview-img" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform 0.5s ease;">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(28,10,0,0.78) 0%,rgba(245,158,11,0.35) 100%);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:18px;">
+                            <div style="font-family:'Yatra One','Georgia',serif;font-size:1.5rem;color:#F59E0B;letter-spacing:0.06em;line-height:1;margin-bottom:4px;text-shadow:0 0 12px rgba(245,158,11,0.5);">SARA</div>
+                            <div style="font-size:0.62rem;color:rgba(255,251,235,0.75);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;">🪔 Authentic South Indian</div>
+                            <div style="display:flex;gap:8px;">
+                                <span style="background:#F59E0B;color:#1C0A00;font-size:0.58rem;font-weight:800;padding:4px 10px;border-radius:999px;">Reserve Table</span>
+                                <span style="background:rgba(255,255,255,0.1);color:rgba(255,251,235,0.8);font-size:0.58rem;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid rgba(245,158,11,0.3);">View Menu</span>
+                            </div>
                         </div>
                     </div>
                     <div class="sample-card-overlay">
@@ -622,18 +618,16 @@
             <!-- ── PET SHOP TEMPLATE ── -->
             <div class="sample-card" data-aos="fade-up" data-aos-delay="400">
                 <div class="sample-card-thumb">
-                    <div class="preview-mock preview-pet">
-                        <div class="pm-nav pm-nav-pet"><span class="pm-logo pm-logo-pet">🐾 Jazz<span>Pet</span></span><div class="pm-nav-links"><span style="background:rgba(56,189,248,0.3)"></span><span style="background:rgba(56,189,248,0.3)"></span><span class="pm-btn" style="background:#0EA5E9!important;border-radius:3px;width:22px;height:4px;"></span></div></div>
-                        <div class="pm-hero-pet">
-                            <div class="pm-eyebrow-pet"><span class="pm-dot-sky"></span> Chennai's #1 Pet Store</div>
-                            <div class="pm-title-pet">Where Every Pet<br>Finds <span>Jazz &amp; Joy</span></div>
-                            <div class="pm-sub-pet">Adoption · Grooming · Vet Care · Products</div>
-                            <div class="pm-actions"><span class="pm-cta-sky">🐾 Adopt a Pet</span><span class="pm-cta-navy">Book Grooming</span></div>
-                        </div>
-                        <div class="pm-stats-row pm-stats-pet">
-                            <div class="pm-stat"><div class="pm-stat-n pm-stat-sky">1.2K+</div><div class="pm-stat-l pm-stat-l-blue">Adopted</div></div>
-                            <div class="pm-stat"><div class="pm-stat-n pm-stat-sky">50+</div><div class="pm-stat-l pm-stat-l-blue">Vets</div></div>
-                            <div class="pm-stat"><div class="pm-stat-n pm-stat-sky">4.9★</div><div class="pm-stat-l pm-stat-l-blue">Rating</div></div>
+                    <!-- Real image preview with blue overlay -->
+                    <div style="position:relative;height:220px;overflow:hidden;background:#0F2A4A;">
+                        <img src="{% static 'Assets/Img/petshop/pet_dog.jpg' %}" alt="Jazz Pet Shop" class="preview-img" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform 0.5s ease;">
+                        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,42,74,0.72) 0%,rgba(2,132,199,0.45) 100%);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:18px;">
+                            <div style="font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:900;color:#fff;margin-bottom:4px;letter-spacing:0.04em;">🐾 Jazz<span style="color:#38BDF8">Pet</span>Shop</div>
+                            <div style="font-size:0.7rem;color:rgba(186,230,253,0.85);font-weight:600;letter-spacing:0.1em;text-transform:uppercase;">Adoption · Grooming · Vet Care</div>
+                            <div style="margin-top:10px;display:flex;gap:8px;">
+                                <span style="background:#0EA5E9;color:#fff;font-size:0.58rem;font-weight:700;padding:4px 10px;border-radius:999px;">Adopt a Pet</span>
+                                <span style="background:rgba(255,255,255,0.15);color:#fff;font-size:0.58rem;font-weight:600;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,0.3);">Book Grooming</span>
+                            </div>
                         </div>
                     </div>
                     <div class="sample-card-overlay">
