@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison Belle — Fine Dining Experience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --cream:      #F5F0E8;
+            --cream-dark: #EDE6D6;
+            --warm:       #2C1810;
+            --warm-mid:   #4A2E1A;
+            --gold:       #C9973A;
+            --gold-light: #E8B86D;
+            --gold-pale:  rgba(201,151,58,0.12);
+            --violet:     #8B5CF6;
+            --violet-lt:  #A78BFA;
+            --violet-pale:rgba(139,92,246,0.08);
+            --white:      #FFFFFF;
+            --text:       #1A0F08;
+            --text-mid:   #5C3D2E;
+            --text-light: #8B6B55;
+            --border:     rgba(201,151,58,0.2);
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-body:  'Inter', sans-serif;
+            --radius:     8px;
+            --transition: all 0.35s ease;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--cream); color: var(--text); overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .section-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--violet);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .section-eyebrow::before, .section-eyebrow::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--violet), var(--gold));
+            opacity: 0.5;
+            max-width: 40px;
+        }
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            font-weight: 600;
+            line-height: 1.1;
+            color: var(--warm);
+            margin-bottom: 18px;
+        }
+        .section-title em { font-style: italic; color: var(--gold); }
+        .section-desc {
+            color: var(--text-mid);
+            font-size: 1rem;
+            line-height: 1.8;
+            max-width: 540px;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gold);
+            color: var(--white);
+            padding: 14px 34px;
+            border-radius: var(--radius);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-primary:hover { background: var(--warm); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(201,151,58,0.3); }
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: var(--warm);
+            padding: 13px 32px;
+            border-radius: var(--radius);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1.5px solid var(--warm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-outline:hover { background: var(--warm); color: var(--white); }
+
+        /* ===== NAVBAR ===== */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 22px 0;
+            transition: var(--transition);
+        }
+        .nav.scrolled {
+            background: rgba(245,240,232,0.96);
+            backdrop-filter: blur(12px);
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(44,24,16,0.08);
+        }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--warm);
+            letter-spacing: 0.04em;
+        }
+        .nav-logo span { color: var(--gold); font-style: italic; }
+        .nav-links { display: flex; list-style: none; gap: 36px; align-items: center; }
+        .nav-links a {
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-reserve {
+            background: var(--gold);
+            color: var(--white) !important;
+            padding: 10px 22px;
+            border-radius: var(--radius);
+        }
+        .nav-reserve:hover { background: var(--warm) !important; }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--warm);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(201,151,58,0.06) 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
+        }
+        .hero-glow {
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(201,151,58,0.15) 0%, transparent 70%);
+        }
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            padding: 140px 0 100px;
+            position: relative; z-index: 2;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(139,92,246,0.4);
+            background: rgba(139,92,246,0.1);
+            color: var(--violet-lt);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 7px 18px;
+            border-radius: 999px;
+            margin-bottom: 26px;
+        }
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--cream);
+            margin-bottom: 24px;
+        }
+        .hero-title em { font-style: italic; color: var(--gold-light); }
+        .hero-desc {
+            color: rgba(245,240,232,0.65);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 420px;
+        }
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
+        .hero-btn-gold {
+            background: var(--gold);
+            color: var(--white);
+            padding: 15px 36px;
+            border-radius: var(--radius);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .hero-btn-gold:hover { background: #b5872d; transform: translateY(-3px); box-shadow: 0 10px 30px rgba(201,151,58,0.4); }
+        .hero-btn-ghost {
+            background: transparent;
+            color: var(--cream);
+            padding: 14px 34px;
+            border-radius: var(--radius);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1.5px solid rgba(245,240,232,0.3);
+            transition: var(--transition);
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .hero-btn-ghost:hover { border-color: var(--cream); background: rgba(245,240,232,0.08); }
+        .hero-info { display: flex; gap: 36px; }
+        .hero-info-item { }
+        .hero-info-num {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            line-height: 1;
+        }
+        .hero-info-label { font-size: 0.72rem; color: rgba(245,240,232,0.5); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+        .hero-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .hero-visual-main {
+            background: linear-gradient(145deg, rgba(201,151,58,0.08), rgba(44,24,16,0.5));
+            border: 1px solid rgba(201,151,58,0.2);
+            border-radius: 20px;
+            height: 320px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-visual-main::before {
+            content: '';
+            position: absolute;
+            bottom: -40px; right: -40px;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle, rgba(201,151,58,0.15), transparent 70%);
+        }
+        .hero-visual-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .hero-visual-card {
+            background: rgba(201,151,58,0.08);
+            border: 1px solid rgba(201,151,58,0.15);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+        }
+        .hero-visual-card i { font-size: 1.8rem; color: var(--gold); margin-bottom: 8px; }
+        .hero-visual-card p { font-size: 0.78rem; color: rgba(245,240,232,0.6); letter-spacing: 0.06em; }
+
+        /* ===== MENU ===== */
+        .menu { padding: 110px 0; background: var(--cream); }
+        .menu-header { text-align: center; margin-bottom: 64px; }
+        .menu-header .section-desc { margin: 0 auto; }
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+        .menu-tab {
+            padding: 9px 24px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: 1.5px solid var(--border);
+            color: var(--text-mid);
+            background: transparent;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .menu-tab.active, .menu-tab:hover {
+            background: var(--violet);
+            border-color: var(--violet);
+            color: var(--white);
+            box-shadow: 0 4px 16px rgba(139,92,246,0.3);
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+        }
+        .menu-item {
+            display: flex;
+            gap: 20px;
+            padding: 24px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+        .menu-item:hover {
+            border-color: var(--violet);
+            box-shadow: 0 10px 30px rgba(139,92,246,0.12), 0 0 8px rgba(201,151,58,0.08);
+            transform: translateY(-4px);
+        }
+        .menu-item-img {
+            width: 80px; height: 80px; flex-shrink: 0;
+            background: var(--gold-pale);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.2rem;
+        }
+        .menu-item-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+        .menu-item-name {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--warm);
+            margin-bottom: 6px;
+        }
+        .menu-item-desc { font-size: 0.83rem; color: var(--text-light); line-height: 1.6; margin-bottom: 12px; }
+        .menu-item-footer { display: flex; align-items: center; justify-content: space-between; }
+        .menu-item-price {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .menu-item-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: rgba(201,151,58,0.1);
+            color: var(--gold);
+            padding: 3px 10px;
+            border-radius: 999px;
+        }
+
+        /* ===== EXPERIENCE ===== */
+        .experience { padding: 110px 0; background: var(--cream-dark); }
+        .experience-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .experience-visual {
+            border-radius: 24px;
+            height: 460px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(44,24,16,0.35), 0 0 20px rgba(139,92,246,0.1);
+            border: 1px solid rgba(201,151,58,0.2);
+        }
+        .experience-visual-img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+        }
+        .experience-visual::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(to bottom,
+                rgba(44,24,16,0.1) 30%,
+                rgba(44,24,16,0.7) 100%);
+        }
+        .experience-visual-icon { display: none; }
+        .experience-quote {
+            position: absolute;
+            bottom: 32px; left: 28px; right: 28px;
+            background: rgba(201,151,58,0.12);
+            border: 1px solid rgba(201,151,58,0.2);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .experience-quote p {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--cream);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .experience-quote span { font-size: 0.75rem; color: var(--gold-light); letter-spacing: 0.08em; }
+        .experience-list { display: flex; flex-direction: column; gap: 28px; margin-top: 36px; }
+        .experience-item { display: flex; gap: 18px; }
+        .experience-icon {
+            width: 48px; height: 48px; flex-shrink: 0;
+            background: var(--violet-pale);
+            border: 1px solid rgba(139,92,246,0.2);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; color: var(--violet);
+        }
+        .experience-item:nth-child(odd) .experience-icon {
+            background: var(--gold-pale);
+            border-color: var(--border);
+            color: var(--gold);
+        }
+        .experience-item-title { font-weight: 700; font-size: 1rem; color: var(--warm); margin-bottom: 5px; }
+        .experience-item-desc { font-size: 0.87rem; color: var(--text-mid); line-height: 1.65; }
+
+        /* ===== RESERVATION ===== */
+        .reservation { padding: 110px 0; background: var(--warm); position: relative; overflow: hidden; }
+        .reservation::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%; transform: translate(-50%,-50%);
+            width: 700px; height: 700px;
+            background: radial-gradient(circle, rgba(201,151,58,0.1), transparent 70%);
+        }
+        .reservation-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+            position: relative; z-index: 2;
+        }
+        .reservation h2 { color: var(--cream); }
+        .reservation .section-desc { color: rgba(245,240,232,0.65); }
+        .reservation-details { display: flex; flex-direction: column; gap: 18px; margin-top: 36px; }
+        .res-detail { display: flex; gap: 14px; }
+        .res-detail-icon { font-size: 1.1rem; color: var(--gold-light); margin-top: 2px; }
+        .res-detail-text strong { display: block; color: var(--cream); font-size: 0.9rem; margin-bottom: 3px; }
+        .res-detail-text span { color: rgba(245,240,232,0.55); font-size: 0.84rem; }
+        .res-form {
+            background: rgba(245,240,232,0.06);
+            border: 1px solid rgba(201,151,58,0.2);
+            border-radius: 20px;
+            padding: 40px 36px;
+        }
+        .res-form h3 {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            color: var(--cream);
+            margin-bottom: 28px;
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.6);
+            margin-bottom: 8px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            background: rgba(245,240,232,0.06);
+            border: 1px solid rgba(201,151,58,0.2);
+            border-radius: var(--radius);
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            color: var(--cream);
+            font-family: var(--font-body);
+            transition: var(--transition);
+            outline: none;
+        }
+        .form-group input::placeholder { color: rgba(245,240,232,0.3); }
+        .form-group input:focus, .form-group select:focus { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(139,92,246,0.15); }
+        .form-group select option { background: var(--warm); color: var(--cream); }
+        .btn-reserve {
+            width: 100%;
+            background: linear-gradient(135deg, var(--violet), #6D28D9);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 8px;
+        }
+        .btn-reserve:hover { background: linear-gradient(135deg, #6D28D9, var(--violet)); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,92,246,0.4); }
+
+        /* ===== FOOTER ===== */
+        .rest-footer { background: #1A0D06; padding: 60px 0 28px; }
+        .rest-footer-inner {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        .rest-footer .nav-logo { font-size: 1.8rem; display: block; margin-bottom: 14px; color: var(--cream); }
+        .rest-footer .nav-logo span { color: var(--gold); }
+        .rest-footer-brand p { color: rgba(245,240,232,0.45); font-size: 0.86rem; line-height: 1.75; max-width: 260px; }
+        .rest-footer-heading { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+        .rest-footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .rest-footer-links a { color: rgba(245,240,232,0.45); font-size: 0.85rem; transition: var(--transition); }
+        .rest-footer-links a:hover { color: var(--gold); }
+        .rest-footer-bottom {
+            border-top: 1px solid rgba(201,151,58,0.12);
+            padding-top: 26px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+        }
+        .rest-footer-bottom p { color: rgba(245,240,232,0.35); font-size: 0.78rem; }
+        .rest-footer-bottom span { color: var(--gold); }
+        .rest-socials { display: flex; gap: 10px; }
+        .rest-social { width: 34px; height: 34px; border: 1px solid rgba(201,151,58,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: rgba(245,240,232,0.4); font-size: 0.85rem; transition: var(--transition); }
+        .rest-social:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* Built by */
+        .built-by { text-align: center; padding: 14px 0 24px; background: #1A0D06; }
+        .built-by a { font-size: 0.76rem; color: rgba(245,240,232,0.3); letter-spacing: 0.05em; transition: var(--transition); }
+        .built-by a:hover { color: var(--gold); }
+        .built-by span { color: var(--gold); font-weight: 700; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+            .hero-visual { display: none; }
+            .experience-inner { grid-template-columns: 1fr; gap: 40px; }
+            .reservation-inner { grid-template-columns: 1fr; gap: 48px; }
+            .rest-footer-inner { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .rest-footer-inner { grid-template-columns: 1fr; gap: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="nav" id="restNav">
+    <div class="container nav-inner">
+        <a href="#" class="nav-logo">Maison<span>Belle</span></a>
+        <ul class="nav-links">
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#reservation">Reservations</a></li>
+            <li><a href="#reservation" class="nav-reserve">Book a Table</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+    <div class="hero-pattern"></div>
+    <div class="hero-glow"></div>
+    <div class="container">
+        <div class="hero-inner">
+            <div>
+                <div class="hero-badge"><i class="fas fa-star"></i> Est. 2009 · Fine Dining</div>
+                <h1 class="hero-title">
+                    A Culinary<br>
+                    <em>Journey</em> Like<br>
+                    No Other
+                </h1>
+                <p class="hero-desc">
+                    Where every dish tells a story. Maison Belle brings you authentic French-Indian cuisine
+                    crafted with seasonal ingredients and passion.
+                </p>
+                <div class="hero-actions">
+                    <a href="#reservation" class="hero-btn-gold"><i class="fas fa-calendar-check"></i> Reserve a Table</a>
+                    <a href="#menu" class="hero-btn-ghost"><i class="fas fa-utensils"></i> Explore Menu</a>
+                </div>
+                <div class="hero-info">
+                    <div class="hero-info-item">
+                        <div class="hero-info-num">48</div>
+                        <div class="hero-info-label">Signature Dishes</div>
+                    </div>
+                    <div class="hero-info-item">
+                        <div class="hero-info-num">15</div>
+                        <div class="hero-info-label">Expert Chefs</div>
+                    </div>
+                    <div class="hero-info-item">
+                        <div class="hero-info-num">4.9★</div>
+                        <div class="hero-info-label">Guest Rating</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-visual-main">🍽️</div>
+                <div class="hero-visual-row">
+                    <div class="hero-visual-card">
+                        <i class="fas fa-wine-glass-alt"></i>
+                        <p>Fine Wines</p>
+                    </div>
+                    <div class="hero-visual-card">
+                        <i class="fas fa-leaf"></i>
+                        <p>Farm Fresh</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== MENU ===== -->
+<section class="menu" id="menu">
+    <div class="container">
+        <div class="menu-header">
+            <div class="section-eyebrow">Our Menu</div>
+            <h2 class="section-title">Crafted with <em>Passion</em></h2>
+            <p class="section-desc">Every dish is a masterpiece — seasonal ingredients, classical techniques, and a modern soul.</p>
+        </div>
+        <div class="menu-tabs">
+            <button class="menu-tab active">Starters</button>
+            <button class="menu-tab">Mains</button>
+            <button class="menu-tab">Desserts</button>
+            <button class="menu-tab">Beverages</button>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <div class="menu-item-img">🥗</div>
+                <div>
+                    <div class="menu-item-label">Vegetarian</div>
+                    <div class="menu-item-name">Garden Harvest Salad</div>
+                    <div class="menu-item-desc">Fresh seasonal greens, roasted cherry tomatoes, shaved Parmesan, house vinaigrette.</div>
+                    <div class="menu-item-footer">
+                        <span class="menu-item-price">₹485</span>
+                        <span class="menu-item-badge">Chef's Pick</span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-img">🦐</div>
+                <div>
+                    <div class="menu-item-label">Seafood</div>
+                    <div class="menu-item-name">Prawn Bisque</div>
+                    <div class="menu-item-desc">Creamy tiger prawn bisque with saffron cream, toasted brioche croutons.</div>
+                    <div class="menu-item-footer">
+                        <span class="menu-item-price">₹795</span>
+                        <span class="menu-item-badge">Signature</span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-img">🥩</div>
+                <div>
+                    <div class="menu-item-label">Meat</div>
+                    <div class="menu-item-name">Lamb Croquettes</div>
+                    <div class="menu-item-desc">Slow-braised lamb encased in golden breadcrumbs, served with mint aioli.</div>
+                    <div class="menu-item-footer">
+                        <span class="menu-item-price">₹925</span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-img">🧀</div>
+                <div>
+                    <div class="menu-item-label">Vegetarian</div>
+                    <div class="menu-item-name">Truffle Arancini</div>
+                    <div class="menu-item-desc">Crispy risotto balls with black truffle, fontina cheese, roasted tomato dip.</div>
+                    <div class="menu-item-footer">
+                        <span class="menu-item-price">₹685</span>
+                        <span class="menu-item-badge">Popular</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:44px;">
+            <a href="#reservation" class="btn-primary"><i class="fas fa-book-open"></i> View Full Menu</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== EXPERIENCE ===== -->
+<section class="experience" id="experience">
+    <div class="container">
+        <div class="experience-inner">
+            <div class="experience-visual">
+                <img src="/static/Assets/Img/aslam1.jpeg" alt="Fine Dining Experience" class="experience-visual-img">
+                <div class="experience-quote" style="z-index:2; position:absolute; bottom:32px; left:28px; right:28px;">
+                    <p>"Dining at Maison Belle is not just a meal — it's a memory you carry forever."</p>
+                    <span>— Gourmet India Magazine, 2024</span>
+                </div>
+            </div>
+            <div>
+                <div class="section-eyebrow">Why Maison Belle</div>
+                <h2 class="section-title">An <em>Unforgettable</em><br>Experience</h2>
+                <p class="section-desc">We believe dining is theatre. Every detail — from the candlelight to the last spoonful — is choreographed for you.</p>
+                <div class="experience-list">
+                    <div class="experience-item">
+                        <div class="experience-icon"><i class="fas fa-hat-chef"></i></div>
+                        <div>
+                            <div class="experience-item-title">Michelin-Trained Chefs</div>
+                            <div class="experience-item-desc">Our culinary team trained in Paris, Lyon, and Mumbai — bringing world-class technique to every plate.</div>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <div class="experience-icon"><i class="fas fa-seedling"></i></div>
+                        <div>
+                            <div class="experience-item-title">Farm-to-Table Ingredients</div>
+                            <div class="experience-item-desc">We source directly from certified farms within 150 km, ensuring freshness, sustainability, and flavour.</div>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <div class="experience-icon"><i class="fas fa-music"></i></div>
+                        <div>
+                            <div class="experience-item-title">Curated Ambience</div>
+                            <div class="experience-item-desc">Live jazz on weekends, mood lighting, and elegant interiors — designed to make every occasion extraordinary.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== RESERVATION ===== -->
+<section class="reservation" id="reservation">
+    <div class="container">
+        <div class="reservation-inner">
+            <div>
+                <div class="section-eyebrow" style="color:var(--gold-light);">Reservations</div>
+                <h2 class="section-title">Reserve Your<br><em>Evening</em></h2>
+                <p class="section-desc">Secure your table for an unforgettable evening. We recommend booking at least 3 days in advance for weekend slots.</p>
+                <div class="reservation-details">
+                    <div class="res-detail">
+                        <div class="res-detail-icon"><i class="fas fa-clock"></i></div>
+                        <div class="res-detail-text">
+                            <strong>Opening Hours</strong>
+                            <span>Lunch: 12:00 PM – 3:00 PM &nbsp;|&nbsp; Dinner: 7:00 PM – 11:00 PM</span>
+                        </div>
+                    </div>
+                    <div class="res-detail">
+                        <div class="res-detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="res-detail-text">
+                            <strong>Location</strong>
+                            <span>42, Napean Sea Road, Mumbai, Maharashtra 400006</span>
+                        </div>
+                    </div>
+                    <div class="res-detail">
+                        <div class="res-detail-icon"><i class="fas fa-phone"></i></div>
+                        <div class="res-detail-text">
+                            <strong>Telephone</strong>
+                            <span>+91 22 4567 8900</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="res-form">
+                <h3>Book a Table</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" placeholder="Arjun">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" placeholder="Mehta">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date">
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <select>
+                            <option>12:00 PM</option>
+                            <option>1:00 PM</option>
+                            <option>7:00 PM</option>
+                            <option>8:00 PM</option>
+                            <option>9:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Guests</label>
+                        <select>
+                            <option>1 Guest</option>
+                            <option>2 Guests</option>
+                            <option>3 Guests</option>
+                            <option>4 Guests</option>
+                            <option>5+ Guests</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Occasion</label>
+                        <select>
+                            <option>Casual Dining</option>
+                            <option>Anniversary</option>
+                            <option>Birthday</option>
+                            <option>Business</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-reserve"><i class="fas fa-calendar-check"></i> &nbsp;Confirm Reservation</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="rest-footer">
+    <div class="container">
+        <div class="rest-footer-inner">
+            <div class="rest-footer-brand">
+                <span class="nav-logo">Maison<span>Belle</span></span>
+                <p>Where culinary artistry meets warm hospitality. Join us for an evening you'll never forget.</p>
+            </div>
+            <div>
+                <h4 class="rest-footer-heading">Navigate</h4>
+                <ul class="rest-footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#reservation">Reservations</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="rest-footer-heading">Hours</h4>
+                <ul class="rest-footer-links">
+                    <li><a href="#">Mon – Fri: 12–11 PM</a></li>
+                    <li><a href="#">Sat: 11 AM – 11 PM</a></li>
+                    <li><a href="#">Sun: 11 AM – 10 PM</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="rest-footer-heading">Contact</h4>
+                <ul class="rest-footer-links">
+                    <li><a href="#">Mumbai, MH 400006</a></li>
+                    <li><a href="tel:+912245678900">+91 22 4567 8900</a></li>
+                    <li><a href="mailto:hello@maisonbelle.in">hello@maisonbelle.in</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="rest-footer-bottom">
+            <p>&copy; <span id="restYear"></span> Maison Belle. Template by <span>A3 Corp</span></p>
+            <div class="rest-socials">
+                <a href="#" class="rest-social"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="rest-social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="rest-social"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+<div class="built-by">
+    <a href="/">Template by <span>A3 Corp</span> &mdash; Excellence Redefined</a>
+</div>
+
+<script>
+    document.getElementById('restYear').textContent = new Date().getFullYear();
+    const nav = document.getElementById('restNav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', e => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+        });
+    });
+    document.querySelectorAll('.menu-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>

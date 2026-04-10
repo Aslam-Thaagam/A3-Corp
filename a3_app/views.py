@@ -24,6 +24,22 @@ def products(request):
     return render(request, 'products.html')
 
 
+def sample(request):
+    return render(request, 'sample.html')
+
+
+def sample_gym(request):
+    return render(request, 'samples/gym.html')
+
+
+def sample_restaurant(request):
+    return render(request, 'samples/restaurant.html')
+
+
+def sample_portfolio(request):
+    return render(request, 'samples/portfolio.html')
+
+
 def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name', '').strip()
