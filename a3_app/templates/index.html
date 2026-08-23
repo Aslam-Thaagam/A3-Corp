@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}A3 Corp — Excellence Redefined{% endblock %}
+{% block title %}A3 Corp (A3 Corporation) — Web Development &amp; Design Company in Chennai{% endblock %}
+{% block og_title %}A3 Corp (A3 Corporation) — Web Development &amp; Design Company in Chennai{% endblock %}
+{% block twitter_title %}A3 Corp (A3 Corporation) — Web Development &amp; Design Company in Chennai{% endblock %}
+{% block meta_description %}A3 Corp (A3 Corporation), founded by Aslam Musbar, is a Chennai-based web development, graphic design and mobile app company serving businesses across Tamil Nadu and India.{% endblock %}
+{% block og_description %}A3 Corp (A3 Corporation), founded by Aslam Musbar, is a Chennai-based web development, graphic design and mobile app company serving businesses across Tamil Nadu and India.{% endblock %}
+{% block meta_keywords %}A3 Corp, A3 Corporation, A3 Corp Chennai, Aslam Musbar, web development Chennai, website design Tamil Nadu, mobile app development Chennai, graphic design Chennai{% endblock %}
 {% block nav_home %}active{% endblock %}
 
 {% block extra_css %}
@@ -534,6 +539,23 @@
 </style>
 {% endblock %}
 
+{% block extra_schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "{{ SEO.site_url }}/#webpage",
+  "url": "{{ SEO.site_url }}/",
+  "name": "A3 Corp (A3 Corporation) — Web Development & Design Company in Chennai",
+  "description": "{{ SEO.description }}",
+  "isPartOf": {"@id": "{{ SEO.site_url }}/#website"},
+  "about": {"@id": "{{ SEO.site_url }}/#organization"},
+  "mentions": {"@id": "{{ SEO.site_url }}/#founder"},
+  "inLanguage": "en-IN"
+}
+</script>
+{% endblock %}
+
 {% block content %}
 
 <!-- ===== HERO SECTION ===== -->
@@ -576,7 +598,8 @@
             <span class="hero-a3corp-text">A3 Corp</span>
         </h1>
         <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="350">
-            We craft exceptional digital experiences that transform businesses.<br>
+            <strong>A3 Corporation</strong> is a Chennai-based web development, graphic design
+            and mobile app company.<br>
             Innovation, Precision, Excellence — at every step.
         </p>
         <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
@@ -903,8 +926,9 @@
                         that drive real growth and lasting impact."
                     </p>
                     <footer class="founder-quote-footer">
-                        <span class="founder-name">Aslam Musbar</span>
-                        <span class="founder-title">Founder & CEO, A3 Corp</span>
+                        <a href="{{ SEO.founder_url }}" rel="me noopener" target="_blank"
+                           class="founder-name" title="Aslam Musbar — Founder & CEO of A3 Corporation">Aslam Musbar</a>
+                        <span class="founder-title">Founder &amp; CEO, A3 Corporation</span>
                     </footer>
                 </blockquote>
 

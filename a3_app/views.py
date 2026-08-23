@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
 from django.db.models import Q, Sum, Count
 
+from . import seo as seo_conf
 from .forms import ClientForm
 from .models import Contact, Service, Client
 
@@ -211,3 +212,20 @@ def client_delete(request, pk):
         client.delete()
         messages.success(request, f'Client "{name}" deleted.')
     return redirect('client_list')
+
+
+# ─────────────────────────────  SEO  ─────────────────────────────
+
+def robots_txt(request):
+    """Allow the public site, keep the dashboard and admin out of the index."""
+    lines = [
+        'User-agent: *',
+        'Allow: /',
+        'Disallow: /dashboard/',
+        'Disallow: /admin/',
+        'Disallow: /media/clients/',
+        '',
+        f'Sitemap: {seo_conf.SITE_URL}/sitemap.xml',
+        '',
+    ]
+    return HttpResponse('\n'.join(lines), content_type='text/plain')

@@ -4,11 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}A3 Corp — Excellence Redefined{% endblock %}</title>
+    <title>{% block title %}A3 Corp (A3 Corporation) — Web Development &amp; Design Company in Chennai{% endblock %}</title>
 
     <link rel="icon" type="image/png" href="{% static 'Assets/Img/a3_corp.jpg' %}">
     <meta name="theme-color" content="#0A0A0A">
-    <meta name="description" content="{% block meta_description %}A3 Corp — Premium technology and business solutions.{% endblock %}">
+
+    <!-- ===== SEO ===== -->
+    <meta name="description" content="{% block meta_description %}{{ SEO.description }}{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}{{ SEO.keywords }}{% endblock %}">
+    <meta name="author" content="{{ SEO.founder_name }}">
+    <meta name="publisher" content="{{ SEO.legal_name }}">
+    <meta name="robots" content="{% block meta_robots %}index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1{% endblock %}">
+    <meta name="googlebot" content="index, follow">
+    <link rel="canonical" href="{% block canonical %}{{ SEO.canonical }}{% endblock %}">
+
+    <!-- Geo / language -->
+    <meta name="geo.region" content="IN-TN">
+    <meta name="geo.placename" content="{{ SEO.city }}">
+    <meta http-equiv="content-language" content="en-IN">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:site_name" content="{{ SEO.legal_name }}">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:title" content="{% block og_title %}A3 Corp (A3 Corporation) — {{ SEO.tagline }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ SEO.description }}{% endblock %}">
+    <meta property="og:url" content="{{ SEO.canonical }}">
+    <meta property="og:image" content="{{ SEO.site_url }}{% static 'Assets/Img/a3_corp.jpg' %}">
+    <meta property="og:image:alt" content="A3 Corp — {{ SEO.tagline }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}A3 Corp (A3 Corporation) — {{ SEO.tagline }}{% endblock %}">
+    <meta name="twitter:description" content="{{ SEO.description }}">
+    <meta name="twitter:image" content="{{ SEO.site_url }}{% static 'Assets/Img/a3_corp.jpg' %}">
+
+    <!-- Structured data (Organization · Person · WebSite) -->
+    <script type="application/ld+json">{{ SEO.json_ld|safe }}</script>
+    {% block extra_schema %}{% endblock %}
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

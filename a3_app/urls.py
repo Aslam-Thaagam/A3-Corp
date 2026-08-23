@@ -1,6 +1,12 @@
-from django.urls import path
 from django.contrib.auth import views as auth_views
+from django.contrib.sitemaps.views import sitemap
+from django.urls import path
+from django.views.generic import TemplateView
+
 from . import views
+from .sitemaps import StaticViewSitemap
+
+sitemaps = {'static': StaticViewSitemap()}
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -13,6 +19,10 @@ urlpatterns = [
     path('samples/restaurant/', views.sample_restaurant, name='sample_restaurant'),
     path('samples/portfolio/', views.sample_portfolio, name='sample_portfolio'),
     path('samples/petshop/', views.sample_petshop, name='sample_petshop'),
+
+    # SEO
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt', views.robots_txt, name='robots_txt'),
 
     # Dashboard
     path('dashboard/', views.dashboard, name='dashboard'),

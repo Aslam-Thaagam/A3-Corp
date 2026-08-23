@@ -1,9 +1,35 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}About — A3 Corp{% endblock %}
+{% block title %}About A3 Corporation — Aslam Musbar, Founder &amp; CEO | A3 Corp{% endblock %}
+{% block og_title %}About A3 Corporation — Founded by Aslam Musbar{% endblock %}
+{% block twitter_title %}About A3 Corporation — Founded by Aslam Musbar{% endblock %}
 {% block nav_about %}active{% endblock %}
 {% block header_class %}solid{% endblock %}
-{% block meta_description %}Learn about A3 Corp — our story, mission, and the expert team behind your success.{% endblock %}
+{% block meta_description %}Learn about A3 Corp (A3 Corporation) and its founder Aslam Musbar — a Chennai-based full-stack developer and entrepreneur building websites, apps and design for Tamil Nadu businesses.{% endblock %}
+{% block og_description %}Learn about A3 Corp (A3 Corporation) and its founder Aslam Musbar — a Chennai-based full-stack developer and entrepreneur building websites, apps and design for Tamil Nadu businesses.{% endblock %}
+{% block meta_keywords %}Aslam Musbar, Aslam Musbar founder, A3 Corporation founder, about A3 Corp, A3 Corp Chennai, Aslam Musbar Chennai, full stack developer Chennai{% endblock %}
+
+{% block extra_schema %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "{{ SEO.canonical }}#profile",
+  "url": "{{ SEO.canonical }}",
+  "name": "About A3 Corporation — Aslam Musbar, Founder & CEO",
+  "isPartOf": {"@id": "{{ SEO.site_url }}/#website"},
+  "about": {"@id": "{{ SEO.site_url }}/#organization"},
+  "mainEntity": {"@id": "{{ SEO.site_url }}/#founder"},
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ SEO.site_url }}/"},
+      {"@type": "ListItem", "position": 2, "name": "About", "item": "{{ SEO.canonical }}"}
+    ]
+  }
+}
+</script>
+{% endblock %}
 
 {% block content %}
 
@@ -162,8 +188,8 @@
                 </div>
             </div>
             <div class="col-lg-7" data-aos="fade-left" data-aos-delay="150">
-                <div class="founder-detail-name gold-text">Aslam Musbar</div>
-                <div class="founder-detail-role">Founder & CEO</div>
+                <h3 class="founder-detail-name gold-text">Aslam Musbar</h3>
+                <div class="founder-detail-role">Founder &amp; CEO, A3 Corporation</div>
                 <blockquote class="founder-quote founder-quote-lg">
                     <i class="ri-double-quotes-l founder-quote-icon"></i>
                     <p>
@@ -173,9 +199,16 @@
                     </p>
                 </blockquote>
                 <p class="section-body">
-                    With a passion for innovation and an obsession with quality, Aslam founded A3 Corp
-                    to bridge the gap between great ideas and powerful technology. Under his leadership,
-                    A3 Corp has grown into a trusted partner for businesses seeking digital excellence.
+                    <strong>Aslam Musbar</strong> is the Founder and CEO of <strong>A3 Corporation</strong>
+                    (A3 Corp), based in Chennai, Tamil Nadu. A full-stack developer and entrepreneur,
+                    he founded A3 Corp to bridge the gap between great ideas and powerful technology.
+                    Under his leadership, A3 Corporation has grown into a trusted partner for businesses
+                    across Tamil Nadu seeking web development, mobile apps and design that actually perform.
+                </p>
+                <p class="section-body">
+                    You can read more about his work and personal projects on his website —
+                    <a href="{{ SEO.founder_url }}" rel="me noopener" target="_blank"
+                       class="gold-text" title="Aslam Musbar — personal website">{{ SEO.founder_url|cut:"https://" }}</a>.
                 </p>
                 <div class="founder-badges">
                     <span class="founder-badge"><i class="ri-rocket-line"></i> Entrepreneur</span>

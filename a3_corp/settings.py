@@ -6,7 +6,7 @@ SECRET_KEY = 'django-insecure-a3-corp-change-this-in-production-a3corp2025'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*', 'a3corp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*', 'a3-corp.alwaysdata.net', 'a3corp.com', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'a3_app',
 ]
 
@@ -41,6 +42,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'a3_app.seo.seo',
             ],
         },
     },
@@ -77,6 +79,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Canonical public domain, used for canonical URLs, sitemap and structured data.
+SITE_URL = 'https://a3-corp.alwaysdata.net'
 
 LOGIN_URL          = '/dashboard/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
