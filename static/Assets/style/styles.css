@@ -980,6 +980,198 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     line-height: 1.7;
 }
 
+/* ===== CLIENTS SECTION ===== */
+.clients-section {
+    padding: 120px 0;
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+}
+
+.clients-glow {
+    position: absolute;
+    width: 700px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
+    top: 40%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.clients-section .container { position: relative; z-index: 1; }
+
+/* --- Featured client --- */
+.client-feature {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+    align-items: center;
+    margin-top: 60px;
+    padding: 40px;
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    border-radius: var(--radius-lg);
+    transition: var(--transition);
+}
+
+.client-feature:hover {
+    border-color: rgba(139,92,246,0.55);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(139,92,246,0.2);
+}
+
+.client-feature-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    background: var(--black);
+    border: 1px solid var(--black-border);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+
+.client-feature:hover .client-feature-logo {
+    border-color: rgba(201,168,76,0.35);
+    box-shadow: inset 0 0 40px rgba(139,92,246,0.12);
+}
+
+.client-feature-logo img {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    display: block;
+}
+
+.client-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--gold-glow-sm);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: var(--radius-full);
+    padding: 6px 14px;
+    margin-bottom: 18px;
+}
+
+.client-feature-body h3 {
+    font-family: var(--font-display);
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 14px;
+}
+
+.client-feature-body p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 22px;
+}
+
+.client-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 26px;
+}
+
+.client-tags span {
+    font-size: 0.78rem;
+    color: var(--silver);
+    background: var(--black-soft);
+    border: 1px solid var(--black-border);
+    border-radius: var(--radius-full);
+    padding: 6px 14px;
+    transition: var(--transition);
+}
+
+.client-feature:hover .client-tags span {
+    border-color: rgba(139,92,246,0.3);
+    color: var(--silver-light);
+}
+
+.client-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gold);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.client-link:hover {
+    color: var(--gold-light);
+    gap: 12px;
+}
+
+/* --- Logo wall --- */
+.clients-logos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+}
+
+.client-logo-tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 130px;
+    padding: 22px;
+    background: var(--black-soft);
+    border: 1px solid var(--black-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.client-logo-tile img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.65;
+    transition: var(--transition);
+}
+
+.client-logo-tile:hover {
+    border-color: rgba(139,92,246,0.45);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+}
+
+.client-logo-tile:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.client-logo-next {
+    flex-direction: column;
+    gap: 8px;
+    border-style: dashed;
+    border-color: rgba(201,168,76,0.25);
+    color: var(--text-muted);
+    cursor: default;
+}
+
+.client-logo-next i { font-size: 1.5rem; color: var(--gold); opacity: 0.6; }
+
+.client-logo-next span {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.client-logo-next:hover { transform: none; box-shadow: none; }
+
 /* ===== CTA SECTION ===== */
 .cta-section {
     padding: 100px 0;
