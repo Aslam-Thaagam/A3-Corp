@@ -154,6 +154,36 @@
         .login-input:focus + i,
         .login-input-wrap:focus-within i { color: var(--violet-light); }
 
+        /* Show / hide password */
+        .login-input.has-toggle { padding-right: 46px; }
+        .login-toggle {
+            position: absolute;
+            right: 6px;
+            width: 34px; height: 34px;
+            display: flex; align-items: center; justify-content: center;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            color: var(--silver-muted);
+            cursor: pointer;
+            font-size: 1.05rem;
+            transition: color 0.2s, background 0.2s;
+        }
+        .login-toggle:hover { color: var(--gold); background: rgba(255,255,255,0.05); }
+        .login-toggle:focus-visible {
+            outline: none;
+            color: var(--violet-light);
+            box-shadow: 0 0 0 2px rgba(139,92,246,0.45);
+        }
+        .login-toggle i {
+            position: static;
+            left: auto;
+            color: inherit;
+            font-size: inherit;
+            pointer-events: none;
+        }
+        .login-input-wrap:focus-within .login-toggle i { color: inherit; }
+
         /* Submit */
         .login-submit {
             width: 100%;
@@ -226,9 +256,13 @@
             <div class="login-field">
                 <label class="login-label" for="id_password">Password</label>
                 <div class="login-input-wrap">
-                    <input class="login-input" type="password" name="password" id="id_password"
+                    <input class="login-input has-toggle" type="password" name="password" id="id_password"
                            autocomplete="current-password" placeholder="Enter password">
                     <i class="ri-lock-line"></i>
+                    <button type="button" class="login-toggle" id="togglePassword"
+                            aria-label="Show password" aria-pressed="false" title="Show password">
+                        <i class="ri-eye-line" id="togglePasswordIcon"></i>
+                    </button>
                 </div>
             </div>
 
@@ -240,5 +274,28 @@
         </a>
     </div>
 </div>
+
+<script>
+(function () {
+    const input = document.getElementById('id_password');
+    const btn   = document.getElementById('togglePassword');
+    const icon  = document.getElementById('togglePasswordIcon');
+
+    btn.addEventListener('click', function () {
+        const show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        icon.className = show ? 'ri-eye-off-line' : 'ri-eye-line';
+        btn.setAttribute('aria-pressed', show ? 'true' : 'false');
+        btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        btn.setAttribute('title', show ? 'Hide password' : 'Show password');
+        input.focus();
+    });
+
+    // Never leave the password on screen once the form is submitted.
+    input.form.addEventListener('submit', function () {
+        input.type = 'password';
+    });
+})();
+</script>
 </body>
 </html>
