@@ -980,6 +980,59 @@ button { border: none; cursor: pointer; background: none; font-family: inherit; 
     line-height: 1.7;
 }
 
+/* ===== SWIPE ROW CONTROLS (mobile only — shown from responsive.css) ===== */
+.swipe-nav {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 6px;
+}
+
+.swipe-btn {
+    width: 42px; height: 42px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--black-card);
+    border: 1px solid var(--black-border);
+    color: var(--gold);
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                background 0.3s ease, border-color 0.3s ease,
+                box-shadow 0.3s ease, opacity 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.swipe-btn:not(:disabled):hover,
+.swipe-btn:not(:disabled):focus-visible {
+    background: var(--gold-glow-sm);
+    border-color: rgba(139,92,246,0.55);
+    box-shadow: 0 0 20px rgba(139,92,246,0.25);
+    outline: none;
+}
+
+.swipe-btn:not(:disabled):active { transform: scale(0.9); }
+
+.swipe-btn:disabled {
+    opacity: 0.28;
+    cursor: default;
+}
+
+.swipe-count {
+    min-width: 52px;
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+}
+
 /* ===== CLIENTS SECTION ===== */
 .clients-section {
     padding: 120px 0;

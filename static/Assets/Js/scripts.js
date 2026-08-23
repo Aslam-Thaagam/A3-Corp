@@ -275,6 +275,104 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     /* ======================================================
+       MOBILE SWIPE ROWS — highlight the card in view,
+       plus prev / next controls underneath
+    ====================================================== */
+    (function () {
+        const rows = document.querySelectorAll('.about-cards-grid, .services-grid, .why-list');
+        if (!rows.length) return;
+
+        const mq = window.matchMedia('(max-width: 767px)');
+        const tracks = [];
+        let ticking = false;
+
+        function buildNav(row) {
+            const nav = document.createElement('div');
+            nav.className = 'swipe-nav';
+            nav.innerHTML =
+                '<button type="button" class="swipe-btn" data-dir="-1" aria-label="Previous card">' +
+                    '<i class="ri-arrow-left-s-line"></i></button>' +
+                '<span class="swipe-count" aria-hidden="true"></span>' +
+                '<button type="button" class="swipe-btn" data-dir="1" aria-label="Next card">' +
+                    '<i class="ri-arrow-right-s-line"></i></button>';
+            row.insertAdjacentElement('afterend', nav);
+            return nav;
+        }
+
+        function step(row) {
+            const card = row.firstElementChild;
+            if (!card) return 0;
+            const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+            return card.getBoundingClientRect().width + gap;
+        }
+
+        // cards snap to the centre, so the active one is the card whose
+        // centre sits closest to the row's centre
+        function activeIndex(row) {
+            const cards = Array.from(row.children);
+            if (!cards.length) return -1;
+
+            const rowRect = row.getBoundingClientRect();
+            const anchor  = rowRect.left + rowRect.width / 2;
+
+            let index = 0, bestDist = Infinity;
+            cards.forEach((card, i) => {
+                const rect = card.getBoundingClientRect();
+                const dist = Math.abs(rect.left + rect.width / 2 - anchor);
+                if (dist < bestDist) { bestDist = dist; index = i; }
+            });
+            return index;
+        }
+
+        function refresh(track) {
+            const { row, nav } = track;
+            const cards = Array.from(row.children);
+
+            if (!mq.matches) {
+                cards.forEach(c => c.classList.remove('swipe-active'));
+                return;
+            }
+
+            const index = activeIndex(row);
+            cards.forEach((c, i) => c.classList.toggle('swipe-active', i === index));
+
+            nav.querySelector('.swipe-count').textContent = (index + 1) + ' / ' + cards.length;
+            nav.querySelector('[data-dir="-1"]').disabled = row.scrollLeft <= 2;
+            nav.querySelector('[data-dir="1"]').disabled =
+                row.scrollLeft + row.clientWidth >= row.scrollWidth - 2;
+        }
+
+        function update() {
+            ticking = false;
+            tracks.forEach(refresh);
+        }
+
+        function request() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+
+        rows.forEach(row => {
+            const track = { row: row, nav: buildNav(row) };
+            tracks.push(track);
+
+            row.addEventListener('scroll', request, { passive: true });
+            track.nav.addEventListener('click', e => {
+                const btn = e.target.closest('.swipe-btn');
+                if (!btn || btn.disabled) return;
+                row.scrollBy({ left: Number(btn.dataset.dir) * step(row), behavior: 'smooth' });
+            });
+        });
+
+        window.addEventListener('resize', request);
+        if (mq.addEventListener) { mq.addEventListener('change', request); }
+        else if (mq.addListener) { mq.addListener(request); }
+
+        update();
+    })();
+
+    /* ======================================================
        3D TILT ON CARDS
     ====================================================== */
     if (window.matchMedia('(hover: hover)').matches) {

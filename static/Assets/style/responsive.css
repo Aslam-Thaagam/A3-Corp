@@ -233,13 +233,149 @@
     }
 
     /* Grids → single column */
-    .services-grid      { grid-template-columns: 1fr; }
     .products-grid      { grid-template-columns: 1fr; }
     .process-steps      { grid-template-columns: 1fr; }
     .clients-logos      { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .about-cards-grid   { grid-template-columns: 1fr; }
     .about-stats-visual { grid-template-columns: repeat(2, 1fr); }
     .mv-grid            { grid-template-columns: 1fr; }
+
+    /* ---------------------------------------------------------------
+       Card rows → horizontal swipe (mobile only, keeps pages short).
+       Bleeds past the 20px .container padding so cards reach the edge.
+       --------------------------------------------------------------- */
+    .about-cards-grid,
+    .services-grid,
+    .why-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        /* keeps a fast fling from skipping past a card, and stops the
+           swipe from bubbling out to the page / browser back-gesture */
+        overscroll-behavior-x: contain;
+        margin-left: -20px;
+        margin-right: -20px;
+        /* Side padding is what centres a snapped card: with cards at
+           flex-basis 100% of the content box, exactly this much of the
+           neighbouring card peeks on each side. Vertical padding keeps
+           the active card's glow from being clipped by the overflow. */
+        padding: 20px 12%;
+        /* buttons are the affordance — no scrollbar */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .about-cards-grid::-webkit-scrollbar,
+    .services-grid::-webkit-scrollbar,
+    .why-list::-webkit-scrollbar { display: none; }
+
+    .about-cards-grid > .about-card,
+    .services-grid   > .service-card,
+    .why-list        > .why-item {
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+    }
+
+    .swipe-nav { display: flex; }
+
+    /* --- the card snapped into the centre is marked by colour only --- */
+    .about-cards-grid > .about-card,
+    .services-grid   > .service-card,
+    .why-list        > .why-item {
+        position: relative;
+        scroll-snap-stop: always;
+        /* no lift, and it also cancels the AOS slide-up + 3D-tilt inline
+           transform, both of which the scroller would clip */
+        transform: none !important;
+        transition: box-shadow 0.5s ease, border-color 0.45s ease;
+    }
+
+    .about-cards-grid > .about-card.swipe-active,
+    .services-grid   > .service-card.swipe-active,
+    .why-list        > .why-item.swipe-active {
+        border-color: transparent;
+        box-shadow: 0 0 24px rgba(139,92,246,0.16);
+    }
+
+    /* gradient wash on the active card, faded in via a pseudo so it
+       animates (background-image itself can't be transitioned) */
+    .about-cards-grid > .about-card::before,
+    .why-list        > .why-item::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+    }
+
+    .about-cards-grid > .about-card::before,
+    .services-grid   > .service-card::before,
+    .why-list        > .why-item::before {
+        background: linear-gradient(145deg,
+            rgba(139,92,246,0.22) 0%,
+            rgba(201,168,76,0.10) 48%,
+            transparent 88%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .about-cards-grid > .about-card.swipe-active::before,
+    .services-grid   > .service-card.swipe-active::before,
+    .why-list        > .why-item.swipe-active::before { opacity: 1; }
+
+    /* keep card content above the wash */
+    .about-cards-grid > .about-card > *,
+    .why-list        > .why-item > * { position: relative; z-index: 1; }
+
+    /* gradient border, drawn as a masked 1px ring so the card bg stays flat.
+       Rendered on every card at opacity 0 so it can fade instead of snap. */
+    .about-cards-grid > .about-card::after,
+    .services-grid   > .service-card::after,
+    .why-list        > .why-item::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg,
+            var(--gold) 0%, var(--gold-light) 22%,
+            var(--violet) 58%, var(--gold) 100%);
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+                mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+                mask-composite: exclude;
+        pointer-events: none;
+        z-index: 3;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .about-cards-grid > .about-card.swipe-active::after,
+    .services-grid   > .service-card.swipe-active::after,
+    .why-list        > .why-item.swipe-active::after { opacity: 1; }
+
+    /* light up the card's own accents, same as the desktop hover state */
+    .about-cards-grid > .about-card .about-card-icon,
+    .why-list > .why-item .why-icon { transition: var(--transition); }
+
+    .services-grid > .service-card.swipe-active .service-icon,
+    .about-cards-grid > .about-card.swipe-active .about-card-icon,
+    .why-list > .why-item.swipe-active .why-icon {
+        background: rgba(139,92,246,0.25);
+        border-color: rgba(139,92,246,0.5);
+        box-shadow: 0 0 24px rgba(139,92,246,0.35);
+    }
+
+    /* keep the row heights even while swiping */
+    .why-list > .why-item { align-items: flex-start; }
+
+    /* the grid was the top spacer on desktop — restore it on the scroller */
+    .services-grid { margin-top: 40px; }
 
     /* Why visual — hide on mobile */
     .why-visual { display: none; }
@@ -296,7 +432,9 @@
     .stat-label   { font-size: 0.72rem; }
 
     /* About */
-    .about-cards-grid   { grid-template-columns: 1fr; gap: 14px; }
+    .about-cards-grid,
+    .services-grid,
+    .why-list { padding-left: 13%; padding-right: 13%; }
     .about-stats-visual { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .stat-box           { padding: 22px 16px; }
     .stat-big           { font-size: 2.3rem; }
@@ -379,6 +517,10 @@
    REDUCED MOTION
    =================================================================== */
 @media (prefers-reduced-motion: reduce) {
+    .about-cards-grid,
+    .services-grid,
+    .why-list { scroll-behavior: auto; }
+
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
