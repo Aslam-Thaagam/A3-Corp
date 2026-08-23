@@ -235,7 +235,6 @@
     /* Grids → single column */
     .products-grid      { grid-template-columns: 1fr; }
     .process-steps      { grid-template-columns: 1fr; }
-    .clients-logos      { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .about-stats-visual { grid-template-columns: repeat(2, 1fr); }
     .mv-grid            { grid-template-columns: 1fr; }
 
@@ -245,7 +244,8 @@
        --------------------------------------------------------------- */
     .about-cards-grid,
     .services-grid,
-    .why-list {
+    .why-list,
+    .clients-logos {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -272,11 +272,13 @@
 
     .about-cards-grid::-webkit-scrollbar,
     .services-grid::-webkit-scrollbar,
-    .why-list::-webkit-scrollbar { display: none; }
+    .why-list::-webkit-scrollbar,
+    .clients-logos::-webkit-scrollbar { display: none; }
 
     .about-cards-grid > .about-card,
     .services-grid   > .service-card,
-    .why-list        > .why-item {
+    .why-list        > .why-item,
+    .clients-logos   > .client-logo-tile {
         flex: 0 0 100%;
         scroll-snap-align: center;
     }
@@ -286,7 +288,8 @@
     /* --- the card snapped into the centre is marked by colour only --- */
     .about-cards-grid > .about-card,
     .services-grid   > .service-card,
-    .why-list        > .why-item {
+    .why-list        > .why-item,
+    .clients-logos   > .client-logo-tile {
         position: relative;
         scroll-snap-stop: always;
         /* no lift, and it also cancels the AOS slide-up + 3D-tilt inline
@@ -297,7 +300,8 @@
 
     .about-cards-grid > .about-card.swipe-active,
     .services-grid   > .service-card.swipe-active,
-    .why-list        > .why-item.swipe-active {
+    .why-list        > .why-item.swipe-active,
+    .clients-logos   > .client-logo-tile.swipe-active {
         border-color: transparent;
         box-shadow: 0 0 24px rgba(139,92,246,0.16);
     }
@@ -305,7 +309,8 @@
     /* gradient wash on the active card, faded in via a pseudo so it
        animates (background-image itself can't be transitioned) */
     .about-cards-grid > .about-card::before,
-    .why-list        > .why-item::before {
+    .why-list        > .why-item::before,
+    .clients-logos   > .client-logo-tile::before {
         content: '';
         position: absolute;
         inset: 0;
@@ -315,7 +320,8 @@
 
     .about-cards-grid > .about-card::before,
     .services-grid   > .service-card::before,
-    .why-list        > .why-item::before {
+    .why-list        > .why-item::before,
+    .clients-logos   > .client-logo-tile::before {
         background: linear-gradient(145deg,
             rgba(139,92,246,0.22) 0%,
             rgba(201,168,76,0.10) 48%,
@@ -326,17 +332,20 @@
 
     .about-cards-grid > .about-card.swipe-active::before,
     .services-grid   > .service-card.swipe-active::before,
-    .why-list        > .why-item.swipe-active::before { opacity: 1; }
+    .why-list        > .why-item.swipe-active::before,
+    .clients-logos   > .client-logo-tile.swipe-active::before { opacity: 1; }
 
     /* keep card content above the wash */
     .about-cards-grid > .about-card > *,
-    .why-list        > .why-item > * { position: relative; z-index: 1; }
+    .why-list        > .why-item > *,
+    .clients-logos   > .client-logo-tile > * { position: relative; z-index: 1; }
 
     /* gradient border, drawn as a masked 1px ring so the card bg stays flat.
        Rendered on every card at opacity 0 so it can fade instead of snap. */
     .about-cards-grid > .about-card::after,
     .services-grid   > .service-card::after,
-    .why-list        > .why-item::after {
+    .why-list        > .why-item::after,
+    .clients-logos   > .client-logo-tile::after {
         content: '';
         position: absolute;
         inset: 0;
@@ -357,11 +366,17 @@
 
     .about-cards-grid > .about-card.swipe-active::after,
     .services-grid   > .service-card.swipe-active::after,
-    .why-list        > .why-item.swipe-active::after { opacity: 1; }
+    .why-list        > .why-item.swipe-active::after,
+    .clients-logos   > .client-logo-tile.swipe-active::after { opacity: 1; }
 
     /* light up the card's own accents, same as the desktop hover state */
     .about-cards-grid > .about-card .about-card-icon,
     .why-list > .why-item .why-icon { transition: var(--transition); }
+
+    /* a full-width tile wants a bit more height, and the active logo
+       drops its grayscale the way hover does on desktop */
+    .clients-logos > .client-logo-tile { height: 150px; }
+    .clients-logos > .client-logo-tile.swipe-active img { filter: grayscale(0%); opacity: 1; }
 
     .services-grid > .service-card.swipe-active .service-icon,
     .about-cards-grid > .about-card.swipe-active .about-card-icon,
@@ -434,7 +449,8 @@
     /* About */
     .about-cards-grid,
     .services-grid,
-    .why-list { padding-left: 13%; padding-right: 13%; }
+    .why-list,
+    .clients-logos { padding-left: 13%; padding-right: 13%; }
     .about-stats-visual { grid-template-columns: repeat(2, 1fr); gap: 14px; }
     .stat-box           { padding: 22px 16px; }
     .stat-big           { font-size: 2.3rem; }
@@ -443,7 +459,7 @@
     .clients-section { padding: 80px 0; }
     .client-feature { padding: 24px 18px; }
     .client-feature-body h3 { font-size: 1.45rem; }
-    .client-logo-tile { height: 104px; padding: 16px; }
+    .client-logo-tile { height: 130px; padding: 16px; }
 
     /* Pillar cards */
     .pillar-card  { padding: 28px 20px; }
@@ -519,7 +535,8 @@
 @media (prefers-reduced-motion: reduce) {
     .about-cards-grid,
     .services-grid,
-    .why-list { scroll-behavior: auto; }
+    .why-list,
+    .clients-logos { scroll-behavior: auto; }
 
     *, *::before, *::after {
         animation-duration: 0.01ms !important;

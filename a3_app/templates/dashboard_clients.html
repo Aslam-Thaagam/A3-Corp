@@ -1,0 +1,257 @@
+{% extends 'dashboard_base.html' %}
+
+{% block title %}Clients{% endblock %}
+{% block nav_clients %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cl-table-wrap {
+        background: var(--black-card);
+        border: 1px solid var(--black-border);
+        border-radius: var(--radius-md);
+        overflow-x: auto;
+    }
+    table.cl-table { width: 100%; border-collapse: collapse; min-width: 940px; }
+    .cl-table thead th {
+        font-size: 0.68rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.1em;
+        color: var(--silver-muted); text-align: left;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--black-border);
+        white-space: nowrap;
+    }
+    .cl-table tbody td {
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--black-border);
+        font-size: 0.84rem; vertical-align: middle;
+    }
+    .cl-table tbody tr:last-child td { border-bottom: none; }
+    .cl-table tbody tr { transition: background 0.2s; }
+    .cl-table tbody tr:hover { background: rgba(139,92,246,0.04); }
+
+    .cl-client { display: flex; align-items: center; gap: 12px; }
+    .cl-avatar {
+        width: 38px; height: 38px; border-radius: 50%;
+        background: linear-gradient(135deg, var(--violet-glow), var(--gold-glow));
+        border: 1px solid rgba(139,92,246,0.3);
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700; font-size: 0.85rem; color: var(--gold);
+        flex-shrink: 0; text-transform: uppercase;
+    }
+    .cl-name { font-weight: 700; color: var(--white); }
+    .cl-name:hover { color: var(--gold); }
+    .cl-sub  { font-size: 0.74rem; color: var(--silver-muted); }
+    .cl-id   { font-family: ui-monospace, 'SF Mono', monospace; font-size: 0.72rem; color: var(--violet-light); }
+
+    .cl-amount { font-weight: 700; color: var(--white); white-space: nowrap; }
+    .cl-due    { font-size: 0.74rem; color: #F87171; white-space: nowrap; }
+    .cl-paid   { font-size: 0.74rem; color: var(--green); white-space: nowrap; }
+
+    .cl-bar { height: 4px; background: var(--black-border); border-radius: 3px; margin-top: 6px; overflow: hidden; width: 100px; }
+    .cl-bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--violet), var(--gold)); border-radius: 3px; }
+
+    .cl-date  { white-space: nowrap; color: var(--text-secondary); }
+    .cl-date.late { color: #F87171; font-weight: 600; }
+    .cl-muted { color: var(--silver-muted); }
+    .cl-actions { display: flex; gap: 6px; justify-content: flex-end; }
+    .cl-icon-btn {
+        width: 30px; height: 30px; border-radius: var(--radius-sm);
+        border: 1px solid var(--black-border);
+        background: transparent; color: var(--silver-muted);
+        display: inline-flex; align-items: center; justify-content: center;
+        cursor: pointer; transition: all 0.2s; font-size: 0.9rem;
+    }
+    .cl-icon-btn:hover        { color: var(--violet-light); border-color: rgba(139,92,246,0.4); background: var(--violet-glow); }
+    .cl-icon-btn.danger:hover { color: #F87171; border-color: rgba(239,68,68,0.5); background: var(--danger-glow); }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="db-page-head">
+    <div>
+        <h1 class="db-title">Clients</h1>
+        <p class="db-subtitle">Projects, pricing and delivery timelines</p>
+    </div>
+    <a href="{% url 'client_create' %}" class="db-btn db-btn-primary">
+        <i class="ri-add-line"></i> Add Client
+    </a>
+</div>
+
+<!-- Stats -->
+<div class="db-stats">
+    <div class="db-stat-card">
+        <div class="db-stat-icon gold"><i class="ri-briefcase-line"></i></div>
+        <div>
+            <div class="db-stat-num gold">{{ total }}</div>
+            <div class="db-stat-label">Total Clients</div>
+        </div>
+    </div>
+    <div class="db-stat-card">
+        <div class="db-stat-icon violet"><i class="ri-loader-4-line"></i></div>
+        <div>
+            <div class="db-stat-num violet">{{ active }}</div>
+            <div class="db-stat-label">Active Projects</div>
+        </div>
+    </div>
+    <div class="db-stat-card">
+        <div class="db-stat-icon green"><i class="ri-check-double-line"></i></div>
+        <div>
+            <div class="db-stat-num green">{{ completed }}</div>
+            <div class="db-stat-label">Completed</div>
+        </div>
+    </div>
+    <div class="db-stat-card">
+        <div class="db-stat-icon silver"><i class="ri-money-rupee-circle-line"></i></div>
+        <div>
+            <div class="db-stat-num silver">₹{{ received|floatformat:0 }}</div>
+            <div class="db-stat-label">Received</div>
+        </div>
+    </div>
+    <div class="db-stat-card">
+        <div class="db-stat-icon amber"><i class="ri-time-line"></i></div>
+        <div>
+            <div class="db-stat-num amber">₹{{ outstanding|floatformat:0 }}</div>
+            <div class="db-stat-label">Outstanding</div>
+        </div>
+    </div>
+</div>
+
+<!-- Toolbar -->
+<div class="db-toolbar">
+    <div class="db-filters">
+        <a href="?status=all{% if search %}&q={{ search }}{% endif %}"
+           class="db-filter-btn {% if status == 'all' %}active{% endif %}">
+            All <span style="opacity:.6;">({{ total }})</span>
+        </a>
+        {% for value, label, count in status_tabs %}
+        <a href="?status={{ value }}{% if search %}&q={{ search }}{% endif %}"
+           class="db-filter-btn {% if status == value %}active{% endif %}">
+            {{ label }} <span style="opacity:.6;">({{ count }})</span>
+        </a>
+        {% endfor %}
+        {% if overdue_count %}
+        <a href="?status=overdue{% if search %}&q={{ search }}{% endif %}"
+           class="db-filter-btn {% if status == 'overdue' %}active{% endif %}"
+           style="border-color:rgba(239,68,68,0.35);color:#F87171;">
+            <i class="ri-alarm-warning-line"></i> Overdue ({{ overdue_count }})
+        </a>
+        {% endif %}
+    </div>
+
+    <form method="get" action="" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <input type="hidden" name="status" value="{{ status }}">
+        <select name="payment" class="db-select" onchange="this.form.submit()">
+            <option value="">All payments</option>
+            {% for value, label in payment_choices %}
+            <option value="{{ value }}" {% if payment == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+        <div class="db-search">
+            <i class="ri-search-line"></i>
+            <input type="text" name="q" placeholder="Search name, company, phone, project…"
+                   value="{{ search }}" autocomplete="off">
+        </div>
+    </form>
+</div>
+
+<!-- Table -->
+{% if clients %}
+<div class="cl-table-wrap">
+    <table class="cl-table">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Service</th>
+                <th>Status</th>
+                <th>Value</th>
+                <th>Payment</th>
+                <th>Target</th>
+                <th style="text-align:right;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in clients %}
+            <tr>
+                <td>
+                    <div class="cl-client">
+                        <div class="cl-avatar">{{ c.name|slice:":2" }}</div>
+                        <div>
+                            <a href="{% url 'client_detail' c.pk %}" class="cl-name">{{ c.name }}</a>
+                            <div class="cl-sub">
+                                <span class="cl-id">{{ c.client_id }}</span>
+                                {% if c.company_name %} · {{ c.company_name }}{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    {% if c.service_type %}
+                        <span class="db-badge db-badge-service">{{ c.service_type.name }}</span>
+                    {% else %}
+                        <span class="cl-muted">—</span>
+                    {% endif %}
+                    {% if c.project_title %}<div class="cl-sub" style="margin-top:5px;">{{ c.project_title }}</div>{% endif %}
+                </td>
+                <td>
+                    <span class="db-badge st-{{ c.status }}">{{ c.get_status_display }}</span>
+                    {% if c.is_overdue %}
+                    <div style="margin-top:5px;">
+                        <span class="db-badge db-badge-overdue"><i class="ri-alarm-warning-line"></i> Overdue</span>
+                    </div>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="cl-amount">₹{{ c.final_amount|floatformat:0 }}</div>
+                    {% if c.balance_due > 0 %}
+                        <div class="cl-due">₹{{ c.balance_due|floatformat:0 }} due</div>
+                    {% else %}
+                        <div class="cl-paid">Settled</div>
+                    {% endif %}
+                </td>
+                <td>
+                    <span class="db-badge pay-{{ c.payment_status }}">{{ c.get_payment_status_display }}</span>
+                    <div class="cl-bar">
+                        <span style="width:{% widthratio c.amount_paid c.final_amount|default:1 100 %}%;"></span>
+                    </div>
+                </td>
+                <td>
+                    {% if c.completed_on %}
+                        <div class="cl-date" style="color:var(--green);">
+                            <i class="ri-check-line"></i> {{ c.completed_on|date:"M j, Y" }}
+                        </div>
+                        <div class="cl-sub">Completed</div>
+                    {% elif c.completion_target_date %}
+                        <div class="cl-date {% if c.is_overdue %}late{% endif %}">{{ c.completion_target_date|date:"M j, Y" }}</div>
+                        <div class="cl-sub">Target</div>
+                    {% else %}
+                        <span class="cl-muted">—</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="cl-actions">
+                        <a href="{% url 'client_detail' c.pk %}" class="cl-icon-btn" title="View"><i class="ri-eye-line"></i></a>
+                        <a href="{% url 'client_edit' c.pk %}" class="cl-icon-btn" title="Edit"><i class="ri-pencil-line"></i></a>
+                        <form method="post" action="{% url 'client_delete' c.pk %}" style="display:inline;"
+                              onsubmit="return confirm('Delete client {{ c.name|escapejs }}? This cannot be undone.')">
+                            {% csrf_token %}
+                            <button type="submit" class="cl-icon-btn danger" title="Delete"><i class="ri-delete-bin-line"></i></button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="db-empty">
+    <i class="ri-briefcase-line"></i>
+    <p>No clients found{% if search %} matching "<strong>{{ search }}</strong>"{% endif %}.</p>
+    <a href="{% url 'client_create' %}" class="db-btn db-btn-primary" style="margin-top:20px;">
+        <i class="ri-add-line"></i> Add your first client
+    </a>
+</div>
+{% endif %}
+
+{% endblock %}

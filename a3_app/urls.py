@@ -18,6 +18,11 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('dashboard/mark-read/<int:pk>/', views.mark_read, name='mark_read'),
     path('dashboard/delete/<int:pk>/', views.delete_contact, name='delete_contact'),
+    path('dashboard/clients/', views.client_list, name='client_list'),
+    path('dashboard/clients/new/', views.client_create, name='client_create'),
+    path('dashboard/clients/<int:pk>/', views.client_detail, name='client_detail'),
+    path('dashboard/clients/<int:pk>/edit/', views.client_edit, name='client_edit'),
+    path('dashboard/clients/<int:pk>/delete/', views.client_delete, name='client_delete'),
     path('dashboard/login/', auth_views.LoginView.as_view(template_name='dashboard_login.html'), name='login'),
     path('dashboard/logout/', auth_views.LogoutView.as_view(next_page='index'), name='logout'),
 ]

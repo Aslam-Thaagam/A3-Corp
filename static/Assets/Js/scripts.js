@@ -279,7 +279,9 @@ document.addEventListener('DOMContentLoaded', function () {
        plus prev / next controls underneath
     ====================================================== */
     (function () {
-        const rows = document.querySelectorAll('.about-cards-grid, .services-grid, .why-list');
+        const rows = document.querySelectorAll(
+            '.about-cards-grid, .services-grid, .why-list, .clients-logos'
+        );
         if (!rows.length) return;
 
         const mq = window.matchMedia('(max-width: 767px)');

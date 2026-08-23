@@ -1,0 +1,381 @@
+{% extends 'dashboard_base.html' %}
+
+{% block title %}{{ client.name }}{% endblock %}
+{% block nav_clients %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cd-back {
+        font-size: 0.8rem; color: var(--silver-muted);
+        display: inline-flex; align-items: center; gap: 6px;
+        margin-bottom: 18px; transition: color 0.2s;
+    }
+    .cd-back:hover { color: var(--gold); }
+
+    .cd-hero {
+        background: var(--black-card);
+        border: 1px solid var(--black-border);
+        border-radius: var(--radius-md);
+        padding: 26px 28px;
+        display: flex; align-items: flex-start; justify-content: space-between;
+        gap: 20px; flex-wrap: wrap; margin-bottom: 22px;
+        position: relative; overflow: hidden;
+    }
+    .cd-hero::before {
+        content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+        background: linear-gradient(to bottom, var(--violet), var(--gold));
+    }
+    .cd-hero-left { display: flex; align-items: center; gap: 18px; }
+    .cd-avatar {
+        width: 62px; height: 62px; border-radius: 50%;
+        background: linear-gradient(135deg, var(--violet-glow), var(--gold-glow));
+        border: 1px solid rgba(139,92,246,0.3);
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 800; font-size: 1.4rem; color: var(--gold);
+        flex-shrink: 0; text-transform: uppercase;
+    }
+    .cd-name { font-size: 1.4rem; font-weight: 800; line-height: 1.2; }
+    .cd-company { font-size: 0.88rem; color: var(--silver-muted); margin-bottom: 8px; }
+    .cd-badges { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .cd-id {
+        font-family: ui-monospace, 'SF Mono', monospace;
+        font-size: 0.72rem; color: var(--violet-light);
+        background: var(--violet-glow); border: 1px solid rgba(139,92,246,0.25);
+        padding: 3px 10px; border-radius: var(--radius-full);
+    }
+    .cd-hero-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .cd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 18px; }
+    .cd-panel {
+        background: var(--black-card);
+        border: 1px solid var(--black-border);
+        border-radius: var(--radius-md);
+        padding: 22px 24px;
+    }
+    .cd-panel h3 {
+        font-size: 0.72rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.12em;
+        color: var(--gold); margin-bottom: 16px;
+        display: flex; align-items: center; gap: 7px;
+    }
+    .cd-row {
+        display: flex; justify-content: space-between; gap: 16px;
+        padding: 9px 0; border-bottom: 1px solid rgba(30,30,30,0.7);
+        font-size: 0.85rem;
+    }
+    .cd-row:last-child { border-bottom: none; }
+    .cd-label { color: var(--silver-muted); flex-shrink: 0; }
+    .cd-value { color: var(--white); text-align: right; word-break: break-word; }
+    .cd-value.muted { color: var(--silver-muted); }
+    .cd-value a:hover { color: var(--gold); }
+    .cd-text {
+        font-size: 0.86rem; color: var(--text-secondary);
+        white-space: pre-wrap; line-height: 1.7;
+    }
+
+    /* Money summary */
+    .cd-money { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+    .cd-money-box {
+        background: var(--black-soft); border: 1px solid var(--black-border);
+        border-radius: var(--radius-sm); padding: 14px;
+        text-align: center;
+    }
+    .cd-money-num { font-size: 1.15rem; font-weight: 800; line-height: 1.2; }
+    .cd-money-label {
+        font-size: 0.64rem; text-transform: uppercase; letter-spacing: 0.1em;
+        color: var(--silver-muted); margin-top: 3px;
+    }
+    .cd-progress { height: 6px; background: var(--black-border); border-radius: 4px; overflow: hidden; margin-bottom: 16px; }
+    .cd-progress span { display: block; height: 100%; background: linear-gradient(90deg, var(--violet), var(--gold)); }
+
+    /* Timeline */
+    .cd-timeline { position: relative; padding-left: 26px; }
+    .cd-timeline::before {
+        content: ''; position: absolute; left: 6px; top: 6px; bottom: 6px;
+        width: 2px; background: var(--black-border);
+    }
+    .cd-step { position: relative; padding-bottom: 18px; }
+    .cd-step:last-child { padding-bottom: 0; }
+    .cd-step::before {
+        content: ''; position: absolute; left: -25px; top: 5px;
+        width: 12px; height: 12px; border-radius: 50%;
+        background: var(--black-card); border: 2px solid var(--black-border);
+    }
+    .cd-step.done::before   { background: var(--green);  border-color: var(--green);  box-shadow: 0 0 10px rgba(74,222,128,0.4); }
+    .cd-step.late::before   { background: var(--danger); border-color: var(--danger); box-shadow: 0 0 10px rgba(239,68,68,0.4); }
+    .cd-step-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--silver-muted); }
+    .cd-step-date  { font-size: 0.9rem; font-weight: 600; color: var(--white); }
+    .cd-step-date.pending { color: var(--silver-muted); font-weight: 400; }
+    .cd-step-date.late    { color: #F87171; }
+
+    /* Files */
+    .cd-files { display: flex; flex-direction: column; gap: 10px; }
+    .cd-file {
+        display: flex; align-items: center; gap: 12px;
+        background: var(--black-soft); border: 1px solid var(--black-border);
+        border-radius: var(--radius-sm); padding: 12px 14px;
+        transition: border-color 0.2s;
+    }
+    .cd-file:hover { border-color: rgba(201,168,76,0.4); }
+    .cd-file i { font-size: 1.2rem; color: var(--gold); }
+    .cd-file-name { font-size: 0.82rem; font-weight: 600; }
+    .cd-file-kind { font-size: 0.7rem; color: var(--silver-muted); }
+    .cd-thumb {
+        margin-top: 12px; border-radius: var(--radius-sm);
+        border: 1px solid var(--black-border); max-width: 100%; display: block;
+    }
+
+    @media (max-width: 640px) {
+        .cd-money { grid-template-columns: 1fr; }
+        .cd-hero { flex-direction: column; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'client_list' %}" class="cd-back"><i class="ri-arrow-left-line"></i> Back to Clients</a>
+
+<!-- Hero -->
+<div class="cd-hero">
+    <div class="cd-hero-left">
+        <div class="cd-avatar">{{ client.name|slice:":2" }}</div>
+        <div>
+            <div class="cd-name">{{ client.name }}</div>
+            <div class="cd-company">
+                {% if client.company_name %}{{ client.company_name }}{% else %}Individual client{% endif %}
+            </div>
+            <div class="cd-badges">
+                <span class="cd-id">{{ client.client_id }}</span>
+                <span class="db-badge st-{{ client.status }}">{{ client.get_status_display }}</span>
+                <span class="db-badge pay-{{ client.payment_status }}">{{ client.get_payment_status_display }}</span>
+                {% if client.service_type %}
+                <span class="db-badge db-badge-service">{{ client.service_type.name }}</span>
+                {% endif %}
+                {% if client.is_overdue %}
+                <span class="db-badge db-badge-overdue"><i class="ri-alarm-warning-line"></i> Overdue</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="cd-hero-actions">
+        {% if client.phone_number %}
+        <a href="tel:{{ client.phone_number }}" class="db-btn db-btn-ghost"><i class="ri-phone-line"></i> Call</a>
+        {% endif %}
+        {% if client.whatsapp_number %}
+        <a href="https://wa.me/{{ client.whatsapp_number|cut:' '|cut:'+' }}" target="_blank" rel="noopener"
+           class="db-btn db-btn-ghost"><i class="ri-whatsapp-line"></i> WhatsApp</a>
+        {% endif %}
+        <a href="{% url 'client_edit' client.pk %}" class="db-btn db-btn-primary"><i class="ri-pencil-line"></i> Edit</a>
+    </div>
+</div>
+
+<div class="cd-grid">
+
+    <!-- Contact -->
+    <div class="cd-panel">
+        <h3><i class="ri-user-line"></i> Contact</h3>
+        <div class="cd-row"><span class="cd-label">Email</span>
+            <span class="cd-value">{% if client.email %}<a href="mailto:{{ client.email }}">{{ client.email }}</a>{% else %}<span class="cd-value muted">—</span>{% endif %}</span></div>
+        <div class="cd-row"><span class="cd-label">Phone</span>
+            <span class="cd-value">{{ client.phone_number|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">WhatsApp</span>
+            <span class="cd-value">{{ client.whatsapp_number|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">Address</span>
+            <span class="cd-value">{{ client.address|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">City / State</span>
+            <span class="cd-value">{{ client.city|default:"—" }}{% if client.state %}, {{ client.state }}{% endif %}</span></div>
+        <div class="cd-row"><span class="cd-label">Country / PIN</span>
+            <span class="cd-value">{{ client.country|default:"—" }}{% if client.pincode %} · {{ client.pincode }}{% endif %}</span></div>
+        <div class="cd-row"><span class="cd-label">GST / Tax No.</span>
+            <span class="cd-value">{{ client.gst_number|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">Source</span>
+            <span class="cd-value">{{ client.source|default:"—" }}</span></div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="cd-panel">
+        <h3><i class="ri-money-rupee-circle-line"></i> Pricing</h3>
+        <div class="cd-money">
+            <div class="cd-money-box">
+                <div class="cd-money-num" style="color:var(--gold);">₹{{ client.final_amount|floatformat:0 }}</div>
+                <div class="cd-money-label">Final</div>
+            </div>
+            <div class="cd-money-box">
+                <div class="cd-money-num" style="color:var(--green);">₹{{ client.amount_paid|floatformat:0 }}</div>
+                <div class="cd-money-label">Paid</div>
+            </div>
+            <div class="cd-money-box">
+                <div class="cd-money-num" style="color:{% if client.balance_due > 0 %}#F87171{% else %}var(--silver-muted){% endif %};">₹{{ client.balance_due|floatformat:0 }}</div>
+                <div class="cd-money-label">Balance</div>
+            </div>
+        </div>
+        <div class="cd-progress">
+            <span style="width:{% widthratio client.amount_paid client.final_amount|default:1 100 %}%;"></span>
+        </div>
+        <div class="cd-row"><span class="cd-label">Quoted</span>
+            <span class="cd-value">{{ client.currency }} {{ client.quoted_amount|floatformat:2 }}</span></div>
+        <div class="cd-row"><span class="cd-label">Discount</span>
+            <span class="cd-value">{{ client.currency }} {{ client.discount|floatformat:2 }}</span></div>
+        <div class="cd-row"><span class="cd-label">Payment terms</span>
+            <span class="cd-value">{{ client.payment_terms|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">Invoice No.</span>
+            <span class="cd-value">{{ client.invoice_number|default:"—" }}</span></div>
+        {% if client.price_detail %}
+        <div style="margin-top:14px;">
+            <div class="cd-label" style="margin-bottom:6px;">Price breakdown</div>
+            <div class="cd-text">{{ client.price_detail }}</div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Timeline -->
+    <div class="cd-panel">
+        <h3><i class="ri-calendar-line"></i> Timeline</h3>
+        <div class="cd-timeline">
+            <div class="cd-step {% if client.proposed_on %}done{% endif %}">
+                <div class="cd-step-label">Proposed on</div>
+                <div class="cd-step-date {% if not client.proposed_on %}pending{% endif %}">
+                    {{ client.proposed_on|date:"M j, Y"|default:"Not set" }}
+                </div>
+            </div>
+            <div class="cd-step {% if client.confirmation_date %}done{% endif %}">
+                <div class="cd-step-label">Confirmed on</div>
+                <div class="cd-step-date {% if not client.confirmation_date %}pending{% endif %}">
+                    {{ client.confirmation_date|date:"M j, Y"|default:"Awaiting confirmation" }}
+                </div>
+            </div>
+            <div class="cd-step {% if client.project_start_date %}done{% endif %}">
+                <div class="cd-step-label">Project start</div>
+                <div class="cd-step-date {% if not client.project_start_date %}pending{% endif %}">
+                    {{ client.project_start_date|date:"M j, Y"|default:"Not started" }}
+                </div>
+            </div>
+            <div class="cd-step {% if client.is_overdue %}late{% elif client.completion_target_date %}done{% endif %}">
+                <div class="cd-step-label">Completion target</div>
+                <div class="cd-step-date {% if client.is_overdue %}late{% elif not client.completion_target_date %}pending{% endif %}">
+                    {{ client.completion_target_date|date:"M j, Y"|default:"Not set" }}
+                    {% if client.is_overdue %} · overdue{% endif %}
+                </div>
+            </div>
+            <div class="cd-step {% if client.completed_on %}done{% endif %}">
+                <div class="cd-step-label">Completed on</div>
+                <div class="cd-step-date {% if not client.completed_on %}pending{% endif %}">
+                    {{ client.completed_on|date:"M j, Y"|default:"In progress" }}
+                    {% if client.duration_days is not None %} · took {{ client.duration_days }} days{% endif %}
+                </div>
+            </div>
+            <div class="cd-step {% if client.delivery_date %}done{% endif %}">
+                <div class="cd-step-label">Delivered on</div>
+                <div class="cd-step-date {% if not client.delivery_date %}pending{% endif %}">
+                    {{ client.delivery_date|date:"M j, Y"|default:"Not delivered" }}
+                </div>
+            </div>
+            {% if client.renewal_date %}
+            <div class="cd-step">
+                <div class="cd-step-label">Renewal / AMC</div>
+                <div class="cd-step-date">{{ client.renewal_date|date:"M j, Y" }}</div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Project -->
+    <div class="cd-panel">
+        <h3><i class="ri-code-box-line"></i> Project</h3>
+        <div class="cd-row"><span class="cd-label">Title</span>
+            <span class="cd-value">{{ client.project_title|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">Service</span>
+            <span class="cd-value">{{ client.service_type.name|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">Priority</span>
+            <span class="cd-value">{{ client.get_priority_display }}</span></div>
+        <div class="cd-row"><span class="cd-label">Live URL</span>
+            <span class="cd-value">{% if client.project_url %}<a href="{{ client.project_url }}" target="_blank" rel="noopener">{{ client.project_url|truncatechars:34 }}</a>{% else %}—{% endif %}</span></div>
+        <div class="cd-row"><span class="cd-label">Domain</span>
+            <span class="cd-value">{{ client.domain_name|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">Domain expiry</span>
+            <span class="cd-value">{{ client.domain_expiry_date|date:"M j, Y"|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">Hosting</span>
+            <span class="cd-value">{{ client.hosting_provider|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">Hosting expiry</span>
+            <span class="cd-value">{{ client.hosting_expiry_date|date:"M j, Y"|default:"—" }}</span></div>
+        <div class="cd-row"><span class="cd-label">Assigned to</span>
+            <span class="cd-value">{{ client.assigned_to|default:"Unassigned" }}</span></div>
+        {% if client.description %}
+        <div style="margin-top:14px;">
+            <div class="cd-label" style="margin-bottom:6px;">Description</div>
+            <div class="cd-text">{{ client.description }}</div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Documents -->
+    <div class="cd-panel">
+        <h3><i class="ri-file-list-3-line"></i> Documents</h3>
+        {% if client.quotation_file or client.agreement_file or client.invoice_file %}
+        <div class="cd-files">
+            {% if client.quotation_file %}
+            <a href="{{ client.quotation_file.url }}" target="_blank" rel="noopener" class="cd-file">
+                <i class="ri-file-text-line"></i>
+                <div>
+                    <div class="cd-file-name">Quotation</div>
+                    <div class="cd-file-kind">{{ client.quotation_file.name|cut:"clients/quotations/" }}</div>
+                </div>
+            </a>
+            {% endif %}
+            {% if client.agreement_file %}
+            <a href="{{ client.agreement_file.url }}" target="_blank" rel="noopener" class="cd-file">
+                <i class="ri-file-paper-2-line"></i>
+                <div>
+                    <div class="cd-file-name">Agreement</div>
+                    <div class="cd-file-kind">{{ client.agreement_file.name|cut:"clients/agreements/" }}</div>
+                </div>
+            </a>
+            {% endif %}
+            {% if client.invoice_file %}
+            <a href="{{ client.invoice_file.url }}" target="_blank" rel="noopener" class="cd-file">
+                <i class="ri-bill-line"></i>
+                <div>
+                    <div class="cd-file-name">Invoice</div>
+                    <div class="cd-file-kind">{{ client.invoice_file.name|cut:"clients/invoices/" }}</div>
+                </div>
+            </a>
+            {% endif %}
+        </div>
+        {% if client.quotation_file %}
+        <img src="{{ client.quotation_file.url }}" alt="Quotation preview" class="cd-thumb"
+             onerror="this.style.display='none'">
+        {% endif %}
+        {% else %}
+        <p style="font-size:0.85rem;color:var(--silver-muted);">No documents uploaded yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Internal -->
+    <div class="cd-panel">
+        <h3><i class="ri-sticky-note-line"></i> Internal Notes</h3>
+        {% if client.notes %}
+        <div class="cd-text">{{ client.notes }}</div>
+        {% else %}
+        <p style="font-size:0.85rem;color:var(--silver-muted);">No notes yet.</p>
+        {% endif %}
+        <div style="margin-top:16px;">
+            <div class="cd-row"><span class="cd-label">From inquiry</span>
+                <span class="cd-value">{{ client.inquiry|default:"—" }}</span></div>
+            <div class="cd-row"><span class="cd-label">Active</span>
+                <span class="cd-value">{% if client.is_active %}Yes{% else %}No{% endif %}</span></div>
+            <div class="cd-row"><span class="cd-label">Added</span>
+                <span class="cd-value">{{ client.created_at|date:"M j, Y · g:i A" }}</span></div>
+            <div class="cd-row"><span class="cd-label">Last updated</span>
+                <span class="cd-value">{{ client.updated_at|date:"M j, Y · g:i A" }}</span></div>
+        </div>
+        <form method="post" action="{% url 'client_delete' client.pk %}" style="margin-top:18px;"
+              onsubmit="return confirm('Delete client {{ client.name|escapejs }}? This cannot be undone.')">
+            {% csrf_token %}
+            <button type="submit" class="db-btn db-btn-delete"><i class="ri-delete-bin-line"></i> Delete Client</button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

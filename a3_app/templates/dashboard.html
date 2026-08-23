@@ -81,6 +81,18 @@
             border-radius: var(--radius-full);
             margin-left: 10px;
         }
+        .db-nav { display: flex; gap: 4px; margin-left: 24px; }
+        .db-nav a {
+            font-size: 0.82rem; font-weight: 600;
+            color: var(--silver-muted);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            border: 1px solid transparent;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: all 0.2s; white-space: nowrap;
+        }
+        .db-nav a:hover  { color: var(--white); border-color: var(--black-border); }
+        .db-nav a.active { color: var(--gold); background: var(--gold-glow); border-color: rgba(201,168,76,0.3); }
         .db-header-right { display: flex; align-items: center; gap: 12px; }
         .db-view-site {
             font-size: 0.8rem;
@@ -389,7 +401,8 @@
 
         /* ── RESPONSIVE ── */
         @media (max-width: 640px) {
-            .db-header { padding: 0 16px; }
+            .db-header { padding: 10px 16px; height: auto; flex-wrap: wrap; }
+            .db-nav { margin-left: 0; width: 100%; overflow-x: auto; }
             .db-body   { padding: 24px 16px 60px; }
             .db-stats  { grid-template-columns: 1fr; }
             .db-toolbar { flex-direction: column; align-items: stretch; }
@@ -402,11 +415,15 @@
 
 <!-- ===== HEADER ===== -->
 <header class="db-header">
-    <div style="display:flex;align-items:center;gap:4px;">
+    <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;">
         <a href="{% url 'index' %}" class="db-logo">
             <span>A3</span><span>Corp</span>
         </a>
         <span class="db-logo-badge">Dashboard</span>
+        <nav class="db-nav">
+            <a href="{% url 'dashboard' %}" class="active"><i class="ri-mail-line"></i> Inquiries</a>
+            <a href="{% url 'client_list' %}"><i class="ri-briefcase-line"></i> Clients</a>
+        </nav>
     </div>
     <div class="db-header-right">
         <a href="{% url 'index' %}" class="db-view-site">

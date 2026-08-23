@@ -1,0 +1,152 @@
+{% extends 'dashboard_base.html' %}
+
+{% block title %}{% if is_edit %}Edit {{ client.name }}{% else %}Add Client{% endif %}{% endblock %}
+{% block nav_clients %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cf-back {
+        font-size: 0.8rem; color: var(--silver-muted);
+        display: inline-flex; align-items: center; gap: 6px;
+        margin-bottom: 18px; transition: color 0.2s;
+    }
+    .cf-back:hover { color: var(--gold); }
+
+    .cf-section {
+        background: var(--black-card);
+        border: 1px solid var(--black-border);
+        border-radius: var(--radius-md);
+        padding: 24px 26px;
+        margin-bottom: 18px;
+    }
+    .cf-section h3 {
+        font-size: 0.72rem; font-weight: 700;
+        text-transform: uppercase; letter-spacing: 0.12em;
+        color: var(--gold); margin-bottom: 18px;
+        display: flex; align-items: center; gap: 7px;
+    }
+    .cf-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .cf-field.full { grid-column: 1 / -1; }
+    .cf-field label {
+        display: block; font-size: 0.74rem; font-weight: 600;
+        color: var(--silver); margin-bottom: 6px;
+        letter-spacing: 0.03em;
+    }
+    .cf-field label .req { color: var(--gold); margin-left: 2px; }
+
+    .f-input, .cf-field select, .cf-field textarea, .cf-field input {
+        width: 100%;
+        background: var(--black-soft);
+        border: 1px solid var(--black-border);
+        border-radius: var(--radius-sm);
+        color: var(--white);
+        font-family: inherit; font-size: 0.85rem;
+        padding: 10px 12px;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .f-input::placeholder { color: #5A5A5A; }
+    .f-input:focus, .cf-field select:focus, .cf-field textarea:focus {
+        border-color: rgba(139,92,246,0.5);
+        box-shadow: 0 0 0 3px rgba(139,92,246,0.08);
+    }
+    .cf-field textarea { resize: vertical; min-height: 70px; line-height: 1.6; }
+    .cf-field select option { background: var(--black-soft); color: var(--white); }
+    .cf-field input[type="date"] { color-scheme: dark; }
+    .cf-field input[type="file"] {
+        padding: 8px; font-size: 0.78rem; color: var(--silver-muted);
+        background: var(--black-soft);
+        border: 1px dashed var(--black-border);
+        border-radius: var(--radius-sm); width: 100%; cursor: pointer;
+    }
+    .cf-field input[type="file"]:hover { border-color: rgba(201,168,76,0.4); }
+    .cf-check { display: flex; align-items: center; gap: 9px; }
+    .cf-check input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--violet); cursor: pointer; }
+    .cf-check label { margin-bottom: 0; cursor: pointer; }
+
+    .cf-help  { font-size: 0.72rem; color: var(--silver-muted); margin-top: 5px; }
+    .cf-error { font-size: 0.74rem; color: #F87171; margin-top: 5px; display: flex; align-items: center; gap: 5px; }
+    .cf-field.has-error .f-input { border-color: rgba(239,68,68,0.55); }
+
+    .cf-actions {
+        display: flex; gap: 10px; justify-content: flex-end;
+        flex-wrap: wrap; padding-top: 4px;
+    }
+    .cf-errors-top {
+        background: var(--danger-glow); border: 1px solid rgba(239,68,68,0.25);
+        color: #F87171; padding: 12px 18px; border-radius: var(--radius-md);
+        font-size: 0.83rem; margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<a href="{% if is_edit %}{% url 'client_detail' client.pk %}{% else %}{% url 'client_list' %}{% endif %}" class="cf-back">
+    <i class="ri-arrow-left-line"></i> {% if is_edit %}Back to {{ client.name }}{% else %}Back to Clients{% endif %}
+</a>
+
+<div class="db-page-head">
+    <div>
+        <h1 class="db-title">{% if is_edit %}Edit Client{% else %}Add Client{% endif %}</h1>
+        <p class="db-subtitle">
+            {% if is_edit %}Updating <strong>{{ client.client_id }}</strong> — {{ client.name }}{% else %}Record a new client, their pricing and project timeline{% endif %}
+        </p>
+    </div>
+</div>
+
+{% if form.errors %}
+<div class="cf-errors-top">
+    <i class="ri-error-warning-line"></i> Please correct the highlighted fields below.
+</div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+    <div class="cf-errors-top">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    {% for section in form.sections %}
+    <div class="cf-section">
+        <h3><i class="{{ section.icon }}"></i> {{ section.title }}</h3>
+        <div class="cf-grid">
+            {% for item in section.items %}
+            {% with f=item.field %}
+            <div class="cf-field {% if item.full %}full{% endif %} {% if f.errors %}has-error{% endif %}">
+                {% if f.field.widget.input_type == 'checkbox' %}
+                    <div class="cf-check">
+                        {{ f }}
+                        <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+                    </div>
+                {% else %}
+                    <label for="{{ f.id_for_label }}">
+                        {{ f.label }}{% if f.field.required %}<span class="req">*</span>{% endif %}
+                    </label>
+                    {{ f }}
+                {% endif %}
+                {% if f.help_text %}<div class="cf-help">{{ f.help_text }}</div>{% endif %}
+                {% for e in f.errors %}
+                <div class="cf-error"><i class="ri-error-warning-line"></i>{{ e }}</div>
+                {% endfor %}
+            </div>
+            {% endwith %}
+            {% endfor %}
+        </div>
+        {% if section.title == 'Documents' %}
+        <div class="cf-help" style="margin-top:12px;">Images (JPG/PNG) and PDF files are both accepted.</div>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <div class="cf-actions">
+        <a href="{% if is_edit %}{% url 'client_detail' client.pk %}{% else %}{% url 'client_list' %}{% endif %}"
+           class="db-btn db-btn-ghost">Cancel</a>
+        <button type="submit" class="db-btn db-btn-primary">
+            <i class="ri-save-line"></i> {% if is_edit %}Save Changes{% else %}Add Client{% endif %}
+        </button>
+    </div>
+</form>
+
+{% endblock %}
